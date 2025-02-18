@@ -1,0 +1,92 @@
+---
+const achievements = [
+  {
+    title: "Engineering Recommendation Letter",
+    description: "Official recommendation letter from Universidad del Valle",
+    pdf: "/Carta Ing Rene.pdf"
+  },
+];
+
+---
+
+<style>
+  .paper-3d {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: all 0.6s ease;
+    position: relative;
+  }
+  .paper-3d:hover {
+    transform: rotateX(-5deg) rotateY(5deg);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+  .paper-content {
+    backface-visibility: hidden;
+    transform-origin: center center;
+    transition: all 0.6s ease;
+  }
+  .paper-3d:hover .paper-content {
+    transform: scale(1.02);
+  }
+</style>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  {achievements.map((achievement) => (
+    <div class="paper-3d bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:scale-105 transition-transform">
+      <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">
+        {achievement.title}
+      </h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-4">
+        {achievement.description}
+      </p>
+      <div class="paper-content flex items-center space-x-2">
+        <a 
+          href={achievement.pdf} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            class="h-6 w-6 mr-2" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2" 
+              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" 
+            />
+          </svg>
+          View PDF
+        </a>
+      </div>
+    </div>
+  ))}
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const papers = document.querySelectorAll('.paper-3d');
+    papers.forEach(paper => {
+      paper.addEventListener('mousemove', (e) => {
+        const rect = paper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 15;
+        const rotateY = -(x - centerX) / 15;
+        
+        paper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+      });
+      
+      paper.addEventListener('mouseleave', () => {
+        paper.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+      });
+    });
+  });
+</script>
