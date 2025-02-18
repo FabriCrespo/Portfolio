@@ -4,16 +4,16 @@ import Badge from "@/components/Badge.astro"
 import LinkedInIcon from "@/components/icons/LinkedIn.astro"
 import MailIcon from "@/components/icons/Mail.astro"
 import SocialPill from "@/components/SocialPill.astro"
+const imagePath = "https://raw.githubusercontent.com/FabriCrespo/glucolog/main/screenshots/pfp.png"
 ---
 
 <div class="max-w-xl">
   <div class="flex gap-4 mb-4">
-    <div 
-      class="rounded-full shadow-lg size-16 bg-gradient-to-br from-yellow-400 to-yellow-600 
-             flex items-center justify-center text-white font-bold"
-    >
-      FC
-    </div>
+    <img
+      class="rounded-full shadow-lg size-16"
+      src={imagePath}
+      alt={personalImageAlt}
+    />
     <a
       href="https://www.linkedin.com/in/fabricio-crespo-552412256/"
       target="_blank"
