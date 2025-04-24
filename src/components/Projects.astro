@@ -34,19 +34,22 @@ const PROJECTS = [
   {
     title: "Glucolog - AI-Powered Glucose Management Platform",
     description:
-      "An innovative web application leveraging machine learning to help users track, analyze, and predict glucose levels. Built with Next.js, React, and Tailwind CSS, Glucolog provides personalized insights and intelligent monitoring for diabetes management. The platform integrates advanced data visualization, real-time tracking, and predictive analytics to empower users in their health journey.",
+      "An innovative web application leveraging machine learning to help users track, analyze, and predict glucose levels...",
     github: "https://github.com/FabriCrespo/glucolog.git",
-    image:
-      "https://raw.githubusercontent.com/FabriCrespo/glucolog/main/screenshots/home-page.png",
+    // Usar la API de OG Image de GitHub
+    image: "https://opengraph.githubassets.com/1/FabriCrespo/glucolog",
     tags: [TAGS.NEXT, TAGS.TAILWIND],
+    type: "image"
   },
   {
     title: "Tracto Camiones Andina",
     description:
-      "An ecommerce application designed to facilitate direct communication between clients and truck dealers. Built with WordPress, the platform streamlines the process of buying and selling trucks and heavy machinery.",
+      "An ecommerce application designed to facilitate direct communication between clients and truck dealers...",
     link: "https://tractocamionesandina.com/",
-    image: "/Portfolio/Tracto.PNG",
+    // Usar un servicio de captura de pantalla
+    image: `https://api.microlink.io?url=${encodeURIComponent('https://tractocamionesandina.com')}&screenshot=true&meta=false&embed=screenshot.url`,
     tags: [TAGS.WORDPRESS, TAGS.Link],
+    type: "image"
   },
 ];
 ---

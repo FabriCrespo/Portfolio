@@ -5,11 +5,28 @@ const achievements = [
     description: "Official recommendation letter from Universidad del Valle",
     pdf: "/Portfolio/Carta Ing Rene.pdf"
   },
+  {
+    title: "SEDES Participation Certificate",
+    description: "Certificate of participation in the SEDES Tuberculosis website project.",
+    pdf: "/Portfolio/certificates/sedes-certificate.pdf"
+  },
+  {
+    title: "Tracto Camiones Andina Certificate",
+    description: "Certification of participation in the Tracto Camiones Andina website project.",
+    pdf: "/Portfolio/certificates/tractocamiones-certificate.pdf"
+  }
 ];
 
 ---
 
 <style>
+  .pdf-viewer {
+    width: 100%;
+    height: 500px;
+    border: none;
+    border-radius: 0.5rem;
+  }
+  
   .paper-3d {
     perspective: 1000px;
     transform-style: preserve-3d;
@@ -32,14 +49,24 @@ const achievements = [
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
   {achievements.map((achievement) => (
-    <div class="paper-3d bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:scale-105 transition-transform">
+    <div class="paper-3d bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
       <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">
         {achievement.title}
       </h3>
       <p class="text-gray-600 dark:text-gray-300 mb-4">
         {achievement.description}
       </p>
-      <div class="paper-content flex items-center space-x-2">
+      
+      <div class="mb-4">
+        <iframe
+          class="pdf-viewer"
+          src={`${achievement.pdf}#toolbar=0`}
+          title={achievement.title}
+          loading="lazy"
+        />
+      </div>
+
+      <div class="paper-content flex items-center justify-between">
         <a 
           href={achievement.pdf} 
           target="_blank" 
@@ -60,8 +87,29 @@ const achievements = [
               d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" 
             />
           </svg>
-          View PDF
+          View Full PDF
         </a>
+        
+        <button
+          class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          onclick={`window.open('${achievement.pdf}', '_blank')`}
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            class="h-5 w-5 mr-2" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2" 
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" 
+            />
+          </svg>
+          Download
+        </button>
       </div>
     </div>
   ))}
