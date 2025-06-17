@@ -1,34 +1,32 @@
 ---
 import ExperienceItem from "./ExperienceItem.astro";
+import { t } from "../utils/i18n";
+
 const EXPERIENCE = [
   {
     date: "2025 (Current)",
-    title: "Full Stack Developer Intern",
-    company: "Grupo GOIT",
-    description:
-      "Developing web and mobile applications using Next.js, NestJS, PostgreSQL, and Expo. Working on enterprise-level solutions and contributing to the development of scalable applications.",
+    title: t('experience.items.intern.title'),
+    company: t('experience.items.intern.company'),
+    description: t('experience.items.intern.description'),
   },
   {
     date: "Ongoing",
-    title: "Software Project Manager & Founder",
-    company: "FluenceSoft",
-    description:
-      "Founder and project manager at FluenceSoft, a software development company. Leading multiple development teams, overseeing project delivery, and ensuring high-quality software solutions for clients.",
+    title: t('experience.items.founder.title'),
+    company: t('experience.items.founder.company'),
+    description: t('experience.items.founder.description'),
     link: "",
   },
   {
     date: "2024 (4 months)",
-    title: "Software Project Manager (SPM)",
-    company: "UMA, Universidad del Valle, Cochabamba",
-    description:
-      "Managed five development teams, ensuring project requirements were met on time. Provided training in ReactJS and React Native, supervised repositories, and integrated multiple codebases.",
+    title: t('experience.items.spm.title'),
+    company: t('experience.items.spm.company'),
+    description: t('experience.items.spm.description'),
   },
   {
     date: "2023",
-    title: "Full-Stack Developer",
-    company: "Freelance",
-    description:
-      "Developed web and mobile applications using ReactJS, React Native, and Laravel. Specialized in database design, UI/UX improvements, and full-stack development.",
+    title: t('experience.items.freelance.title'),
+    company: t('experience.items.freelance.company'),
+    description: t('experience.items.freelance.description'),
   },
 ];
 ---
@@ -42,3 +40,39 @@ const EXPERIENCE = [
     ))
   }
 </ol>
+
+<script>
+  import { t } from "../utils/i18n"
+
+  const updateExperienceText = () => {
+    const experienceItems = document.querySelectorAll('.experience-item')
+    const items = [
+      'intern',
+      'founder',
+      'spm',
+      'freelance'
+    ]
+
+    experienceItems.forEach((item, index) => {
+      const title = item.querySelector('.experience-title')
+      const company = item.querySelector('.experience-company')
+      const description = item.querySelector('.experience-description')
+
+      if (title) title.textContent = t(`experience.items.${items[index]}.title`)
+      if (company) company.textContent = t(`experience.items.${items[index]}.company`)
+      if (description) description.textContent = t(`experience.items.${items[index]}.description`)
+    })
+  }
+
+  // Actualizar cuando cambia el idioma
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'language') {
+      updateExperienceText()
+    }
+  })
+
+  // Actualizar cuando se carga la página
+  document.addEventListener('astro:page-load', () => {
+    updateExperienceText()
+  })
+</script>

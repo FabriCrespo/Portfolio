@@ -1,4 +1,6 @@
 ---
+import { t } from "../utils/i18n";
+
 const personalImageAlt = "Fabricio Rene Crespo Rossel"
 const imagePath = "https://raw.githubusercontent.com/FabriCrespo/glucolog/main/screenshots/pfp.png"
 ---
@@ -6,22 +8,11 @@ const imagePath = "https://raw.githubusercontent.com/FabriCrespo/glucolog/main/s
 <section id="about" class="container mx-auto px-6 py-20 lg:px-20 max-w-5xl">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
     <div class="order-2 md:order-1 space-y-4 text-gray-600 dark:text-gray-400">
-      <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">About Me</h2>
-      <p class="text-base leading-relaxed">
-        My name is Fabricio Rene Crespo Rossel, and I'm 22 years old. I have completed all academic semesters for Computer Systems Engineering, with only the final degree certification pending. I've been programming since I was 12, starting with languages like C# and Python.
-      </p>
-
-      <p class="text-base leading-relaxed">
-        One of my significant achievements is delivering <strong>five deployment-ready projects at UMA for Universidad del Valle</strong>, which earned me a letter of recommendation from my department director.
-      </p>
-
-      <p class="text-base leading-relaxed">
-        Additionally, I developed a platform called <strong>Glucolog</strong> to monitor glucose levels in diabetic patients using AI and various tools, built with Next.js and Firebase.
-      </p>
-
-      <p class="text-base leading-relaxed">
-        My primary professional goal is to become a proficient full-stack developer with expertise across multiple languages, eventually transitioning into a project manager role to deliver well-developed solutions.
-      </p>
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t('about.title')}</h2>
+      <p class="text-base leading-relaxed" set:html={t('about.paragraph1')} />
+      <p class="text-base leading-relaxed" set:html={t('about.paragraph2')} />
+      <p class="text-base leading-relaxed" set:html={t('about.paragraph3')} />
+      <p class="text-base leading-relaxed" set:html={t('about.paragraph4')} />
     </div>
     <div class="order-1 md:order-2 flex justify-center">
       <img 
@@ -34,3 +25,29 @@ const imagePath = "https://raw.githubusercontent.com/FabriCrespo/glucolog/main/s
     </div>
   </div>
 </section>
+
+<script>
+  import { t } from "../utils/i18n";
+
+  const updateAboutText = () => {
+    const title = document.querySelector('#about h2');
+    const paragraphs = document.querySelectorAll('#about p');
+
+    if (title) title.textContent = t('about.title');
+    paragraphs.forEach((p, index) => {
+      p.innerHTML = t(`about.paragraph${index + 1}`);
+    });
+  };
+
+  // Actualizar cuando cambia el idioma
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'language') {
+      updateAboutText();
+    }
+  });
+
+  // Actualizar cuando se carga la página
+  document.addEventListener('astro:page-load', () => {
+    updateAboutText();
+  });
+</script>

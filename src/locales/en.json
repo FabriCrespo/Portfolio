@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "experience": "Experience",
+    "projects": "Projects",
+    "achievements": "Achievements",
+    "about": "About Me"
+  },
+  "hero": {
+    "title": "Hey, I'm Fabricio",
+    "description": "Graduated in <strong>Computer Systems Engineering</strong> from Universidad del Valle. <strong>Software Project Manager & Full-Stack Developer</strong> from Cochabamba, Bolivia 🇧🇴. Passionate about building scalable web and mobile applications.",
+    "contact": "Contact me"
+  },
+  "experience": {
+    "title": "Experience",
+    "current": "Current",
+    "learnMore": "Learn more",
+    "items": {
+      "intern": {
+        "title": "Full Stack Developer Intern",
+        "company": "Grupo GOIT",
+        "description": "Led a full-stack project for the GOIT developers academy, developing a web/mobile platform with NextJS, Expo, and PostgreSQL. Integrated endpoints from a Moodle server to manage educational content and enhance the learning experience for students."
+      },
+      "founder": {
+        "title": "Software Project Manager & Founder",
+        "company": "FluenceSoft",
+        "description": "Founder and project manager at FluenceSoft, a software development company. Leading multiple development teams, overseeing project delivery, and ensuring high-quality software solutions for clients."
+      },
+      "spm": {
+        "title": "Software Project Manager (SPM)",
+        "company": "UMA, Universidad del Valle, Cochabamba",
+        "description": "Managed five development teams, ensuring project requirements were met on time. Provided training in ReactJS and React Native, supervised repositories, and integrated multiple codebases."
+      },
+      "freelance": {
+        "title": "Full-Stack Developer",
+        "company": "Freelance",
+        "description": "Developed web and mobile applications using ReactJS, React Native, and Laravel. Specialized in database design, UI/UX improvements, and full-stack development."
+      }
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "code": "Code",
+    "visitSite": "Visit site",
+    "items": {
+      "glucolog": {
+        "title": "Glucolog - AI-Powered Glucose Management Platform",
+        "description": "An innovative web application leveraging machine learning to help users track, analyze, and predict glucose levels. Built with Next.js and Tailwind CSS, it offers an intuitive interface and predictive analytics for diabetes management."
+      },
+      "tracto": {
+        "title": "Tracto Camiones Andina",
+        "description": "An ecommerce application designed to facilitate direct communication between clients and truck dealers. Built with WordPress, it provides a robust platform for heavy vehicle inventory management and sales."
+      }
+    }
+  },
+  "footer": {
+    "about": "About me",
+    "contact": "Contact"
+  },
+  "achievements": {
+    "items": {
+      "recommendation": {
+        "title": "Engineering Recommendation Letter",
+        "description": "Official recommendation letter from Universidad del Valle"
+      },
+      "sedes": {
+        "title": "SEDES Participation Certificate",
+        "description": "Certificate of participation in the SEDES Tuberculosis website project"
+      },
+      "tracto": {
+        "title": "Tracto Camiones Andina Certificate",
+        "description": "Certification of participation in the Tracto Camiones Andina website project"
+      }
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "paragraph1": "My name is Fabricio Rene Crespo Rossel, and I'm 22 years old. I have completed all academic semesters for Computer Systems Engineering, with only the final degree certification pending. I've been programming since I was 12, starting with languages like C# and Python.",
+    "paragraph2": "One of my significant achievements is delivering <strong>five deployment-ready projects at UMA for Universidad del Valle</strong>, which earned me a letter of recommendation from my department director.",
+    "paragraph3": "Additionally, I completed an internship as a <strong>Full Stack Team Leader at GoIT</strong>, where I led a development team and participated in creating modern web applications using the latest technologies.",
+    "paragraph4": "My primary professional goal is to become a proficient full-stack developer with expertise across multiple languages, eventually transitioning into a project manager role to deliver well-developed solutions."
+  },
+  "sections": {
+    "experience": "Work Experience",
+    "projects": "Projects",
+    "achievements": "Achievements",
+    "about": "About Me"
+  }
+} 

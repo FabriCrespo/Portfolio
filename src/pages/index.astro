@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro"
+import { t } from "@/utils/i18n"
 
 import AboutMe from "@/components/AboutMe.astro"
 import Briefcase from "@/components/icons/Briefcase.astro"
@@ -24,37 +25,72 @@ import Achievements from "@/components/Achievements.astro"
     </Hero>
     </SectionContainer>
     <div class="space-y-24">
-    <SectionContainer id="experience">
-      <TitleSection>
-        <Briefcase class="size-8" />
-        Work Experience
+    <section id="experience" class="scroll-mt-20">
+      <SectionContainer>
+        <TitleSection>
+          <Briefcase class="size-8" />
+          {t('sections.experience')}
         </TitleSection>
-      <Experience />
-    </SectionContainer>
+        <Experience />
+      </SectionContainer>
+    </section>
 
-    <SectionContainer id="projects">
-      <TitleSection>
-        <CodeIcon class="size-7" />
-        Projects
-      </TitleSection>
-      <Projects />
-    </SectionContainer>
+    <section id="projects" class="scroll-mt-20">
+      <SectionContainer>
+        <TitleSection>
+          <CodeIcon class="size-7" />
+          {t('sections.projects')}
+        </TitleSection>
+        <Projects />
+      </SectionContainer>
+    </section>
 
-    <SectionContainer id="achievements">
-      <TitleSection>
-        <ProfileCheck class="size-7" />
-        Achievements
-      </TitleSection>
-      <Achievements />
-    </SectionContainer>
+    <section id="achievements" class="scroll-mt-20">
+      <SectionContainer>
+        <TitleSection>
+          <ProfileCheck class="size-7" />
+          {t('sections.achievements')}
+        </TitleSection>
+        <Achievements />
+      </SectionContainer>
+    </section>
 
-    <SectionContainer id="about-me">
-      <TitleSection>
-        <ProfileCheck class="size-8" />
-        About Me
-      </TitleSection>
-      <AboutMe />
-    </SectionContainer>
+    <section id="about-me" class="scroll-mt-20">
+      <SectionContainer>
+        <TitleSection>
+          <ProfileCheck class="size-8" />
+          {t('sections.about')}
+        </TitleSection>
+        <AboutMe />
+      </SectionContainer>
+    </section>
   </div>
   </main>
 </Layout>
+
+<script>
+  import { t } from "@/utils/i18n";
+
+  const updateSectionTitles = () => {
+    const sections = ['experience', 'projects', 'achievements', 'about-me'];
+    
+    sections.forEach(section => {
+      const titleElement = document.querySelector(`#${section} h2`);
+      if (titleElement) {
+        titleElement.textContent = t(`sections.${section.replace('-', '')}`);
+      }
+    });
+  };
+
+  // Actualizar cuando cambia el idioma
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'language') {
+      updateSectionTitles();
+    }
+  });
+
+  // Actualizar cuando se carga la página
+  document.addEventListener('astro:page-load', () => {
+    updateSectionTitles();
+  });
+</script>

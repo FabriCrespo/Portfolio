@@ -4,6 +4,7 @@ import Badge from "@/components/Badge.astro"
 import LinkedInIcon from "@/components/icons/LinkedIn.astro"
 import MailIcon from "@/components/icons/Mail.astro"
 import SocialPill from "@/components/SocialPill.astro"
+import { t } from "../utils/i18n"
 const imagePath = "https://raw.githubusercontent.com/FabriCrespo/glucolog/main/screenshots/pfp.png"
 ---
 
@@ -24,19 +25,20 @@ const imagePath = "https://raw.githubusercontent.com/FabriCrespo/glucolog/main/s
     </a>
   </div>
   <h1
-  class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
->
-  Hey, I'm Fabricio
-</h1>
-<p
-  class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
->
-  Graduated in <strong>Computer Systems Engineering</strong> from Universidad del Valle. <strong>Software Project Manager & Full-Stack Developer</strong> from Cochabamba, Bolivia 🇧🇴. Passionate about building scalable web and mobile applications.
-</p>
+    id="hero-title"
+    class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
+  >
+    {t('hero.title')}
+  </h1>
+  <p
+    id="hero-description"
+    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+    set:html={t('hero.description')}
+  />
   <nav class="flex flex-wrap gap-4 mt-8">
     <SocialPill href="mailto:fabrinephi04@gmail.com">
       <MailIcon class="size-4" />
-      Contact me
+      <span id="hero-contact">{t('hero.contact')}</span>
     </SocialPill>
     <SocialPill href="https://www.linkedin.com/in/fabricio-crespo-552412256/">
       <LinkedInIcon class="size-4" />
@@ -44,3 +46,29 @@ const imagePath = "https://raw.githubusercontent.com/FabriCrespo/glucolog/main/s
     </SocialPill>
   </nav>
 </div>
+
+<script>
+  import { t } from "../utils/i18n"
+
+  const updateHeroText = () => {
+    const title = document.getElementById('hero-title')
+    const description = document.getElementById('hero-description')
+    const contact = document.getElementById('hero-contact')
+
+    if (title) title.textContent = t('hero.title')
+    if (description) description.innerHTML = t('hero.description')
+    if (contact) contact.textContent = t('hero.contact')
+  }
+
+  // Actualizar cuando cambia el idioma
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'language') {
+      updateHeroText()
+    }
+  })
+
+  // Actualizar cuando se carga la página
+  document.addEventListener('astro:page-load', () => {
+    updateHeroText()
+  })
+</script>

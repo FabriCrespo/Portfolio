@@ -1,18 +1,20 @@
 ---
+import { t } from "../utils/i18n";
+
 const achievements = [
   {
-    title: "Engineering Recommendation Letter",
-    description: "Official recommendation letter from Universidad del Valle",
+    title: t('achievements.items.recommendation.title'),
+    description: t('achievements.items.recommendation.description'),
     pdf: "/Portfolio/Carta Ing Rene.pdf"
   },
   {
-    title: "SEDES Participation Certificate",
-    description: "Certificate of participation in the SEDES Tuberculosis website project.",
+    title: t('achievements.items.sedes.title'),
+    description: t('achievements.items.sedes.description'),
     pdf: "/Portfolio/certificates/sedes-certificate.pdf"
   },
   {
-    title: "Tracto Camiones Andina Certificate",
-    description: "Certification of participation in the Tracto Camiones Andina website project.",
+    title: t('achievements.items.tracto.title'),
+    description: t('achievements.items.tracto.description'),
     pdf: "/Portfolio/certificates/tractocamiones-certificate.pdf"
   }
 ];
@@ -114,6 +116,35 @@ const achievements = [
     </div>
   ))}
 </div>
+
+<script>
+  import { t } from "../utils/i18n";
+
+  const updateAchievementsText = () => {
+    const achievementItems = document.querySelectorAll('.paper-3d');
+    const items = ['recommendation', 'sedes', 'tracto'];
+
+    achievementItems.forEach((item, index) => {
+      const title = item.querySelector('h3');
+      const description = item.querySelector('p');
+
+      if (title) title.textContent = t(`achievements.items.${items[index]}.title`);
+      if (description) description.textContent = t(`achievements.items.${items[index]}.description`);
+    });
+  };
+
+  // Actualizar cuando cambia el idioma
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'language') {
+      updateAchievementsText();
+    }
+  });
+
+  // Actualizar cuando se carga la página
+  document.addEventListener('astro:page-load', () => {
+    updateAchievementsText();
+  });
+</script>
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {

@@ -4,7 +4,7 @@ import NextJS from "./icons/NextJS.astro";
 import Tailwind from "./icons/Tailwind.astro";
 import Link from "./icons/Link.astro";
 import Wordpress from "./icons/Wordpress.astro";
-
+import { t } from "../utils/i18n";
 import LinkButton from "./LinkButton.astro";
 
 const TAGS = {
@@ -32,9 +32,8 @@ const TAGS = {
 
 const PROJECTS = [
   {
-    title: "Glucolog - AI-Powered Glucose Management Platform",
-    description:
-      "An innovative web application leveraging machine learning to help users track, analyze, and predict glucose levels...",
+    title: t('projects.items.glucolog.title'),
+    description: t('projects.items.glucolog.description'),
     github: "https://github.com/FabriCrespo/glucolog.git",
     // Usar la API de OG Image de GitHub
     image: "https://opengraph.githubassets.com/1/FabriCrespo/glucolog",
@@ -42,9 +41,8 @@ const PROJECTS = [
     type: "image"
   },
   {
-    title: "Tracto Camiones Andina",
-    description:
-      "An ecommerce application designed to facilitate direct communication between clients and truck dealers...",
+    title: t('projects.items.tracto.title'),
+    description: t('projects.items.tracto.description'),
     link: "https://tractocamionesandina.com/",
     // Usar un servicio de captura de pantalla
     image: `https://api.microlink.io?url=${encodeURIComponent('https://tractocamionesandina.com')}&screenshot=true&meta=false&embed=screenshot.url`,
@@ -110,5 +108,37 @@ const PROJECTS = [
     ))
   }
 </div>
+
+<script>
+  import { t } from "../utils/i18n";
+
+  const updateProjectsText = () => {
+    const title = document.querySelector('h1');
+    const projectItems = document.querySelectorAll('article');
+    const items = ['glucolog', 'tracto'];
+
+    if (title) title.textContent = t('projects.title');
+
+    projectItems.forEach((item, index) => {
+      const projectTitle = item.querySelector('h3');
+      const projectDescription = item.querySelector('.mt-2');
+
+      if (projectTitle) projectTitle.textContent = t(`projects.items.${items[index]}.title`);
+      if (projectDescription) projectDescription.textContent = t(`projects.items.${items[index]}.description`);
+    });
+  };
+
+  // Actualizar cuando cambia el idioma
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'language') {
+      updateProjectsText();
+    }
+  });
+
+  // Actualizar cuando se carga la página
+  document.addEventListener('astro:page-load', () => {
+    updateProjectsText();
+  });
+</script>
 
 

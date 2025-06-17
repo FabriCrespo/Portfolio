@@ -1,0 +1,89 @@
+{
+  "nav": {
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "achievements": "Logros",
+    "about": "Sobre Mí",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "title": "Hola, soy Fabricio",
+    "description": "Graduado en <strong>Ingeniería de Sistemas</strong> de la Universidad del Valle. <strong>Gerente de Proyectos de Software & Desarrollador Full-Stack</strong> de Cochabamba, Bolivia 🇧🇴. Apasionado por construir aplicaciones web y móviles escalables.",
+    "contact": "Contáctame"
+  },
+  "experience": {
+    "title": "Experiencia",
+    "current": "Actual",
+    "learnMore": "Saber más",
+    "items": {
+      "intern": {
+        "title": "Desarrollador Full Stack Interno",
+        "company": "Grupo GOIT",
+        "description": "Lideré un proyecto full-stack para la academia GOIT de desarrolladores, desarrollando una plataforma web/móvil con NextJS, Expo y PostgreSQL. Integré endpoints de un servidor Moodle para gestionar el contenido educativo y la experiencia de aprendizaje de los estudiantes."
+      },
+      "founder": {
+        "title": "Gerente de Proyectos de Software & Fundador",
+        "company": "FluenceSoft",
+        "description": "Fundador y gerente de proyectos en FluenceSoft, una empresa de desarrollo de software. Liderando múltiples equipos de desarrollo, supervisando la entrega de proyectos y asegurando soluciones de software de alta calidad para los clientes."
+      },
+      "spm": {
+        "title": "Gerente de Proyectos de Software (SPM)",
+        "company": "UMA, Universidad del Valle, Cochabamba",
+        "description": "Gestioné cinco equipos de desarrollo, asegurando que los requisitos del proyecto se cumplieran a tiempo. Proporcioné capacitación en ReactJS y React Native, supervisé repositorios e integré múltiples bases de código."
+      },
+      "freelance": {
+        "title": "Desarrollador Full-Stack",
+        "company": "Freelance",
+        "description": "Desarrollo de aplicaciones web y móviles utilizando ReactJS, React Native y Laravel. Especializado en diseño de bases de datos, mejoras de UI/UX y desarrollo full-stack."
+      }
+    }
+  },
+  "projects": {
+    "title": "Proyectos",
+    "code": "Código",
+    "visitSite": "Visitar sitio",
+    "items": {
+      "glucolog": {
+        "title": "Glucolog - Plataforma de Gestión de Glucosa con IA",
+        "description": "Una aplicación web innovadora que utiliza aprendizaje automático para ayudar a los usuarios a rastrear, analizar y predecir niveles de glucosa. Desarrollada con Next.js y Tailwind CSS, ofrece una interfaz intuitiva y análisis predictivos para el manejo de la diabetes."
+      },
+      "tracto": {
+        "title": "Tracto Camiones Andina",
+        "description": "Una aplicación de comercio electrónico diseñada para facilitar la comunicación directa entre clientes y concesionarios de camiones. Desarrollada con WordPress, ofrece una plataforma robusta para la gestión de inventario y ventas de vehículos pesados."
+      }
+    }
+  },
+  "footer": {
+    "about": "Sobre mí",
+    "contact": "Contacto"
+  },
+  "achievements": {
+    "items": {
+      "recommendation": {
+        "title": "Carta de recomendación de Director de Carrera",
+        "description": "Carta de recomendación oficial de la Universidad del Valle"
+      },
+      "sedes": {
+        "title": "Certificado de Participación SEDES",
+        "description": "Certificado de participación en el proyecto de sitio web de Tuberculosis SEDES"
+      },
+      "tracto": {
+        "title": "Certificado Tracto Camiones Andina",
+        "description": "Certificación de participación en el proyecto de sitio web de Tracto Camiones Andina"
+      }
+    }
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "paragraph1": "Mi nombre es Fabricio Rene Crespo Rossel, y tengo 22 años. He completado todos los semestres académicos de Ingeniería en Sistemas Computacionales, solo pendiente la certificación final de grado. He estado programando desde los 12 años, comenzando con lenguajes como C# y Python.",
+    "paragraph2": "Uno de mis logros significativos es haber entregado <strong>cinco proyectos listos para producción en UMA para la Universidad del Valle</strong>, lo que me valió una carta de recomendación del director de mi departamento.",
+    "paragraph3": "Además, completé una pasantía como <strong>Team Leader Full Stack en GoIT</strong>, donde lideré un equipo de desarrollo y participé en la creación de aplicaciones web modernas utilizando las últimas tecnologías.",
+    "paragraph4": "Mi objetivo profesional principal es convertirme en un desarrollador full-stack competente con experiencia en múltiples lenguajes, eventualmente transicionando a un rol de gerente de proyectos para entregar soluciones bien desarrolladas."
+  },
+  "sections": {
+    "experience": "Experiencia Laboral",
+    "projects": "Proyectos",
+    "achievements": "Logros",
+    "about": "Sobre Mí"
+  }
+} 

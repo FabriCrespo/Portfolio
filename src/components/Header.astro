@@ -1,26 +1,33 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro"
+import LanguageToggle from "./LanguageToggle.astro"
+import { t } from "../utils/i18n"
 
 const navItems = [
   {
-    title: "Experience",
-    label: "experiencia",
-    url: "/#experiencia",
+    title: t('nav.experience'),
+    label: "experience",
+    url: "#experience",
   },
   {
-    title: "Proyects",
-    label: "proyectos",
-    url: "/#proyectos",
+    title: t('nav.projects'),
+    label: "projects",
+    url: "#projects",
   },
   {
-    title: "About me",
-    label: "sobre-mi",
-    url: "/#sobre-mi",
+    title: t('nav.achievements'),
+    label: "achievements",
+    url: "#achievements",
   },
   {
-    title: "Contact",
-    label: "contacto",
-    url: "mailto:miduga@gmail.com",
+    title: t('nav.about'),
+    label: "about-me",
+    url: "#about-me",
+  },
+  {
+    title: t('nav.contact'),
+    label: "contact",
+    url: "#contact",
   },
 ]
 ---
@@ -42,6 +49,7 @@ const navItems = [
         </a>
       ))
     }
+    <LanguageToggle />
     <ThemeToggle />
   </nav>
 </header>
@@ -51,11 +59,33 @@ const navItems = [
     const sections = document.querySelectorAll("section")
     const navItems = document.querySelectorAll("header nav a")
 
+    // Smooth scroll para los enlaces
+    navItems.forEach(link => {
+      link.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        const targetId = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+        if (!targetId) return;
+
+        const targetElement = document.querySelector(targetId);
+        if (!targetElement) return;
+
+        const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      });
+    });
+
     const callback = (entries: any[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           navItems.forEach((item) => {
-            if (item.getAttribute("aria-label") == entry.target.id) {
+            const itemLabel = item.getAttribute("aria-label");
+            const sectionId = entry.target.id;
+            if (itemLabel === sectionId) {
               item.classList.add("text-blue-500")
             } else {
               item.classList.remove("text-blue-500")

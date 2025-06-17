@@ -1,0 +1,50 @@
+---
+import { t } from "../utils/i18n";
+import LanguageToggle from "./LanguageToggle.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center space-x-2">
+        <a href="/" class="text-xl font-bold text-gray-800 dark:text-white hover:scale-105 transition-transform">
+          Fabricio Crespo
+        </a>
+        <div class="hidden md:flex items-center space-x-1">
+          <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+          <span class="w-2 h-2 bg-purple-500 rounded-full animate-pulse" style="animation-delay: 0.2s"></span>
+          <span class="w-2 h-2 bg-pink-500 rounded-full animate-pulse" style="animation-delay: 0.4s"></span>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <LanguageToggle />
+        <ThemeToggle />
+        <a 
+          href="#contact" 
+          class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors transform hover:scale-105"
+        >
+          {t('nav.contact')}
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Smooth scroll para el botón de contacto
+  document.querySelector('a[href="#contact"]')?.addEventListener('click', (e: Event) => {
+    e.preventDefault();
+    const targetElement = document.querySelector('#contact');
+    if (!targetElement) return;
+
+    const navHeight = document.querySelector('nav')?.offsetHeight || 0;
+    const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navHeight;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth'
+    });
+  });
+</script> 
