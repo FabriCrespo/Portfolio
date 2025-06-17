@@ -1,74 +1,74 @@
-# Portfolio Website
+# Portfolio Personal - Fabricio Crespo
 
-<div align="center">
-<a href="https://fabricrespo.github.io/">
-<img src="./public/porfolio.webp">
-</a>
-<p></p>
-</div>
+¡Bienvenido a mi portfolio personal! Este es un sitio web moderno y responsive construido con Astro, TypeScript y Tailwind CSS.
 
-<div align="center">
+## 🚀 Características
 
-![Astro Badge](https://img.shields.io/badge/Astro-FF3E00?logo=astro&logoColor=fff&style=flat)
-![Tailwind CSS Badge](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=flat)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?logo=githubactions&logoColor=fff&style=flat)
+- 🌙 Modo oscuro/claro
+- 🌍 Soporte multiidioma (Español/Inglés)
+- 📱 Diseño totalmente responsive
+- ⚡ Rendimiento optimizado con Astro
+- 🎨 UI moderna con Tailwind CSS
+- 🔍 SEO optimizado
 
-</div>
+## 🛠️ Tecnologías Utilizadas
 
-## Overview
-A personal portfolio website built with Astro and Tailwind CSS, showcasing projects and skills.
+- [Astro](https://astro.build/) - Framework web moderno
+- [TypeScript](https://www.typescriptlang.org/) - Superset de JavaScript
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS utility-first
+- [GitHub Pages](https://pages.github.com/) - Hosting
 
-## Technologies Used
-- Astro
-- Tailwind CSS
-- TypeScript
-- GitHub Actions
+## 🏗️ Estructura del Proyecto
 
-## Local Development
-
-### Prerequisites
-- Node.js (v20+)
-- npm
-
-### Setup
-1. Clone the repository
-```bash
-git clone https://github.com/FabriCrespo/Portfolio.git
+```
+portfolio/
+├── src/
+│   ├── components/     # Componentes reutilizables
+│   ├── layouts/        # Layouts de página
+│   ├── locales/        # Archivos de traducción
+│   ├── pages/          # Páginas de la aplicación
+│   └── utils/          # Utilidades y helpers
+├── public/            # Archivos estáticos
+└── package.json       # Dependencias y scripts
 ```
 
-2. Install dependencies:
+## 🚀 Desarrollo Local
+
+1. Clona el repositorio:
+```bash
+git clone https://github.com/tu-usuario/portfolio.git
+```
+
+2. Instala las dependencias:
 ```bash
 npm install
 ```
 
-3. Run development server:
+3. Inicia el servidor de desarrollo:
 ```bash
 npm run dev
 ```
 
-## Deployment
-Automatically deployed to GitHub Pages using GitHub Actions. 
+4. Abre [http://localhost:4321](http://localhost:4321) en tu navegador.
 
-### Deployment Workflow
-- Pushes to the `main` branch trigger automatic build and deployment
-- The site is built using Astro and deployed to GitHub Pages
+## 📦 Build
 
-### View Live Site
-[View Portfolio](https://fabricrespo.github.io/)
+Para crear una versión de producción:
 
-## Build
-To create a production build:
 ```bash
 npm run build
 ```
 
-## Contributing
-Contributions are welcome! Feel free to open issues or submit pull requests.
+## 🚀 Deploy
 
-## License
-This project is open-source. Check the LICENSE.md file for details.
+El sitio se despliega automáticamente en GitHub Pages cuando se hace push a la rama main.
 
-## Contributors
-<a href="https://github.com/FabriCrespo/Portfolio/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=FabriCrespo/Portfolio" />
-</a>
+## 📝 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## 👨‍💻 Contacto
+
+- GitHub: [@tu-usuario](https://github.com/tu-usuario)
+- LinkedIn: [Tu Nombre](https://linkedin.com/in/tu-perfil)
+- Email: tu-email@ejemplo.com
