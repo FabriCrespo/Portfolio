@@ -72,12 +72,12 @@ import Achievements from "@/components/Achievements.astro"
   import { t } from "@/utils/i18n";
 
   const updateSectionTitles = () => {
-    const sections = ['experience', 'projects', 'achievements', 'about-me'];
+    const sections = ['experience', 'projects', 'achievements', 'about'];
     
     sections.forEach(section => {
-      const titleElement = document.querySelector(`#${section} h2`);
+      const titleElement = document.querySelector(`#${section.replace('about', 'about-me')} h2`);
       if (titleElement) {
-        titleElement.textContent = t(`sections.${section.replace('-', '')}`);
+        titleElement.textContent = t(`sections.${section}`);
       }
     });
   };
