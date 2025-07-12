@@ -8,6 +8,11 @@ const achievements = [
     pdf: "/Portfolio/Carta Ing Rene.pdf"
   },
   {
+    title: t('achievements.items.goit.title'),
+    description: t('achievements.items.goit.description'),
+    pdf: "/Portfolio/GoITRecommendation.pdf"
+  },
+  {
     title: t('achievements.items.sedes.title'),
     description: t('achievements.items.sedes.description'),
     pdf: "/Portfolio/certificates/sedes-certificate.pdf"
@@ -18,7 +23,6 @@ const achievements = [
     pdf: "/Portfolio/certificates/tractocamiones-certificate.pdf"
   }
 ];
-
 ---
 
 <style>
@@ -122,7 +126,7 @@ const achievements = [
 
   const updateAchievementsText = () => {
     const achievementItems = document.querySelectorAll('.paper-3d');
-    const items = ['recommendation', 'sedes', 'tracto'];
+    const items = ['recommendation', 'goit', 'sedes', 'tracto'];
 
     achievementItems.forEach((item, index) => {
       const title = item.querySelector('h3');

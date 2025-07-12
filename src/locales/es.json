@@ -15,9 +15,21 @@
     "title": "Experiencia",
     "current": "Actual",
     "learnMore": "Saber más",
+    "dates": {
+      "goit": "Marzo 2025 - Junio 2025",
+      "current": "2025 (Actual)",
+      "ongoing": "En curso",
+      "spm": "2024 (4 meses)",
+      "freelance": "2023"
+    },
     "items": {
-      "intern": {
-        "title": "Desarrollador Full Stack Interno",
+      "reborn": {
+        "title": "Desarrollador Frontend",
+        "company": "Reborn Developments",
+        "description": "Desarrollador frontend especializado en Next.js, integrando con backend Laravel para la plataforma de inversiones. Responsable del desarrollo de interfaces de usuario modernas y la integración de APIs para gestionar proyectos inmobiliarios y análisis de inversiones."
+      },
+      "goit": {
+        "title": "Team Leader Full Stack",
         "company": "Grupo GOIT",
         "description": "Lideré un proyecto full-stack para la academia GOIT de desarrolladores, desarrollando una plataforma web/móvil con NextJS, Expo y PostgreSQL. Integré endpoints de un servidor Moodle para gestionar el contenido educativo y la experiencia de aprendizaje de los estudiantes."
       },
@@ -50,6 +62,10 @@
       "tracto": {
         "title": "Tracto Camiones Andina",
         "description": "Una aplicación de comercio electrónico diseñada para facilitar la comunicación directa entre clientes y concesionarios de camiones. Desarrollada con WordPress, ofrece una plataforma robusta para la gestión de inventario y ventas de vehículos pesados."
+      },
+      "reborn": {
+        "title": "Reborn Developments - Plataforma de Inversiones",
+        "description": "Plataforma web moderna para inversiones internacionales desarrollada con Next.js y Tailwind CSS en el frontend, y Laravel en el backend. Ofrece gestión de proyectos inmobiliarios, análisis de riesgo, y oportunidades de inversión globales con interfaz intuitiva y análisis técnico avanzado."
       }
     }
   },
@@ -62,6 +78,10 @@
       "recommendation": {
         "title": "Carta de recomendación de Director de Carrera",
         "description": "Carta de recomendación oficial de la Universidad del Valle"
+      },
+      "goit": {
+        "title": "Carta de recomendación CEO de GoIT",
+        "description": "Carta de recomendación oficial del CEO de GoIT por el excelente trabajo realizado como Team Leader Full Stack."
       },
       "sedes": {
         "title": "Certificado de Participación SEDES",

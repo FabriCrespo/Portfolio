@@ -10,16 +10,28 @@
     "description": "Graduated in <strong>Computer Systems Engineering</strong> from Universidad del Valle. <strong>Software Project Manager & Full-Stack Developer</strong> from Cochabamba, Bolivia 🇧🇴. Passionate about building scalable web and mobile applications.",
     "contact": "Contact me"
   },
-  "experience": {
+    "experience": {
     "title": "Experience",
     "current": "Current",
     "learnMore": "Learn more",
-    "items": {
-      "intern": {
-        "title": "Full Stack Developer Intern",
-        "company": "Grupo GOIT",
-        "description": "Led a full-stack project for the GOIT developers academy, developing a web/mobile platform with NextJS, Expo, and PostgreSQL. Integrated endpoints from a Moodle server to manage educational content and enhance the learning experience for students."
-      },
+    "dates": {
+      "goit": "March 2025 - June 2025",
+      "current": "2025 (Current)",
+      "ongoing": "Ongoing",
+      "spm": "2024 (4 months)",
+      "freelance": "2023"
+    },
+      "items": {
+        "reborn": {
+          "title": "Frontend Developer",
+          "company": "Reborn Developments",
+          "description": "Frontend developer specialized in Next.js, integrating with Laravel backend for the investment platform. Responsible for developing modern user interfaces and API integration for managing real estate projects and investment analysis."
+        },
+        "goit": {
+          "title": "Full Stack Team Leader",
+          "company": "Grupo GOIT",
+          "description": "Led a full-stack project for the GOIT developers academy, developing a web/mobile platform with NextJS, Expo, and PostgreSQL. Integrated endpoints from a Moodle server to manage educational content and enhance the learning experience for students."
+        },
       "founder": {
         "title": "Software Project Manager & Founder",
         "company": "FluenceSoft",
@@ -49,6 +61,10 @@
       "tracto": {
         "title": "Tracto Camiones Andina",
         "description": "An ecommerce application designed to facilitate direct communication between clients and truck dealers. Built with WordPress, it provides a robust platform for heavy vehicle inventory management and sales."
+      },
+      "reborn": {
+        "title": "Reborn Developments - Investment Platform",
+        "description": "Modern web platform for international investments built with Next.js and Tailwind CSS on the frontend, and Laravel on the backend. Offers real estate project management, risk analysis, and global investment opportunities with intuitive interface and advanced technical analysis."
       }
     }
   },
@@ -61,6 +77,10 @@
       "recommendation": {
         "title": "Engineering Recommendation Letter",
         "description": "Official recommendation letter from Universidad del Valle"
+      },
+      "goit": {
+        "title": "GoIT CEO Recommendation Letter",
+        "description": "Official recommendation letter from GoIT CEO for excellent work as Full Stack Team Leader."
       },
       "sedes": {
         "title": "SEDES Participation Certificate",

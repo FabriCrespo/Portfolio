@@ -4,26 +4,32 @@ import { t } from "../utils/i18n";
 
 const EXPERIENCE = [
   {
-    date: "2025 (Current)",
-    title: t('experience.items.intern.title'),
-    company: t('experience.items.intern.company'),
-    description: t('experience.items.intern.description'),
+    date: t('experience.dates.current'),
+    title: t('experience.items.reborn.title'),
+    company: t('experience.items.reborn.company'),
+    description: t('experience.items.reborn.description'),
   },
   {
-    date: "Ongoing",
+    date: t('experience.dates.goit'),
+    title: t('experience.items.goit.title'),
+    company: t('experience.items.goit.company'),
+    description: t('experience.items.goit.description'),
+  },
+  {
+    date: t('experience.dates.ongoing'),
     title: t('experience.items.founder.title'),
     company: t('experience.items.founder.company'),
     description: t('experience.items.founder.description'),
     link: "",
   },
   {
-    date: "2024 (4 months)",
+    date: t('experience.dates.spm'),
     title: t('experience.items.spm.title'),
     company: t('experience.items.spm.company'),
     description: t('experience.items.spm.description'),
   },
   {
-    date: "2023",
+    date: t('experience.dates.freelance'),
     title: t('experience.items.freelance.title'),
     company: t('experience.items.freelance.company'),
     description: t('experience.items.freelance.description'),
@@ -47,8 +53,16 @@ const EXPERIENCE = [
   const updateExperienceText = () => {
     const experienceItems = document.querySelectorAll('.experience-item')
     const items = [
-      'intern',
+      'reborn',
+      'goit',
       'founder',
+      'spm',
+      'freelance'
+    ]
+    const dates = [
+      'current',
+      'goit',
+      'ongoing',
       'spm',
       'freelance'
     ]
@@ -57,10 +71,16 @@ const EXPERIENCE = [
       const title = item.querySelector('.experience-title')
       const company = item.querySelector('.experience-company')
       const description = item.querySelector('.experience-description')
+      const date = item.querySelector('time')
 
       if (title) title.textContent = t(`experience.items.${items[index]}.title`)
       if (company) company.textContent = t(`experience.items.${items[index]}.company`)
       if (description) description.textContent = t(`experience.items.${items[index]}.description`)
+      
+      // Actualizar fechas solo para los items que tienen traducciones
+      if (date && dates[index] && t(`experience.dates.${dates[index]}`)) {
+        date.textContent = t(`experience.dates.${dates[index]}`)
+      }
     })
   }
 

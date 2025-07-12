@@ -4,6 +4,7 @@ import NextJS from "./icons/NextJS.astro";
 import Tailwind from "./icons/Tailwind.astro";
 import Link from "./icons/Link.astro";
 import Wordpress from "./icons/Wordpress.astro";
+import Laravel from "./icons/Laravel.astro";
 import { t } from "../utils/i18n";
 import LinkButton from "./LinkButton.astro";
 
@@ -28,6 +29,11 @@ const TAGS = {
     class: "bg-[#003159] text-white",
     icon: Tailwind,
   },
+  LARAVEL: {
+    name: "Laravel",
+    class: "bg-red-600 text-white",
+    icon: Laravel,
+  },
 };
 
 const PROJECTS = [
@@ -47,6 +53,15 @@ const PROJECTS = [
     // Usar un servicio de captura de pantalla
     image: `https://api.microlink.io?url=${encodeURIComponent('https://tractocamionesandina.com')}&screenshot=true&meta=false&embed=screenshot.url`,
     tags: [TAGS.WORDPRESS, TAGS.Link],
+    type: "image"
+  },
+  {
+    title: t('projects.items.reborn.title'),
+    description: t('projects.items.reborn.description'),
+    link: "https://www.reborndevelopments.com/",
+    // Usar un servicio de captura de pantalla
+    image: `https://api.microlink.io?url=${encodeURIComponent('https://www.reborndevelopments.com')}&screenshot=true&meta=false&embed=screenshot.url`,
+    tags: [TAGS.NEXT, TAGS.TAILWIND, TAGS.LARAVEL],
     type: "image"
   },
 ];
@@ -115,7 +130,7 @@ const PROJECTS = [
   const updateProjectsText = () => {
     const title = document.querySelector('h1');
     const projectItems = document.querySelectorAll('article');
-    const items = ['glucolog', 'tracto'];
+    const items = ['glucolog', 'tracto', 'reborn'];
 
     if (title) title.textContent = t('projects.title');
 
