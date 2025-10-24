@@ -55,6 +55,10 @@
     "code": "Código",
     "visitSite": "Visitar sitio",
     "items": {
+      "grb": {
+        "title": "GRB Group - Sitio Web Corporativo",
+        "description": "Sitio web corporativo moderno desarrollado con Astro para GRB Group, una empresa global de bienes raíces. Presenta un diseño elegante y profesional con navegación intuitiva, secciones dinámicas y optimización SEO para mostrar los servicios de inversión inmobiliaria y tecnología."
+      },
       "glucolog": {
         "title": "Glucolog - Plataforma de Gestión de Glucosa con IA",
         "description": "Una aplicación web innovadora que utiliza aprendizaje automático para ayudar a los usuarios a rastrear, analizar y predecir niveles de glucosa. Desarrollada con Next.js y Tailwind CSS, ofrece una interfaz intuitiva y análisis predictivos para el manejo de la diabetes."

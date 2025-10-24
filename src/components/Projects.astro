@@ -5,6 +5,7 @@ import Tailwind from "./icons/Tailwind.astro";
 import Link from "./icons/Link.astro";
 import Wordpress from "./icons/Wordpress.astro";
 import Laravel from "./icons/Laravel.astro";
+import Code from "./icons/Code.astro";
 import { t } from "../utils/i18n";
 import LinkButton from "./LinkButton.astro";
 
@@ -34,9 +35,23 @@ const TAGS = {
     class: "bg-red-600 text-white",
     icon: Laravel,
   },
+  ASTRO: {
+    name: "Astro",
+    class: "bg-orange-500 text-white",
+    icon: Code,
+  },
 };
 
 const PROJECTS = [
+  {
+    title: t('projects.items.grb.title'),
+    description: t('projects.items.grb.description'),
+    link: "https://www.grb-group.com/en/",
+    // Usar un servicio de captura de pantalla
+    image: `https://api.microlink.io?url=${encodeURIComponent('https://www.grb-group.com/en/')}&screenshot=true&meta=false&embed=screenshot.url`,
+    tags: [TAGS.ASTRO, TAGS.TAILWIND, TAGS.Link],
+    type: "image"
+  },
   {
     title: t('projects.items.glucolog.title'),
     description: t('projects.items.glucolog.description'),
@@ -130,7 +145,7 @@ const PROJECTS = [
   const updateProjectsText = () => {
     const title = document.querySelector('h1');
     const projectItems = document.querySelectorAll('article');
-    const items = ['glucolog', 'tracto', 'reborn'];
+    const items = ['grb', 'glucolog', 'tracto', 'reborn'];
 
     if (title) title.textContent = t('projects.title');
 
