@@ -8,7 +8,7 @@
   },
   "hero": {
     "title": "Hola, soy Fabricio",
-    "description": "Graduado en <strong>Ingeniería de Sistemas</strong> de la Universidad del Valle. <strong>Gerente de Proyectos de Software & Desarrollador Full-Stack</strong> de Cochabamba, Bolivia 🇧🇴. Apasionado por construir aplicaciones web y móviles escalables.",
+    "description": "Egresado de <strong>Ingeniería de Sistemas</strong> de la Universidad del Valle. <strong>Desarrollador Full-Stack</strong>: frontend con <strong>Next.js, React, Astro, Tailwind y Figma</strong>, backend con <strong>Laravel y Firebase</strong>. Diseño en Figma y llevo a código hasta producción—incluyendo varios proyectos freelance de Figma a deploy. Construyo de punta a punta en Reborn Developments y Rekaliber. Ex <strong>Team Leader</strong> en GoIT. DevOps con Dokploy, VPS y Cloudflare. De Cochabamba, Bolivia 🇧🇴.",
     "contact": "Contáctame"
   },
   "experience": {
@@ -117,10 +117,10 @@
   },
   "about": {
     "title": "Sobre Mí",
-    "paragraph1": "Mi nombre es Fabricio Rene Crespo Rossel, y tengo 22 años. He completado todos los semestres académicos de Ingeniería en Sistemas Computacionales, solo pendiente la certificación final de grado. He estado programando desde los 12 años, comenzando con lenguajes como C# y Python.",
+    "paragraph1": "Mi nombre es Fabricio Rene Crespo Rossel, y tengo 22 años. He completado todos los semestres académicos de Ingeniería en Sistemas Computacionales, solo pendiente la certificación final de grado. Programo desde los 12 años y me apasiona tanto la interfaz de usuario como las APIs y el backend—full-stack de verdad.",
     "paragraph2": "Uno de mis logros significativos es haber entregado <strong>cinco proyectos listos para producción en UMA para la Universidad del Valle</strong>, lo que me valió una carta de recomendación del director de mi departamento.",
-    "paragraph3": "Además, completé una pasantía como <strong>Team Leader Full Stack en GoIT</strong>, donde lideré un equipo de desarrollo y participé en la creación de aplicaciones web modernas utilizando las últimas tecnologías.",
-    "paragraph4": "Mi objetivo profesional principal es convertirme en un desarrollador full-stack competente con experiencia en múltiples lenguajes, eventualmente transicionando a un rol de gerente de proyectos para entregar soluciones bien desarrolladas."
+    "paragraph3": "Trabajo como <strong>Desarrollador Full-Stack</strong> en todo el stack: <strong>frontend</strong> con Next.js, React, Astro, Tailwind CSS, <strong>Figma</strong> para diseño y prototipado, e interfaces modernas; <strong>backend</strong> con Laravel, Firebase y APIs REST. He llevado varios proyectos freelance desde maquetas en Figma hasta producción. Lo aplico en Reborn Developments (Reborn Developments, Reborn Rental, Reborn Host) y en <strong>Rekaliber</strong> (Next.js + Laravel). También hago <strong>DevOps</strong>—deployment y servidores con Dokploy, VPS en Hostinger y Cloudflare. Fui <strong>Team Leader Full Stack en GoIT</strong>, liderando el proyecto e integrando Moodle.",
+    "paragraph4": "Mi objetivo es seguir creciendo como desarrollador full-stack—desde UI y UX hasta APIs, bases de datos y deployment—y como gerente de proyectos que entrega software de calidad y lidera equipos con criterio."
   },
   "sections": {
     "experience": "Experiencia Laboral",
