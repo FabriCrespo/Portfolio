@@ -19,19 +19,25 @@
       "goit": "Marzo 2025 - Junio 2025",
       "current": "2025 (Actual)",
       "ongoing": "En curso",
+      "rekaliber": "2025 (En desarrollo)",
       "spm": "2024 (4 meses)",
       "freelance": "2023"
     },
     "items": {
       "reborn": {
-        "title": "Desarrollador Frontend",
+        "title": "Desarrollador Full-Stack",
         "company": "Reborn Developments",
-        "description": "Desarrollador frontend especializado en Next.js, integrando con backend Laravel para la plataforma de inversiones. Responsable del desarrollo de interfaces de usuario modernas y la integración de APIs para gestionar proyectos inmobiliarios y análisis de inversiones."
+        "description": "Desarrollo full-stack (frontend y backend) para el ecosistema Reborn: Reborn Developments (plataforma de inversiones), Reborn Rental (alquiler de equipo de construcción) y Reborn Host (gestión de propiedades). Trabajo con Next.js, Laravel y tecnologías afines. Manejo de servidores y deployment con Dokploy, VPS en Hostinger y Cloudflare."
       },
       "goit": {
         "title": "Team Leader Full Stack",
         "company": "Grupo GOIT",
-        "description": "Lideré un proyecto full-stack para la academia GOIT de desarrolladores, desarrollando una plataforma web/móvil con NextJS, Expo y PostgreSQL. Integré endpoints de un servidor Moodle para gestionar el contenido educativo y la experiencia de aprendizaje de los estudiantes."
+        "description": "Team Leader del proyecto full-stack de la academia GOIT de desarrolladores; desarrollo de una plataforma web/móvil con NextJS, Expo y PostgreSQL. Lideré la integración de Moodle en la plataforma para gestionar el contenido educativo y la experiencia de aprendizaje de los estudiantes."
+      },
+      "rekaliber": {
+        "title": "Desarrollador Full-Stack",
+        "company": "Rekaliber",
+        "description": "Desarrollo de Rekaliber, un entorno y sistema completo actualmente en desarrollo. Implementación full-stack con Next.js y Laravel, cubriendo frontend y backend."
       },
       "founder": {
         "title": "Gerente de Proyectos de Software & Fundador",
@@ -59,17 +65,29 @@
         "title": "GRB Group - Sitio Web Corporativo",
         "description": "Sitio web corporativo moderno desarrollado con Astro para GRB Group, una empresa global de bienes raíces. Presenta un diseño elegante y profesional con navegación intuitiva, secciones dinámicas y optimización SEO para mostrar los servicios de inversión inmobiliaria y tecnología."
       },
-      "glucolog": {
-        "title": "Glucolog - Plataforma de Gestión de Glucosa con IA",
-        "description": "Una aplicación web innovadora que utiliza aprendizaje automático para ayudar a los usuarios a rastrear, analizar y predecir niveles de glucosa. Desarrollada con Next.js y Tailwind CSS, ofrece una interfaz intuitiva y análisis predictivos para el manejo de la diabetes."
-      },
       "tracto": {
         "title": "Tracto Camiones Andina",
         "description": "Una aplicación de comercio electrónico diseñada para facilitar la comunicación directa entre clientes y concesionarios de camiones. Desarrollada con WordPress, ofrece una plataforma robusta para la gestión de inventario y ventas de vehículos pesados."
       },
+      "rebornrental": {
+        "title": "Reborn Rental - Renta de Material de Construcción",
+        "description": "Una página web para la renta de material de construcción en Denver, Colorado. Desarrollada con Laravel y Blade, cuenta con integración de Odoo para la gestión integral."
+      },
       "reborn": {
         "title": "Reborn Developments - Plataforma de Inversiones",
         "description": "Plataforma web moderna para inversiones internacionales desarrollada con Next.js y Tailwind CSS en el frontend, y Laravel en el backend. Ofrece gestión de proyectos inmobiliarios, análisis de riesgo, y oportunidades de inversión globales con interfaz intuitiva y análisis técnico avanzado."
+      },
+      "rebornhost": {
+        "title": "Reborn Host - Gestión de Propiedades",
+        "description": "Landing page para Reborn Host, empresa especializada en gestión de propiedades para alquileres vacacionales en Airbnb, VRBO, Booking.com y otras plataformas. Sitio sencillo y responsive desarrollado con HTML y CSS puro, mostrando servicios, precios y cofundadores."
+      },
+      "eipet": {
+        "title": "Eipet - E-commerce Tienda de Mascotas",
+        "description": "Sitio de compra y venta de productos para una tienda/veterinaria de mascotas: catálogo para perros y gatos. Desarrollado con Astro y Firebase (frontend y backend). Incluye catálogo, categorías, carrito, autenticación y panel de administración. Desplegado en Vercel temporalmente."
+      },
+      "hydraulics": {
+        "title": "Hydraulic Sistem - E-commerce Repuestos Hidráulicos",
+        "description": "E-commerce de repuestos hidráulicos y servicios de reparación para maquinaria agrícola y pesada. Desarrollado con Astro y Firebase, hosteado en Vercel. Incluye catálogo de servicios, carrito de productos, ventas por WhatsApp y solicitud de cotizaciones para cilindros, bombas, motores y válvulas."
       }
     }
   },
@@ -110,4 +128,4 @@
     "achievements": "Logros",
     "about": "Sobre Mí"
   }
-} 
+}

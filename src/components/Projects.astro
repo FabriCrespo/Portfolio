@@ -40,135 +40,337 @@ const TAGS = {
     class: "bg-orange-500 text-white",
     icon: Code,
   },
+  HTML_CSS: {
+    name: "HTML & CSS",
+    class: "bg-amber-600 text-white",
+    icon: Code,
+  },
+  FIREBASE: {
+    name: "Firebase",
+    class: "bg-[#FFCA28] text-gray-900",
+    icon: Code,
+  },
 };
 
-const PROJECTS = [
+interface Project {
+  title: string;
+  description: string;
+  link?: string;
+  github?: string;
+  image: string;
+  tags: {
+    name: string;
+    class: string;
+    icon: any;
+  }[];
+  type: string;
+}
+
+// Screenshot con página cargada al 100%: waitUntil=load + waitForTimeout
+const screenshotUrl = (url: string) =>
+  `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url&waitUntil=load&waitForTimeout=4000`;
+
+const PROJECTS: Project[] = [
   {
-    title: t('projects.items.grb.title'),
-    description: t('projects.items.grb.description'),
+    title: t("projects.items.grb.title"),
+    description: t("projects.items.grb.description"),
     link: "https://www.grb-group.com/en/",
-    // Usar un servicio de captura de pantalla
-    image: `https://api.microlink.io?url=${encodeURIComponent('https://www.grb-group.com/en/')}&screenshot=true&meta=false&embed=screenshot.url`,
+    image: screenshotUrl("https://www.grb-group.com/en/"),
     tags: [TAGS.ASTRO, TAGS.TAILWIND, TAGS.Link],
-    type: "image"
+    type: "image",
   },
   {
-    title: t('projects.items.glucolog.title'),
-    description: t('projects.items.glucolog.description'),
-    github: "https://github.com/FabriCrespo/glucolog.git",
-    // Usar la API de OG Image de GitHub
-    image: "https://opengraph.githubassets.com/1/FabriCrespo/glucolog",
-    tags: [TAGS.NEXT, TAGS.TAILWIND],
-    type: "image"
-  },
-  {
-    title: t('projects.items.tracto.title'),
-    description: t('projects.items.tracto.description'),
+    title: t("projects.items.tracto.title"),
+    description: t("projects.items.tracto.description"),
     link: "https://tractocamionesandina.com/",
-    // Usar un servicio de captura de pantalla
-    image: `https://api.microlink.io?url=${encodeURIComponent('https://tractocamionesandina.com')}&screenshot=true&meta=false&embed=screenshot.url`,
+    image: screenshotUrl("https://tractocamionesandina.com"),
     tags: [TAGS.WORDPRESS, TAGS.Link],
-    type: "image"
+    type: "image",
   },
   {
-    title: t('projects.items.reborn.title'),
-    description: t('projects.items.reborn.description'),
+    title: t("projects.items.rebornrental.title"),
+    description: t("projects.items.rebornrental.description"),
+    link: "https://rebornrental.com/",
+    image: screenshotUrl("https://rebornrental.com/"),
+    tags: [TAGS.LARAVEL, TAGS.Link],
+    type: "image",
+  },
+  {
+    title: t("projects.items.reborn.title"),
+    description: t("projects.items.reborn.description"),
     link: "https://www.reborndevelopments.com/",
-    // Usar un servicio de captura de pantalla
-    image: `https://api.microlink.io?url=${encodeURIComponent('https://www.reborndevelopments.com')}&screenshot=true&meta=false&embed=screenshot.url`,
+    image: screenshotUrl("https://www.reborndevelopments.com"),
     tags: [TAGS.NEXT, TAGS.TAILWIND, TAGS.LARAVEL],
-    type: "image"
+    type: "image",
+  },
+  {
+    title: t("projects.items.rebornhost.title"),
+    description: t("projects.items.rebornhost.description"),
+    link: "https://www.rebornhost.com/index.html",
+    image: screenshotUrl("https://www.rebornhost.com/index.html"),
+    tags: [TAGS.HTML_CSS, TAGS.Link],
+    type: "image",
+  },
+  {
+    title: t("projects.items.eipet.title"),
+    description: t("projects.items.eipet.description"),
+    link: "https://eipet-delta.vercel.app/",
+    image: screenshotUrl("https://eipet-delta.vercel.app/"),
+    tags: [TAGS.ASTRO, TAGS.FIREBASE, TAGS.Link],
+    type: "image",
+  },
+  {
+    title: t("projects.items.hydraulics.title"),
+    description: t("projects.items.hydraulics.description"),
+    link: "https://hydraylics-system.vercel.app/",
+    image: screenshotUrl("https://hydraylics-system.vercel.app/"),
+    tags: [TAGS.ASTRO, TAGS.FIREBASE, TAGS.Link],
+    type: "image",
   },
 ];
 ---
 
-<div class="flex flex-col gap-y-16">
-  {
-    PROJECTS.map(({ image, title, description, tags, github, link }) => (
-      <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
-        <div class="w-full md:w-1/2">
-          <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-            <img
-              alt={title}
-              class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
-              loading="lazy"
-              src={image}
-            />
+<div class="projects-carousel-wrapper relative">
+  <div
+    class="projects-carousel flex gap-8 overflow-x-auto overflow-y-hidden pb-4 scroll-smooth px-1 md:gap-10"
+    id="projects-carousel"
+    role="region"
+    aria-label="Proyectos"
+  >
+    {
+      PROJECTS.map(({ image, title, description, tags, github, link }) => (
+        <article
+          class="projects-carousel-slide flex w-[min(100%,420px)] flex-shrink-0 flex-col space-x-0 space-y-6 group sm:w-[min(85vw,520px)] md:w-[min(75vw,640px)] md:flex-row md:space-x-6 md:space-y-0 lg:w-[min(720px,68vw)]"
+        >
+          <div class="w-full md:w-[280px] lg:w-[320px] md:flex-shrink-0">
+            <div class="project-card group/card relative overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800/80 shadow-lg ring-1 ring-gray-200/80 dark:ring-gray-700/80 transition-all duration-500 ease-out md:group-hover:shadow-2xl md:group-hover:ring-gray-300 dark:md:group-hover:ring-gray-600 md:group-hover:-translate-y-1">
+              <div class="flex items-center gap-1.5 px-4 py-2.5 bg-gray-200/90 dark:bg-gray-700/90 border-b border-gray-300/80 dark:border-gray-600/80">
+                <span class="size-2.5 rounded-full bg-gray-400 dark:bg-gray-500" aria-hidden="true"></span>
+                <span class="size-2.5 rounded-full bg-gray-400 dark:bg-gray-500" aria-hidden="true"></span>
+                <span class="size-2.5 rounded-full bg-gray-400 dark:bg-gray-500" aria-hidden="true"></span>
+              </div>
+              <div class="relative aspect-video w-full overflow-hidden bg-gray-200 dark:bg-gray-800">
+                <img
+                  alt={title}
+                  class="project-screenshot absolute inset-0 h-full w-full object-cover object-top transition-all duration-500 ease-out opacity-0 md:group-hover/card:scale-[1.02]"
+                  loading="lazy"
+                  src={image}
+                  onload="this.classList.add('opacity-100')"
+                />
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="w-full md:w-1/2 md:max-w-lg">
-          <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
-            {title}
-          </h3>
-          <div class="mt-2">
-            <ul class="flex flex-row mb-2 gap-x-2">
+          <div class="w-full min-w-0 md:min-w-[260px] md:max-w-[320px]">
+            <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 md:text-2xl">
+              {title}
+            </h3>
+            <ul class="flex flex-row flex-wrap gap-2 mb-2">
               {tags.map((tag) => (
                 <li>
                   <span
-                    class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+                    class={`flex gap-x-1.5 rounded-full text-xs ${tag.class} py-1 px-2`}
                   >
-                    <tag.icon class="size-4" />
+                    <tag.icon class="size-4 flex-shrink-0" />
                     {tag.name}
                   </span>
                 </li>
               ))}
             </ul>
-
-            <div class="mt-2 text-gray-700 dark:text-gray-400 project-description">
+            <div class="mt-1 text-sm text-gray-700 dark:text-gray-400 project-description line-clamp-4 md:line-clamp-5 md:text-base">
               {description}
             </div>
-            <footer class="flex items-end justify-start mt-4 gap-x-4">
+            <footer class="flex items-center gap-3 mt-3 flex-wrap">
               {github && (
                 <LinkButton href={github}>
-                  <GitHub class="size-6" />
-                  {t('projects.code')}
+                  <GitHub class="size-5" />
+                  {t("projects.code")}
                 </LinkButton>
               )}
               {link && (
                 <LinkButton href={link}>
-                  <Link class="size-6" />
-                  {t('projects.visitSite')}
+                  <Link class="size-5" />
+                  {t("projects.visitSite")}
                 </LinkButton>
               )}
             </footer>
           </div>
-        </div>
-      </article>
-    ))
-  }
+        </article>
+      ))
+    }
+  </div>
+
+  <!-- Controles del carrusel -->
+  <div class="flex items-center justify-center gap-4 mt-6">
+    <button
+      type="button"
+      class="projects-carousel-prev flex size-10 items-center justify-center rounded-full bg-gray-200 text-gray-700 transition hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 disabled:opacity-40 disabled:pointer-events-none"
+      aria-label="Proyecto anterior"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <div class="projects-carousel-dots flex gap-2" role="tablist" aria-label="Ir a proyecto"></div>
+    <button
+      type="button"
+      class="projects-carousel-next flex size-10 items-center justify-center rounded-full bg-gray-200 text-gray-700 transition hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 disabled:opacity-40 disabled:pointer-events-none"
+      aria-label="Siguiente proyecto"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
 </div>
+
+<style>
+  .project-screenshot.opacity-100 {
+    opacity: 1;
+  }
+  .project-card {
+    --card-radius: 1rem;
+  }
+  .project-card:focus-within {
+    outline: 2px solid var(--color-gray-400, theme("colors.gray.400"));
+    outline-offset: 2px;
+  }
+
+  .projects-carousel {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .projects-carousel::-webkit-scrollbar {
+    height: 6px;
+  }
+  .projects-carousel::-webkit-scrollbar-track {
+    background: rgb(229 231 235);
+    border-radius: 3px;
+  }
+  .dark .projects-carousel::-webkit-scrollbar-track {
+    background: rgb(55 65 81);
+  }
+  .projects-carousel::-webkit-scrollbar-thumb {
+    background: rgb(156 163 175);
+    border-radius: 3px;
+  }
+  .projects-carousel::-webkit-scrollbar-thumb:hover {
+    background: rgb(107 114 128);
+  }
+  .projects-carousel-slide {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .projects-carousel-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgb(209 213 219);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .dark .projects-carousel-dots .dot {
+    background: rgb(75 85 99);
+  }
+  .projects-carousel-dots .dot.active {
+    background: rgb(234 179 8);
+    transform: scale(1.25);
+  }
+  .dark .projects-carousel-dots .dot.active {
+    background: rgb(250 204 21);
+  }
+</style>
 
 <script>
   import { t } from "../utils/i18n";
 
-  const updateProjectsText = () => {
-    const title = document.querySelector('h1');
-    const projectItems = document.querySelectorAll('article');
-    const items = ['grb', 'glucolog', 'tracto', 'reborn'];
+  const ITEMS = ["grb", "tracto", "rebornrental", "reborn", "rebornhost", "eipet", "hydraulics"];
 
-    if (title) title.textContent = t('projects.title');
+  const updateProjectsText = () => {
+    const title = document.querySelector("h1");
+    const projectItems = document.querySelectorAll(".projects-carousel-slide");
+
+    if (title) title.textContent = t("projects.title");
 
     projectItems.forEach((item, index) => {
-      const projectTitle = item.querySelector('h3');
-      const projectDescription = item.querySelector('.project-description');
-
-      if (projectTitle) projectTitle.textContent = t(`projects.items.${items[index]}.title`);
-      if (projectDescription) projectDescription.textContent = t(`projects.items.${items[index]}.description`);
+      const projectTitle = item.querySelector("h3");
+      const projectDescription = item.querySelector(".project-description");
+      if (projectTitle)
+        projectTitle.textContent = t(`projects.items.${ITEMS[index]}.title`);
+      if (projectDescription)
+        projectDescription.textContent = t(`projects.items.${ITEMS[index]}.description`);
     });
   };
 
-  // Actualizar cuando cambia el idioma
-  window.addEventListener('storage', (e) => {
-    if (e.key === 'language') {
-      updateProjectsText();
-    }
+  const initCarousel = () => {
+    const carousel = document.getElementById("projects-carousel");
+    const prevBtn = document.querySelector(".projects-carousel-prev");
+    const nextBtn = document.querySelector(".projects-carousel-next");
+    const dotsContainer = document.querySelector(".projects-carousel-dots");
+    const slides = document.querySelectorAll(".projects-carousel-slide");
+    const total = slides.length;
+
+    if (!carousel || !slides.length) return;
+
+    const getScrollAmount = () => {
+      const first = slides[0] as HTMLElement | undefined;
+      if (!first) return carousel.clientWidth;
+      return first.offsetWidth + 32;
+    };
+
+    const updateDots = (index: number) => {
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = "";
+      for (let i = 0; i < total; i++) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `dot ${i === index ? "active" : ""}`;
+        btn.setAttribute("aria-label", `Proyecto ${i + 1}`);
+        btn.setAttribute("aria-current", i === index ? "true" : "false");
+        btn.addEventListener("click", () => goToSlide(i));
+        dotsContainer.appendChild(btn);
+      }
+    };
+
+    const getCurrentIndex = () => {
+      const scrollLeft = carousel.scrollLeft;
+      const amount = getScrollAmount();
+      return Math.round(scrollLeft / amount);
+    };
+
+    const goToSlide = (index: number) => {
+      const amount = getScrollAmount();
+      const target = Math.min(index, total - 1) * amount;
+      carousel.scrollTo({ left: target, behavior: "smooth" });
+      updateDots(Math.min(index, total - 1));
+    };
+
+    prevBtn?.addEventListener("click", () => {
+      const current = getCurrentIndex();
+      goToSlide(Math.max(0, current - 1));
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      const current = getCurrentIndex();
+      goToSlide(Math.min(total - 1, current + 1));
+    });
+
+    carousel.addEventListener("scroll", () => {
+      const idx = getCurrentIndex();
+      dotsContainer?.querySelectorAll(".dot").forEach((dot, i) => {
+        dot.classList.toggle("active", i === idx);
+        dot.setAttribute("aria-current", i === idx ? "true" : "false");
+      });
+    });
+
+    updateDots(0);
+  };
+
+  window.addEventListener("storage", (e) => {
+    if (e.key === "language") updateProjectsText();
   });
 
-  // Actualizar cuando se carga la página
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener("astro:page-load", () => {
     updateProjectsText();
+    initCarousel();
   });
 </script>
-
-

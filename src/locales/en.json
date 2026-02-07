@@ -10,7 +10,7 @@
     "description": "Graduated in <strong>Computer Systems Engineering</strong> from Universidad del Valle. <strong>Software Project Manager & Full-Stack Developer</strong> from Cochabamba, Bolivia 🇧🇴. Passionate about building scalable web and mobile applications.",
     "contact": "Contact me"
   },
-    "experience": {
+  "experience": {
     "title": "Experience",
     "current": "Current",
     "learnMore": "Learn more",
@@ -18,20 +18,26 @@
       "goit": "March 2025 - June 2025",
       "current": "2025 (Current)",
       "ongoing": "Ongoing",
+      "rekaliber": "2025 (In development)",
       "spm": "2024 (4 months)",
       "freelance": "2023"
     },
-      "items": {
-        "reborn": {
-          "title": "Frontend Developer",
-          "company": "Reborn Developments",
-          "description": "Frontend developer specialized in Next.js, integrating with Laravel backend for the investment platform. Responsible for developing modern user interfaces and API integration for managing real estate projects and investment analysis."
-        },
-        "goit": {
-          "title": "Full Stack Team Leader",
-          "company": "Grupo GOIT",
-          "description": "Led a full-stack project for the GOIT developers academy, developing a web/mobile platform with NextJS, Expo, and PostgreSQL. Integrated endpoints from a Moodle server to manage educational content and enhance the learning experience for students."
-        },
+    "items": {
+      "reborn": {
+        "title": "Full-Stack Developer",
+        "company": "Reborn Developments",
+        "description": "Full-stack development (frontend and backend) for the Reborn ecosystem: Reborn Developments (investment platform), Reborn Rental (construction equipment rental), and Reborn Host (property management). Work with Next.js, Laravel, and related stacks. Server management and deployment with Dokploy, Hostinger VPS, and Cloudflare."
+      },
+      "goit": {
+        "title": "Full Stack Team Leader",
+        "company": "Grupo GOIT",
+        "description": "Team Leader of the full-stack project for the GOIT developers academy, developing a web/mobile platform with NextJS, Expo, and PostgreSQL. Led the integration of Moodle into the platform to manage educational content and enhance the learning experience for students."
+      },
+      "rekaliber": {
+        "title": "Full-Stack Developer",
+        "company": "Rekaliber",
+        "description": "Development of Rekaliber, a complete environment and system currently in development. Full-stack implementation with Next.js and Laravel, covering frontend and backend."
+      },
       "founder": {
         "title": "Software Project Manager & Founder",
         "company": "FluenceSoft",
@@ -58,17 +64,29 @@
         "title": "GRB Group - Corporate Website",
         "description": "Modern corporate website built with Astro for GRB Group, a global real estate company. Features elegant and professional design with intuitive navigation, dynamic sections, and SEO optimization to showcase real estate investment and technology services."
       },
-      "glucolog": {
-        "title": "Glucolog - AI-Powered Glucose Management Platform",
-        "description": "An innovative web application leveraging machine learning to help users track, analyze, and predict glucose levels. Built with Next.js and Tailwind CSS, it offers an intuitive interface and predictive analytics for diabetes management."
-      },
       "tracto": {
         "title": "Tracto Camiones Andina",
         "description": "An ecommerce application designed to facilitate direct communication between clients and truck dealers. Built with WordPress, it provides a robust platform for heavy vehicle inventory management and sales."
       },
+      "rebornrental": {
+        "title": "Reborn Rental - Construction Equipment Rental",
+        "description": "A construction equipment rental website based in Denver, Colorado. Developed with Laravel and Blade, it features Odoo integration for comprehensive management."
+      },
       "reborn": {
         "title": "Reborn Developments - Investment Platform",
         "description": "Modern web platform for international investments built with Next.js and Tailwind CSS on the frontend, and Laravel on the backend. Offers real estate project management, risk analysis, and global investment opportunities with intuitive interface and advanced technical analysis."
+      },
+      "rebornhost": {
+        "title": "Reborn Host - Property Management",
+        "description": "Landing page for Reborn Host, a company specialized in short-term rental property management for Airbnb, VRBO, Booking.com and other platforms. Simple, responsive site built with pure HTML and CSS showcasing services, pricing and co-founders."
+      },
+      "eipet": {
+        "title": "Eipet - Pet Store E-commerce",
+        "description": "E-commerce site for a veterinary pet store: browse and buy products for dogs and cats. Built with Astro and Firebase (frontend and backend). Features product catalog, categories, cart, user auth, and admin panel. Deployed on Vercel temporarily."
+      },
+      "hydraulics": {
+        "title": "Hydraulic Sistem - E-commerce Repuestos Hidráulicos",
+        "description": "E-commerce for hydraulic parts and repair services for agricultural and heavy machinery. Built with Astro and Firebase, hosted on Vercel. Features services catalog, product cart, WhatsApp-based sales, and quote requests for cylinders, pumps, motors and valves."
       }
     }
   },
@@ -109,4 +127,4 @@
     "achievements": "Achievements",
     "about": "About Me"
   }
-} 
+}
