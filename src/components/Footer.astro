@@ -3,8 +3,8 @@ import { t } from "../utils/i18n"
 import { getCurrentLanguage } from "../utils/i18n"
 const githubUrl = "https://github.com/FabriCrespo"
 const baseUrl = "/Portfolio/"
-const cvEnUrl = `${baseUrl}Fabricio%20Crespo%20CV.pdf`
-const cvEsUrl = `${baseUrl}CV-FabricioCrespo%20.pdf`
+const cvEnUrl = `${baseUrl}Fabricio%20Crespo%20CV%20English.pdf`
+const cvEsUrl = `${baseUrl}Fabricio%20Crespo%20CV%20Espa%C3%B1ol.pdf`
 const cvUrl = getCurrentLanguage() === "English" ? cvEnUrl : cvEsUrl
 const phoneDisplay = "+591 61615979"
 const phoneHref = "tel:+59161615979"
@@ -196,8 +196,8 @@ const mail = "fabrinephi04@gmail.com"
 <script>
   import { t } from "../utils/i18n"
   const baseUrl = "/Portfolio/"
-  const cvEnUrl = `${baseUrl}Fabricio%20Crespo%20CV.pdf`
-  const cvEsUrl = `${baseUrl}CV-FabricioCrespo%20.pdf`
+  const cvEnUrl = `${baseUrl}Fabricio%20Crespo%20CV%20English.pdf`
+  const cvEsUrl = `${baseUrl}Fabricio%20Crespo%20CV%20Espa%C3%B1ol.pdf`
 
   const updateFooterText = () => {
     const github = document.getElementById("footer-link-github")
