@@ -2,24 +2,40 @@
 import ExperienceItem from "./ExperienceItem.astro";
 import { t } from "../utils/i18n";
 
-const EXPERIENCE = [
+type ExperienceEntry = {
+  date: string;
+  title: string;
+  company: string;
+  description: string;
+  category: "leadership" | "development";
+  remote: boolean;
+  link?: string;
+};
+
+const EXPERIENCE: ExperienceEntry[] = [
   {
     date: t('experience.dates.current'),
     title: t('experience.items.reborn.title'),
     company: t('experience.items.reborn.company'),
     description: t('experience.items.reborn.description'),
+    category: "development",
+    remote: true,
   },
   {
     date: t('experience.dates.rekaliber'),
     title: t('experience.items.rekaliber.title'),
     company: t('experience.items.rekaliber.company'),
     description: t('experience.items.rekaliber.description'),
+    category: "development",
+    remote: true,
   },
   {
     date: t('experience.dates.goit'),
     title: t('experience.items.goit.title'),
     company: t('experience.items.goit.company'),
     description: t('experience.items.goit.description'),
+    category: "leadership",
+    remote: false,
   },
   {
     date: t('experience.dates.ongoing'),
@@ -27,31 +43,200 @@ const EXPERIENCE = [
     company: t('experience.items.founder.company'),
     description: t('experience.items.founder.description'),
     link: "",
+    category: "leadership",
+    remote: false,
   },
   {
     date: t('experience.dates.spm'),
     title: t('experience.items.spm.title'),
     company: t('experience.items.spm.company'),
     description: t('experience.items.spm.description'),
+    category: "leadership",
+    remote: false,
   },
   {
     date: t('experience.dates.freelance'),
     title: t('experience.items.freelance.title'),
     company: t('experience.items.freelance.company'),
     description: t('experience.items.freelance.description'),
+    category: "development",
+    remote: false,
   },
 ];
 ---
 
-<ol class="relative mt-16">
-  {
-    EXPERIENCE.map((experience) => (
-      <li class="">
-        <ExperienceItem {...experience} />
-      </li>
-    ))
+<div class="experience-split mt-8 grid gap-7 lg:grid-cols-[180px_1fr] lg:gap-10">
+  <aside class="experience-left border-r border-black/35 pr-6 dark:border-white/30">
+    <p class="experience-label-filter font-mono text-[10px] tracking-[0.16em] uppercase text-black/60 dark:text-white/60">{t("experience.ui.filterBy")}</p>
+    <ul class="mt-2 space-y-1 font-mono text-[11px] uppercase tracking-[0.11em] text-black/70 dark:text-white/70">
+      <li><button type="button" class="experience-filter is-active" data-filter="all">{t("experience.ui.filters.all")}</button></li>
+      <li><button type="button" class="experience-filter" data-filter="leadership">{t("experience.ui.filters.leadership")}</button></li>
+      <li><button type="button" class="experience-filter" data-filter="development">{t("experience.ui.filters.development")}</button></li>
+      <li><button type="button" class="experience-filter" data-filter="remote">{t("experience.ui.filters.remote")}</button></li>
+    </ul>
+
+    <p class="experience-label-region mt-8 font-mono text-[10px] tracking-[0.16em] uppercase text-black/60 dark:text-white/60">{t("experience.ui.region")}</p>
+    <p class="experience-value-region mt-2 font-mono text-[11px] uppercase tracking-[0.11em] text-black/80 dark:text-white/80">{t("experience.ui.regionValue")}</p>
+  </aside>
+
+  <div>
+    <ol class="relative border-b border-black/55 dark:border-white/45">
+      {
+        EXPERIENCE.map((experience, index) => (
+          <li
+            class="experience-entry"
+            data-category={experience.category}
+            data-remote={experience.remote ? "true" : "false"}
+          >
+            <ExperienceItem {...experience} defaultOpen={index === 0} />
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</div>
+
+<div class="experience-footer mt-8 grid items-start gap-6 border-t border-black/35 pt-8 dark:border-white/30 md:grid-cols-[1fr_auto] md:gap-8">
+  <div>
+    <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-black/70 dark:text-white/70">
+      <span class="experience-stack-title">{t("experience.ui.stackIntegrityTitle")}</span>
+    </p>
+    <p class="experience-stack-description mt-3 max-w-md text-[clamp(1rem,1.4vw,1.5rem)] leading-[1.45] text-black/60 dark:text-white/66">
+      {t("experience.ui.stackIntegrityDescription")}
+    </p>
+  </div>
+  <a
+    href="/Fabricio%20Crespo%20CV.pdf"
+    download
+    class="inline-flex items-center justify-center border border-black bg-black px-7 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-black dark:border-white dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text-white"
+  >
+    <span class="experience-download-cv">{t("experience.ui.downloadCv")}</span>
+  </a>
+</div>
+
+<script>
+  const initExperienceFilters = () => {
+    const root = document.querySelector('.experience-split')
+    if (!(root instanceof HTMLElement)) return
+    if (root.dataset.filtersReady === 'true') return
+
+    const filterButtons = Array.from(root.querySelectorAll('.experience-filter'))
+    const entries = Array.from(root.querySelectorAll('.experience-entry'))
+
+    const applyFilter = (filter: 'all' | 'remote' | 'leadership' | 'development') => {
+      entries.forEach((entry) => {
+        const category = entry.getAttribute('data-category')
+        const isRemote = entry.getAttribute('data-remote') === 'true'
+
+        const visible =
+          filter === 'all' ||
+          (filter === 'remote' && isRemote) ||
+          category === filter
+
+        entry.classList.toggle('hidden', !visible)
+      })
+
+      filterButtons.forEach((button) => {
+        button.classList.toggle('is-active', button.getAttribute('data-filter') === filter)
+      })
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const filter = (button.getAttribute('data-filter') ?? 'all') as 'all' | 'remote' | 'leadership' | 'development'
+        applyFilter(filter)
+      })
+    })
+
+    applyFilter('all')
+    root.dataset.filtersReady = 'true'
   }
-</ol>
+
+  document.addEventListener('astro:page-load', () => {
+    initExperienceFilters()
+  })
+  document.addEventListener('DOMContentLoaded', () => {
+    initExperienceFilters()
+  })
+</script>
+
+<style>
+  .experience-filter {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    text-transform: uppercase;
+    letter-spacing: inherit;
+    font: inherit;
+    cursor: pointer;
+    opacity: 0.68;
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .experience-filter:hover {
+      opacity: 1;
+      transform: translateX(3px);
+    }
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .experience-filter:active {
+      opacity: 1;
+    }
+  }
+
+  .experience-filter.is-active {
+    opacity: 1;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  @media (max-width: 1023px) {
+    .experience-left {
+      border-right: 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      padding-right: 0;
+      padding-bottom: 1rem;
+    }
+
+    :global(html.dark) .experience-left {
+      border-bottom-color: rgba(255, 255, 255, 0.28);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .experience-split {
+      margin-top: 1.1rem;
+      gap: 1rem;
+    }
+
+    .experience-left {
+      padding-bottom: 0.75rem;
+    }
+
+    .experience-left ul {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.3rem 0.85rem;
+    }
+
+    .experience-left ul li:first-child {
+      grid-column: span 2;
+    }
+
+    .experience-footer {
+      gap: 1rem;
+    }
+
+    .experience-footer a {
+      width: 100%;
+      min-height: 48px;
+    }
+  }
+</style>
 
 <script>
   import { t } from "../utils/i18n"
@@ -74,6 +259,13 @@ const EXPERIENCE = [
       'spm',
       'freelance'
     ]
+    const filterBy = document.querySelector(".experience-label-filter")
+    const region = document.querySelector(".experience-label-region")
+    const regionValue = document.querySelector(".experience-value-region")
+    const stackTitle = document.querySelector(".experience-stack-title")
+    const stackDescription = document.querySelector(".experience-stack-description")
+    const downloadCv = document.querySelector(".experience-download-cv")
+    const filterButtons = document.querySelectorAll(".experience-filter")
 
     experienceItems.forEach((item, index) => {
       const title = item.querySelector('.experience-title')
@@ -90,6 +282,20 @@ const EXPERIENCE = [
         date.textContent = t(`experience.dates.${dates[index]}`)
       }
     })
+
+    if (filterBy) filterBy.textContent = t("experience.ui.filterBy")
+    if (region) region.textContent = t("experience.ui.region")
+    if (regionValue) regionValue.textContent = t("experience.ui.regionValue")
+    if (stackTitle) stackTitle.textContent = t("experience.ui.stackIntegrityTitle")
+    if (stackDescription) stackDescription.textContent = t("experience.ui.stackIntegrityDescription")
+    if (downloadCv) downloadCv.textContent = t("experience.ui.downloadCv")
+    if (filterButtons[0]) filterButtons[0].textContent = t("experience.ui.filters.all")
+    if (filterButtons[1]) filterButtons[1].textContent = t("experience.ui.filters.leadership")
+    if (filterButtons[2]) filterButtons[2].textContent = t("experience.ui.filters.development")
+    if (filterButtons[3]) filterButtons[3].textContent = t("experience.ui.filters.remote")
+    document.querySelectorAll(".experience-learn-more").forEach((el) => {
+      el.textContent = t("experience.learnMore")
+    })
   }
 
   // Actualizar cuando cambia el idioma
@@ -98,6 +304,7 @@ const EXPERIENCE = [
       updateExperienceText()
     }
   })
+  window.addEventListener("language-change", updateExperienceText)
 
   // Actualizar cuando se carga la página
   document.addEventListener('astro:page-load', () => {

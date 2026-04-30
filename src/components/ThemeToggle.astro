@@ -6,11 +6,11 @@ import SystemIcon from "./icons/System.astro"
 const THEMES = ["Light", "Dark", "System"]
 ---
 
-<div class="relative ml-1 mr-1">
+<div class="relative">
   <button
     transition:persist
     id="theme-toggle-btn"
-    class="appearance-none border-none flex hover:scale-125 transition"
+    class="toggle-shell appearance-none flex items-center justify-center border border-black bg-white px-2 py-1 text-black transition hover:bg-black hover:text-white dark:border-white dark:bg-black dark:text-white dark:hover:bg-white dark:hover:text-black"
   >
     <span class="sr-only">Elige el tema</span>
     <SunIcon id="light" class="theme-toggle-icon size-5 transition-all" />
@@ -26,12 +26,12 @@ const THEMES = ["Light", "Dark", "System"]
   <div
     transition:persist
     id="themes-menu"
-    class="absolute hidden scale-80 top-8 right-0 text-sm p-1 min-w-[8rem] rounded-md border border-gray-100 bg-white/90 dark:bg-gray-900/90 dark:border-gray-500/20 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur-md"
+    class="absolute right-0 top-[calc(100%+8px)] z-[90] hidden min-w-[9rem] border border-black bg-white p-1 text-sm text-black shadow-[0_3px_0_0_#000] dark:border-white dark:bg-black dark:text-white dark:shadow-[0_3px_0_0_#fff]"
   >
     <ul>
       {
         THEMES.map((theme) => (
-          <li class="themes-menu-option px-2 py-1.5 cursor-default hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm">
+          <li class="themes-menu-option cursor-pointer px-2 py-1.5 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
             {theme}
           </li>
         ))
@@ -42,8 +42,15 @@ const THEMES = ["Light", "Dark", "System"]
 
 <style>
   #themes-menu.open {
-    display: inline;
+    display: block;
+    transform-origin: top right;
     animation: scale-up-center 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  .toggle-shell {
+    min-width: 40px;
+    min-height: 34px;
+    line-height: 1;
   }
 
   @keyframes scale-up-center {
@@ -55,6 +62,14 @@ const THEMES = ["Light", "Dark", "System"]
     to {
       transform: scale(1);
       opacity: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #themes-menu {
+      right: 0;
+      left: auto;
+      min-width: 8rem;
     }
   }
 </style>

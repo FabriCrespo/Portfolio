@@ -1,0 +1,208 @@
+---
+const APPLE_MUSIC_EMBED_URL =
+  "https://embed.music.apple.com/bo/playlist/portfolio/pl.u-e98lMxlHa8ggX1k"
+---
+
+<div class="music-popup" data-music-popup>
+  <button
+    class="music-popup__toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="music-popup-panel"
+    data-music-toggle
+  >
+    <span class="music-popup__vinyl" aria-hidden="true"></span>
+    <span>Music</span>
+  </button>
+
+  <div class="music-popup__panel" id="music-popup-panel" hidden data-music-panel>
+    <header class="music-popup__header">
+      <p>Apple Music // Portfolio Mix</p>
+      <button type="button" class="music-popup__close" data-music-close aria-label="Close music player">
+        ×
+      </button>
+    </header>
+    <iframe
+      title="Apple Music Player"
+      allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+      sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+      loading="lazy"
+      src={APPLE_MUSIC_EMBED_URL}
+    ></iframe>
+  </div>
+</div>
+
+<style>
+  .music-popup {
+    position: fixed;
+    right: 1rem;
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    z-index: 80;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  .music-popup__toggle,
+  .music-popup__close {
+    border: 1px solid #000;
+    background: #fff;
+    color: #000;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .music-popup__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 10px;
+    cursor: pointer;
+  }
+
+  .music-popup__vinyl {
+    width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    border: 1px solid currentColor;
+    background:
+      radial-gradient(circle at center, transparent 0 2px, currentColor 2px 3px, transparent 3px 100%),
+      repeating-radial-gradient(circle at center, transparent 0 1px, rgba(0, 0, 0, 0.6) 1px 2px);
+    display: inline-block;
+  }
+
+  .music-popup__panel {
+    width: min(92vw, 440px);
+    border: 1px solid #000;
+    background: #fff;
+    box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+  }
+
+  .music-popup__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+    padding: 0.45rem 0.55rem;
+  }
+
+  .music-popup__header p {
+    margin: 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .music-popup__close {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .music-popup iframe {
+    width: 100%;
+    height: 360px;
+    border: none;
+    display: block;
+  }
+
+  .music-popup[data-playing="false"] .music-popup__vinyl {
+    animation: vinyl-spin 1.8s linear infinite;
+  }
+
+  @keyframes vinyl-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  :global(html.dark) .music-popup__toggle,
+  :global(html.dark) .music-popup__close,
+  :global(html.dark) .music-popup__panel {
+    border-color: #fff;
+    background: #000;
+    color: #fff;
+  }
+
+  :global(html.dark) .music-popup__header {
+    border-bottom-color: rgba(255, 255, 255, 0.35);
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .music-popup__toggle:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    :global(html.dark) .music-popup__toggle:hover {
+      box-shadow: 4px 4px 0 #fff;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .music-popup {
+      right: 0.75rem;
+      bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    .music-popup__toggle {
+      font-size: 9px;
+      padding: 0.45rem 0.6rem;
+    }
+
+    .music-popup iframe {
+      height: 300px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .music-popup[data-playing="true"] .music-popup__vinyl {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const initMusicPopup = () => {
+    const root = document.querySelector("[data-music-popup]");
+    if (!(root instanceof HTMLElement)) return;
+    if (root.dataset.ready === "true") return;
+
+    const panel = root.querySelector("[data-music-panel]");
+    const toggle = root.querySelector("[data-music-toggle]");
+    const close = root.querySelector("[data-music-close]");
+
+    if (!(panel instanceof HTMLElement) || !(toggle instanceof HTMLButtonElement) || !(close instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    const setOpen = (open: boolean) => {
+      panel.hidden = !open;
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      root.dataset.playing = open ? "true" : "false";
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      setOpen(!isOpen);
+    });
+
+    close.addEventListener("click", () => {
+      setOpen(false);
+    });
+
+    root.dataset.ready = "true";
+  };
+
+  document.addEventListener("astro:page-load", initMusicPopup);
+</script>

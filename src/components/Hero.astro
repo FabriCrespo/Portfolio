@@ -1,63 +1,114 @@
 ---
-const personalImageAlt = "Fabricio Crespo"
-import Badge from "@/components/Badge.astro"
-import LinkedInIcon from "@/components/icons/LinkedIn.astro"
-import MailIcon from "@/components/icons/Mail.astro"
-import SocialPill from "@/components/SocialPill.astro"
 import { t } from "../utils/i18n"
+const personalImageAlt = "Fabricio Rene Crespo Rossel"
 const imagePath = "/Portfolio/pfp.png"
 ---
 
-<div class="max-w-xl">
-  <div class="flex gap-4 mb-4">
+<section class="hero-editorial">
+  <div class="hero-grain" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+
+  <div class="hero-left-note" aria-hidden="true">
     <img
-      class="rounded-full shadow-lg size-16"
       src={imagePath}
       alt={personalImageAlt}
+      class="hero-left-photo"
+      width="172"
+      height="172"
+      loading="eager"
+      decoding="async"
     />
-    <a
-      href="https://www.linkedin.com/in/fabricio-crespo-552412256/"
-      target="_blank"
-      rel="noopener"
-      class="flex items-center transition md:justify-center md:hover:scale-105"
-    >
-      <Badge>Open to Work</Badge>
-    </a>
+    <p id="hero-note-profile">{t("hero.note.profile")}</p>
+    <p id="hero-note-role">{t("hero.note.role")}</p>
+    <p id="hero-note-tag">{t("hero.note.tag")}</p>
+    <p id="hero-note-description">{t("hero.note.description")}</p>
   </div>
-  <h1
-    id="hero-title"
-    class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
-  >
-    {t('hero.title')}
-  </h1>
-  <p
-    id="hero-description"
-    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
-    set:html={t('hero.description')}
+  <img
+    src={imagePath}
+    alt=""
+    aria-hidden="true"
+    class="hero-mobile-photo"
+    width="112"
+    height="112"
+    loading="eager"
+    decoding="async"
   />
-  <nav class="flex flex-wrap gap-4 mt-8">
-    <SocialPill href="mailto:fabrinephi04@gmail.com">
-      <MailIcon class="size-4" />
-      <span id="hero-contact">{t('hero.contact')}</span>
-    </SocialPill>
-    <SocialPill href="https://www.linkedin.com/in/fabricio-crespo-552412256/">
-      <LinkedInIcon class="size-4" />
-      LinkedIn
-    </SocialPill>
+  <div class="hero-left-note-mobile" aria-hidden="true">
+    <p id="hero-note-profile-mobile">{t("hero.note.profile")}</p>
+    <p id="hero-note-role-mobile">{t("hero.note.role")}</p>
+    <p id="hero-note-tag-mobile">{t("hero.note.tag")}</p>
+    <p id="hero-note-description-mobile">{t("hero.note.description")}</p>
+  </div>
+
+  <nav class="hero-links" aria-label="Main sections">
+    <a id="hero-exp" class="hero-link hero-link-heavy hero-link-exp" href="#experience">{t("nav.experience")}</a>
+    <a id="hero-projects" class="hero-link hero-link-serif hero-link-projects" href="#projects">{t("nav.projects")}</a>
+    <a id="hero-achievements" class="hero-link hero-link-frame hero-link-achievements" href="#achievements">{t("nav.achievements")}</a>
+    <a id="hero-about" class="hero-link hero-link-heavy hero-link-about" href="#about-me">{t("nav.about")}</a>
+    <a id="hero-contact" class="hero-link hero-link-serif hero-link-contact" href="#contact">{t("nav.contact")}</a>
   </nav>
-</div>
+</section>
 
 <script>
   import { t } from "../utils/i18n"
 
-  const updateHeroText = () => {
-    const title = document.getElementById('hero-title')
-    const description = document.getElementById('hero-description')
-    const contact = document.getElementById('hero-contact')
+  const setupHeroParallax = () => {
+    const heroElement = document.querySelector('.hero-editorial')
+    if (!(heroElement instanceof HTMLElement)) return
+    const hero = heroElement
+    if (hero.getAttribute('data-parallax-ready') === 'true') return
 
-    if (title) title.textContent = t('hero.title')
-    if (description) description.innerHTML = t('hero.description')
-    if (contact) contact.textContent = t('hero.contact')
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches
+    if (reducedMotion || coarsePointer) return
+
+    const onMove: EventListener = (event) => {
+      const mouseEvent = event as MouseEvent
+      const rect = hero.getBoundingClientRect()
+      const x = ((mouseEvent.clientX - rect.left) / rect.width - 0.5) * 2
+      const y = ((mouseEvent.clientY - rect.top) / rect.height - 0.5) * 2
+      hero.style.setProperty('--mx', `${x.toFixed(4)}`)
+      hero.style.setProperty('--my', `${y.toFixed(4)}`)
+    }
+
+    const onLeave: EventListener = () => {
+      hero.style.setProperty('--mx', '0')
+      hero.style.setProperty('--my', '0')
+    }
+
+    hero.addEventListener('mousemove', onMove)
+    hero.addEventListener('mouseleave', onLeave)
+    hero.setAttribute('data-parallax-ready', 'true')
+  }
+
+  const updateHeroText = () => {
+    const exp = document.getElementById('hero-exp')
+    const projects = document.getElementById('hero-projects')
+    const achievements = document.getElementById('hero-achievements')
+    const about = document.getElementById('hero-about')
+    const contact = document.getElementById('hero-contact')
+    const profile = document.getElementById("hero-note-profile")
+    const role = document.getElementById("hero-note-role")
+    const tag = document.getElementById("hero-note-tag")
+    const description = document.getElementById("hero-note-description")
+    const profileMobile = document.getElementById("hero-note-profile-mobile")
+    const roleMobile = document.getElementById("hero-note-role-mobile")
+    const tagMobile = document.getElementById("hero-note-tag-mobile")
+    const descriptionMobile = document.getElementById("hero-note-description-mobile")
+
+    if (exp) exp.textContent = t('nav.experience')
+    if (projects) projects.textContent = t('nav.projects')
+    if (achievements) achievements.textContent = t('nav.achievements')
+    if (about) about.textContent = t('nav.about')
+    if (contact) contact.textContent = t('nav.contact')
+    if (profile) profile.textContent = t("hero.note.profile")
+    if (role) role.textContent = t("hero.note.role")
+    if (tag) tag.textContent = t("hero.note.tag")
+    if (description) description.textContent = t("hero.note.description")
+    if (profileMobile) profileMobile.textContent = t("hero.note.profile")
+    if (roleMobile) roleMobile.textContent = t("hero.note.role")
+    if (tagMobile) tagMobile.textContent = t("hero.note.tag")
+    if (descriptionMobile) descriptionMobile.textContent = t("hero.note.description")
   }
 
   // Actualizar cuando cambia el idioma
@@ -66,9 +117,361 @@ const imagePath = "/Portfolio/pfp.png"
       updateHeroText()
     }
   })
+  window.addEventListener("language-change", updateHeroText)
 
   // Actualizar cuando se carga la página
   document.addEventListener('astro:page-load', () => {
     updateHeroText()
+    setupHeroParallax()
   })
 </script>
+
+<style>
+  .hero-editorial {
+    --mx: 0;
+    --my: 0;
+    position: relative;
+    min-height: calc(100vh - 130px);
+    overflow: clip;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    background: #fff;
+    isolation: isolate;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+    background-size: 36px 36px;
+    z-index: 0;
+    transform: translate(calc(var(--mx) * 8px), calc(var(--my) * 8px));
+    transition: transform 200ms ease-out;
+  }
+
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.045;
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    transform: translate(calc(var(--mx) * -4px), calc(var(--my) * -4px));
+    transition: transform 260ms ease-out;
+  }
+
+  .hero-left-note {
+    position: absolute;
+    left: 2rem;
+    bottom: 2rem;
+    max-width: 340px;
+    z-index: 2;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    line-height: 1.55;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .hero-left-note-mobile {
+    display: none;
+  }
+
+  .hero-left-note p {
+    margin: 0 0 0.35rem 0;
+  }
+
+  .hero-left-photo {
+    display: block;
+    width: 172px;
+    height: 172px;
+    object-fit: cover;
+    margin: 0 0 0.9rem 0;
+    border: 1px solid #000;
+    filter: grayscale(1) contrast(1.05);
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+
+  .hero-mobile-photo {
+    display: none;
+  }
+
+  .hero-links {
+    position: relative;
+    z-index: 3;
+    width: min(72%, 1080px);
+    margin-left: auto;
+    margin-right: 0;
+    padding: 3.2rem clamp(1rem, 2vw, 2rem) 3.2rem clamp(0.2rem, 1vw, 0.8rem);
+  }
+
+  .hero-link {
+    display: block;
+    width: fit-content;
+    text-transform: uppercase;
+    color: #000;
+    text-decoration: none;
+    line-height: 0.86;
+    transition:
+      transform 160ms ease,
+      background-color 160ms ease,
+      color 160ms ease,
+      letter-spacing 220ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .hero-link-heavy {
+    font-family: "Arial Black", "Inter", sans-serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 10vw, 7.6rem);
+    letter-spacing: -0.06em;
+  }
+
+  .hero-link-serif {
+    font-family: "Times New Roman", serif;
+    font-style: italic;
+    font-size: clamp(3.3rem, 11vw, 8.3rem);
+    letter-spacing: -0.04em;
+  }
+
+  .hero-link-frame {
+    font-family: "Times New Roman", serif;
+    font-size: clamp(2.6rem, 8vw, 5.3rem);
+    letter-spacing: -0.02em;
+    border: 1px solid #000;
+    padding: 0.08em 0.26em;
+  }
+
+  .hero-link-exp {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .hero-link-projects {
+    margin-top: -0.8rem;
+    margin-left: 1.6rem;
+  }
+
+  .hero-link-achievements {
+    margin-top: 0.55rem;
+    margin-left: 0.2rem;
+  }
+
+  .hero-link-about {
+    margin-top: 1rem;
+    margin-left: 0.4rem;
+  }
+
+  .hero-link-contact {
+    margin-top: -0.55rem;
+    margin-left: auto;
+    margin-right: 0.6rem;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero-left-note:hover .hero-left-photo {
+      transform: scale(1.03);
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.35);
+    }
+
+    :global(html.dark) .hero-left-note:hover .hero-left-photo {
+      box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.35);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .hero-link:hover {
+      transform: translateX(6px) skewX(-4deg);
+      letter-spacing: -0.02em;
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.85);
+      background: #000;
+      color: #fff;
+    }
+
+    :global(html.dark) .hero-link:hover {
+      box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.9);
+      background: #fff;
+      color: #000;
+    }
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .hero-link:active {
+      background: #000;
+      color: #fff;
+    }
+
+    :global(html.dark) .hero-link:active {
+      background: #fff;
+      color: #000;
+    }
+  }
+
+  :global(html.dark) .hero-editorial {
+    background: #000;
+    border-color: #fff;
+  }
+
+  :global(html.dark) .hero-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  }
+
+  :global(html.dark) .hero-left-note {
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  :global(html.dark) .hero-left-photo {
+    border-color: #fff;
+  }
+
+  :global(html.dark) .hero-link {
+    color: #fff;
+  }
+
+  :global(html.dark) .hero-link-frame {
+    border-color: #fff;
+  }
+
+  @media (max-width: 1200px) {
+    .hero-links {
+      width: min(82%, 980px);
+      padding: 2.7rem 1rem 2.6rem 0.8rem;
+    }
+
+    .hero-link-heavy {
+      font-size: clamp(2.6rem, 9vw, 6rem);
+    }
+
+    .hero-link-serif {
+      font-size: clamp(2.8rem, 9.8vw, 6.6rem);
+    }
+
+    .hero-link-frame {
+      font-size: clamp(2.1rem, 7vw, 4.3rem);
+    }
+  }
+
+  @media (max-width: 820px) {
+    .hero-editorial {
+      min-height: auto;
+      overflow-y: visible;
+      overflow-x: hidden;
+    }
+
+    .hero-left-note {
+      display: none;
+    }
+
+    .hero-left-note-mobile {
+      display: block;
+      position: relative;
+      z-index: 2;
+      margin: 8.6rem 1rem 0.8rem;
+      max-width: calc(100% - 2rem);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 9px;
+      line-height: 1.45;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: rgba(0, 0, 0, 0.68);
+    }
+
+    .hero-left-note-mobile p {
+      margin: 0 0 0.28rem 0;
+    }
+
+    .hero-mobile-photo {
+      display: block;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      width: 112px;
+      height: 112px;
+      object-fit: cover;
+      z-index: 2;
+      border: 1px solid #000;
+      filter: grayscale(1) contrast(1.05);
+    }
+
+    .hero-links {
+      width: 100%;
+      padding: 0 1rem 1.8rem;
+    }
+
+    .hero-link-projects,
+    .hero-link-achievements,
+    .hero-link-about,
+    .hero-link-contact,
+    .hero-link-exp {
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 0.3rem;
+    }
+
+    .hero-link-heavy {
+      font-size: clamp(2.1rem, 12.5vw, 3.4rem);
+      line-height: 0.9;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-link-serif {
+      font-size: clamp(2.25rem, 13.2vw, 3.7rem);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-link-frame {
+      font-size: clamp(1.45rem, 9.2vw, 2.6rem);
+      padding: 0.07em 0.2em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-grid {
+      background-size: 28px 28px;
+    }
+
+    .hero-mobile-photo {
+      width: 96px;
+      height: 96px;
+    }
+
+    .hero-left-note-mobile {
+      margin-top: 7.3rem;
+      font-size: 8.5px;
+      line-height: 1.38;
+    }
+
+    .hero-links {
+      padding-left: 0.85rem;
+      padding-right: 0.85rem;
+      padding-bottom: 1.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-grid,
+    .hero-grain {
+      transform: none;
+      transition: none;
+    }
+
+    .hero-link,
+    .hero-left-photo {
+      transition: none;
+    }
+  }
+
+  :global(html.dark) .hero-mobile-photo {
+    border-color: #fff;
+  }
+
+  :global(html.dark) .hero-left-note-mobile {
+    color: rgba(255, 255, 255, 0.72);
+  }
+</style>

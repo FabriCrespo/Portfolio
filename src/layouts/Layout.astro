@@ -3,7 +3,8 @@ import "@fontsource-variable/onest"
 
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
-import { ViewTransitions } from "astro:transitions"
+import AppleMusicPopup from "../components/AppleMusicPopup.astro"
+import { ClientRouter } from "astro:transitions"
 
 interface Props {
   title: string
@@ -18,23 +19,24 @@ const { description, title } = Astro.props
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
 
   <body class="relative text-black dark:text-white">
-    <div
-      class="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-gray-50 dark:bg-gray-950
-      bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
-      dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
-    >
-    </div>
+    <div class="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-white dark:bg-black"></div>
     <Header />
-    <slot />
+    <div class="main-offset">
+      <slot />
+    </div>
     <Footer />
+    <AppleMusicPopup />
     <style is:global>
       :root {
         color-scheme: light dark;
@@ -43,6 +45,7 @@ const { description, title } = Astro.props
       html {
         font-family: "Onest Variable", system-ui, sans-serif;
         scroll-behavior: smooth;
+        overflow-x: clip;
       }
 
       body {
@@ -50,12 +53,23 @@ const { description, title } = Astro.props
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        min-height: 100dvh;
         overscroll-behavior: none;
+        overflow-x: clip;
+      }
+
+      .main-offset {
+        padding-top: calc(93px + env(safe-area-inset-top, 0px));
+        padding-bottom: env(safe-area-inset-bottom, 0px);
       }
 
       @media (prefers-reduced-motion: reduce) {
         html {
           scroll-behavior: auto;
+        }
+
+        #header-nav {
+          animation: none !important;
         }
       }
 

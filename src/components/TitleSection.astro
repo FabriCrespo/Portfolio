@@ -1,5 +1,13 @@
 <h2
-	class={`flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 dark:text-white ${Astro.props.className}`}
+	class={`title-section flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 transition-transform duration-300 ease-out dark:text-white ${Astro.props.className}`}
 >
     <slot />
 </h2>
+
+<style>
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .title-section:hover {
+      transform: translateX(4px);
+    }
+  }
+</style>

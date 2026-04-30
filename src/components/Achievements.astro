@@ -1,175 +1,153 @@
 ---
 import { t } from "../utils/i18n";
 
-const achievements = [
-  {
-    title: t('achievements.items.recommendation.title'),
-    description: t('achievements.items.recommendation.description'),
-    pdf: "/Portfolio/Carta Ing Rene.pdf"
-  },
-  {
-    title: t('achievements.items.goit.title'),
-    description: t('achievements.items.goit.description'),
-    pdf: "/Portfolio/GoITRecommendation.pdf"
-  },
-  {
-    title: t('achievements.items.sedes.title'),
-    description: t('achievements.items.sedes.description'),
-    pdf: "/Portfolio/certificates/sedes-certificate.pdf"
-  },
-  {
-    title: t('achievements.items.tracto.title'),
-    description: t('achievements.items.tracto.description'),
-    pdf: "/Portfolio/certificates/tractocamiones-certificate.pdf"
-  }
+type AchievementRow = {
+  key: string;
+  title: string;
+  description: string;
+  pdf: string;
+  code: string;
+};
+
+const achievements: AchievementRow[] = [
+  { key: "recommendation", title: t("achievements.items.recommendation.title"), description: t("achievements.items.recommendation.description"), pdf: "/Portfolio/Carta Ing Rene.pdf", code: "LOG_01" },
+  { key: "goit", title: t("achievements.items.goit.title"), description: t("achievements.items.goit.description"), pdf: "/Portfolio/GoITRecommendation.pdf", code: "LOG_02" },
+  { key: "sedes", title: t("achievements.items.sedes.title"), description: t("achievements.items.sedes.description"), pdf: "/Portfolio/certificates/sedes-certificate.pdf", code: "LOG_03" },
+  { key: "tracto", title: t("achievements.items.tracto.title"), description: t("achievements.items.tracto.description"), pdf: "/Portfolio/certificates/tractocamiones-certificate.pdf", code: "LOG_04" },
 ];
 ---
 
-<style>
-  .pdf-viewer {
-    width: 100%;
-    height: 500px;
-    border: none;
-    border-radius: 0.5rem;
-  }
-  
-  .paper-3d {
-    perspective: 1000px;
-    transform-style: preserve-3d;
-    transition: all 0.6s ease;
-    position: relative;
-  }
-  .paper-3d:hover {
-    transform: rotateX(-5deg) rotateY(5deg);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  }
-  .paper-content {
-    backface-visibility: hidden;
-    transform-origin: center center;
-    transition: all 0.6s ease;
-  }
-  .paper-3d:hover .paper-content {
-    transform: scale(1.02);
-  }
-</style>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-  {achievements.map((achievement) => (
-    <div class="paper-3d bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">
-        {achievement.title}
-      </h3>
-      <p class="text-gray-600 dark:text-gray-300 mb-4">
-        {achievement.description}
-      </p>
-      
-      <div class="mb-4">
+<section class="files-scene">
+  {achievements.map((achievement, index) => (
+    <article class="floating-file" data-index={index} data-key={achievement.key}>
+      <a href={achievement.pdf} target="_blank" rel="noopener noreferrer" class="floating-file__sheet">
         <iframe
-          class="pdf-viewer"
-          src={`${achievement.pdf}#toolbar=0`}
+          class="floating-file__preview"
+          src={`${achievement.pdf}#toolbar=0&navpanes=0&scrollbar=0`}
           title={achievement.title}
           loading="lazy"
         />
-      </div>
-
-      <div class="paper-content flex items-center justify-between">
-        <a 
-          href={achievement.pdf} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-        >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            class="h-6 w-6 mr-2" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path 
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-              stroke-width="2" 
-              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" 
-            />
-          </svg>
-          View Full PDF
-        </a>
-        
-        <button
-          class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          onclick={`window.open('${achievement.pdf}', '_blank')`}
-        >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            class="h-5 w-5 mr-2" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path 
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-              stroke-width="2" 
-              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" 
-            />
-          </svg>
-          Download
-        </button>
-      </div>
-    </div>
+        <footer class="floating-file__meta">
+          <span>{achievement.code}</span>
+          <span class="floating-file__title">{achievement.title}</span>
+        </footer>
+      </a>
+    </article>
   ))}
-</div>
+</section>
+
+<style>
+  .files-scene {
+    margin-inline: calc(50% - 50vw + 1rem);
+    width: calc(100vw - 2rem);
+    min-height: 76vh;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+    align-items: center;
+    perspective: 1800px;
+    padding: 1rem 0.4rem 2rem;
+  }
+  .floating-file { display: flex; justify-content: center; }
+
+  .floating-file__sheet {
+    width: min(100%, 320px);
+    aspect-ratio: 8.5 / 11;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #111;
+    background: #fff;
+    color: inherit;
+    text-decoration: none;
+    box-shadow: 14px 16px 0 rgba(0, 0, 0, 0.24);
+    overflow: hidden;
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+  .floating-file__sheet { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+
+  .floating-file__preview {
+    width: 100%;
+    height: 100%;
+    border: none;
+    filter: grayscale(1) contrast(1.08);
+    pointer-events: none;
+  }
+  .floating-file__meta {
+    border-top: 1px solid rgba(0, 0, 0, 0.35);
+    padding: 0.45rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.45rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.94);
+  }
+  .floating-file__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .floating-file__sheet:hover {
+      transform: translateY(-8px);
+      box-shadow: 18px 20px 0 rgba(0, 0, 0, 0.34);
+    }
+
+    :global(html.dark) .floating-file__sheet:hover {
+      box-shadow: 18px 20px 0 rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  :global(html.dark) .floating-file__sheet {
+    background: #0d0d0d;
+    border-color: rgba(255, 255, 255, 0.74);
+    box-shadow: 14px 16px 0 rgba(255, 255, 255, 0.2);
+  }
+  :global(html.dark) .floating-file__preview { filter: grayscale(1) contrast(1.1) brightness(0.9); }
+  :global(html.dark) .floating-file__meta {
+    border-color: rgba(255, 255, 255, 0.32);
+    background: rgba(15, 15, 15, 0.92);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .floating-file__sheet {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .files-scene { grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: auto; }
+  }
+  @media (max-width: 760px) {
+    .files-scene {
+      margin-inline: 0;
+      width: 100%;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      padding: 0.7rem 0 0;
+    }
+    .floating-file__sheet { width: min(100%, 360px); }
+  }
+</style>
 
 <script>
   import { t } from "../utils/i18n";
 
+  const KEYS = ["recommendation", "goit", "sedes", "tracto"];
+
   const updateAchievementsText = () => {
-    const achievementItems = document.querySelectorAll('.paper-3d');
-    const items = ['recommendation', 'goit', 'sedes', 'tracto'];
-
+    const achievementItems = document.querySelectorAll(".floating-file");
     achievementItems.forEach((item, index) => {
-      const title = item.querySelector('h3');
-      const description = item.querySelector('p');
-
-      if (title) title.textContent = t(`achievements.items.${items[index]}.title`);
-      if (description) description.textContent = t(`achievements.items.${items[index]}.description`);
+      const title = item.querySelector(".floating-file__title");
+      if (title) title.textContent = t(`achievements.items.${KEYS[index]}.title`);
     });
   };
 
-  // Actualizar cuando cambia el idioma
-  window.addEventListener('storage', (e) => {
-    if (e.key === 'language') {
-      updateAchievementsText();
-    }
+  window.addEventListener("storage", (e) => {
+    if (e.key === "language") updateAchievementsText();
   });
+  window.addEventListener("language-change", updateAchievementsText);
 
-  // Actualizar cuando se carga la página
-  document.addEventListener('astro:page-load', () => {
-    updateAchievementsText();
-  });
-</script>
-
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    const papers = document.querySelectorAll('.paper-3d');
-    papers.forEach(paper => {
-      paper.addEventListener('mousemove', (e) => {
-        const rect = paper.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 15;
-        const rotateY = -(x - centerX) / 15;
-        
-        paper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-      });
-      
-      paper.addEventListener('mouseleave', () => {
-        paper.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-      });
-    });
-  });
+  document.addEventListener("astro:page-load", updateAchievementsText);
 </script>

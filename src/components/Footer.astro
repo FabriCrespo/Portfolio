@@ -1,28 +1,209 @@
 ---
-const currentYear = new Date().getFullYear()
+import { t } from "../utils/i18n"
+const githubUrl = "https://github.com/cbbeandresvargas/grbg-astro/tree/main/src"
+const cvUrl = "/Fabricio%20Crespo%20CV.pdf"
+const phoneDisplay = "+591 61615979"
+const phoneHref = "tel:+59161615979"
+const mail = "fabrinephi04@gmail.com"
 ---
 
-<footer
-  class="opacity-80 m-4 min-[375px]:pl-4 md:pl-0 mt-16 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mb-10 flex justify-center"
->
-  <div
-    class="rounded-lg w-full max-w-screen-xl mx-auto md:flex md:items-center md:justify-between py-4"
-  >
-    <span class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90"
-      >© {currentYear}
-      <a href="https://midu.dev/" class="hover:underline">Fabricio Crespo</a>
-    </span>
-    <ul
-      class="flex flex-wrap items-center mt-3 text-sm font-medium dark:text-white/90 sm:mt-0"
-    >
-      <li>
-        <a href="/#sobre-mi" class="hover:underline me-4 md:me-6">About me </a>
-      </li>
-      <li>
-        <a id="contacto" href="fabrinephi04@gmail.com" class="hover:underline"
-          >Contact</a
-        >
-      </li>
-    </ul>
+<footer class="footer-editorial" id="contact">
+  <div class="footer-grid" aria-hidden="true"></div>
+  <div class="footer-grain" aria-hidden="true"></div>
+
+  <div class="footer-shell">
+    <div class="footer-line">
+      <a class="footer-link" href={githubUrl} target="_blank" rel="noopener noreferrer"><span class="glitch-icon" data-icon="⌘">⌘</span><span id="footer-link-github">{t("footer.links.github")}</span></a>
+      <span class="footer-sep">//</span>
+      <a id="footer-link-cv" class="footer-link" href={cvUrl} target="_blank" rel="noopener noreferrer">{t("footer.links.cv")}</a>
+      <span class="footer-sep">//</span>
+      <a id="footer-link-phone" class="footer-link" href={phoneHref}><span class="glitch-icon" data-icon="✶">✶</span> {phoneDisplay}</a>
+      <span class="footer-sep">//</span>
+      <a id="footer-link-mail" class="footer-link" href={`mailto:${mail}`}><span class="glitch-icon" data-icon="✶">✶</span> {mail}</a>
+      <span class="footer-sep">//</span>
+      <span id="footer-msg" class="footer-msg">{t("footer.matrixMessage")}</span>
+    </div>
   </div>
 </footer>
+
+<style>
+  .footer-editorial {
+    position: relative;
+    margin-top: 4rem;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    background: #fff;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .footer-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+  .footer-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .footer-shell {
+    position: relative;
+    z-index: 2;
+    padding: 0.95rem 0.8rem;
+  }
+  .footer-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    font-family: "JetBrains Mono", monospace;
+    font-size: clamp(9px, 1.2vw, 11px);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .footer-link {
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid #000;
+    padding: 0.35rem 0.55rem;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease,
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .footer-link:hover {
+      background: #000;
+      color: #fff;
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 0 #000;
+    }
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .footer-link:active {
+      background: #000;
+      color: #fff;
+    }
+  }
+  .footer-sep {
+    opacity: 0.55;
+    flex: 0 0 auto;
+  }
+  .footer-msg {
+    font-family: "Times New Roman", serif;
+    font-style: italic;
+    letter-spacing: 0.03em;
+    flex: 0 0 auto;
+  }
+  .glitch-icon {
+    position: relative;
+    display: inline-block;
+    margin-right: 0.35rem;
+    font-size: 0.95em;
+    line-height: 1;
+    animation: glitch-jump 1300ms steps(2, end) infinite;
+  }
+  .glitch-icon::before,
+  .glitch-icon::after {
+    content: attr(data-icon);
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .glitch-icon::before { transform: translate(-1px, 0); }
+  .glitch-icon::after { transform: translate(1px, 0); }
+  @keyframes glitch-jump {
+    0%, 84%, 100% { transform: translate(0, 0); }
+    86% { transform: translate(-1px, 0); }
+    88% { transform: translate(1px, 0); }
+    90% { transform: translate(0, -1px); }
+  }
+  :global(html.dark) .footer-editorial {
+    background: #000;
+    border-color: #fff;
+  }
+  :global(html.dark) .footer-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  }
+  :global(html.dark) .footer-link {
+    border-color: #fff;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    :global(html.dark) .footer-link:hover {
+      background: #fff;
+      color: #000;
+      box-shadow: 4px 4px 0 0 #fff;
+    }
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    :global(html.dark) .footer-link:active {
+      background: #fff;
+      color: #000;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer-line {
+      flex-wrap: wrap;
+      white-space: normal;
+      row-gap: 0.45rem;
+      overflow-x: visible;
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .footer-shell {
+      padding: 0.85rem 0.7rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-link {
+      transition: background-color 120ms ease, color 120ms ease;
+    }
+
+    .glitch-icon {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { t } from "../utils/i18n"
+
+  const updateFooterText = () => {
+    const github = document.getElementById("footer-link-github")
+    const cv = document.getElementById("footer-link-cv")
+    const msg = document.getElementById("footer-msg")
+    if (github) github.textContent = t("footer.links.github")
+    if (cv) cv.textContent = t("footer.links.cv")
+    if (msg) msg.textContent = t("footer.matrixMessage")
+  }
+
+  window.addEventListener("storage", (e) => {
+    if (e.key === "language") updateFooterText()
+  })
+  window.addEventListener("language-change", updateFooterText)
+  document.addEventListener("astro:page-load", updateFooterText)
+</script>

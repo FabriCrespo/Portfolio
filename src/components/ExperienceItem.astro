@@ -1,5 +1,6 @@
 ---
 import LinkInline from "./LinkInline.astro"
+import { t } from "../utils/i18n"
 
 interface Props {
   title: string
@@ -7,48 +8,138 @@ interface Props {
   description: string
   link?: string
   date: string
+  category?: string
+  remote?: boolean
+  defaultOpen?: boolean
 }
 
-const { title, company, description, link, date } = Astro.props
+const { title, company, description, link, date, category = "development", remote = false, defaultOpen = false } = Astro.props
 ---
 
 <div
-  class="relative mx-12 pb-12 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-black/20 dark:before:border-white/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4 experience-item"
+  data-category={category}
+  data-remote={remote ? "true" : "false"}
+  class="experience-item border-t border-black/55 text-black dark:border-white/45 dark:text-white"
 >
-  <div class="relative pb-12 md:col-span-2">
-    <div class="sticky top-0">
-      <span class="text-yellow-400 -left-[42px] absolute rounded-full text-5xl"
-        >&bull;</span
-      >
+  <details class="experience-dropdown group" open={defaultOpen}>
+    <summary class="experience-summary flex cursor-pointer list-none items-center gap-4 py-5 md:py-6">
+      <time class="block min-w-[98px] font-mono text-[11px] uppercase tracking-[0.16em] text-black/70 dark:text-white/70">{date}</time>
+      <h3 class="experience-title flex-1 font-['Times_New_Roman',serif] text-[clamp(1.5rem,2.9vw,2.2rem)] uppercase leading-[1] tracking-[-0.02em]">
+        {title}
+        <span class="experience-company ml-2 italic text-black/75 dark:text-white/75">@ {company}</span>
+      </h3>
+      <span class="experience-arrow text-2xl leading-none text-black/75 transition-transform duration-200 group-open:rotate-45 dark:text-white/75">↗</span>
+    </summary>
 
-      <h3 class="text-xl font-bold text-yellow-400 experience-title">{title}</h3>
-      <h4 class="font-semibold text-xl text-gray-600 dark:text-white experience-company">{company}</h4>
-      <time class="p-0 m-0 text-sm text-gray-600/80 dark:text-white/80">{date}</time>
+    <div class="experience-panel pb-6 pl-0 md:pl-[112px]">
+      <h4 class="font-['Arial_Black','Inter',sans-serif] text-[clamp(1.75rem,4.2vw,3rem)] uppercase leading-[0.9] tracking-[-0.04em]">{title}</h4>
+      <p class="mt-2 font-['Times_New_Roman',serif] text-[clamp(1rem,2.1vw,1.45rem)] italic text-black/80 dark:text-white/80">@ {company}</p>
+      <p class="experience-description mt-4 max-w-3xl text-[clamp(0.98rem,1.3vw,1.2rem)] leading-[1.5] text-black/68 dark:text-white/70">
+        {description}
+      </p>
+      {
+        link && (
+          <div class="mt-5">
+            <LinkInline href={link} class="experience-more-link w-fit border-b border-black/50 pb-0.5 text-xs tracking-[0.08em] uppercase transition-[letter-spacing,opacity] duration-200 hover:tracking-[0.12em] dark:border-white/60">
+              <span class="experience-learn-more">{t("experience.learnMore")}</span>{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 icon icon-tabler icon-tabler-chevron-right"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 6l6 6l-6 6" />
+              </svg>
+            </LinkInline>
+          </div>
+        )
+      }
     </div>
-  </div>
-  <div class="relative flex flex-col gap-2 pb-4 text-gray-600 dark:text-gray-300 md:col-span-3 experience-description">
-    {description}
-    {
-      link && (
-        <LinkInline href={link}>
-          Saber más{" "}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-5 icon icon-tabler icon-tabler-chevron-right"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M9 6l6 6l-6 6" />
-          </svg>
-        </LinkInline>
-      )
-    }
-  </div>
+  </details>
 </div>
+
+<style>
+  .experience-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .experience-summary {
+    border-radius: 0;
+    transition: background-color 200ms ease, padding-left 200ms ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .experience-summary:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+    :global(html.dark) .experience-summary:hover {
+      background-color: rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  .experience-dropdown[open] .experience-summary {
+    padding-bottom: 1.15rem;
+  }
+
+  @media (max-width: 767px) {
+    .experience-summary {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "date arrow"
+        "title arrow";
+      align-items: start;
+      gap: 0.2rem 0.7rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .experience-summary time {
+      grid-area: date;
+      min-width: 0;
+      font-size: 10px;
+      line-height: 1.3;
+      letter-spacing: 0.13em;
+    }
+
+    .experience-summary .experience-title {
+      grid-area: title;
+      font-size: clamp(1.15rem, 6.3vw, 1.6rem);
+      line-height: 1.04;
+      letter-spacing: -0.015em;
+    }
+
+    .experience-summary .experience-company {
+      display: block;
+      margin-left: 0;
+      margin-top: 0.25rem;
+      font-size: clamp(1rem, 5vw, 1.3rem);
+    }
+
+    .experience-summary .experience-arrow {
+      grid-area: arrow;
+      font-size: 1.35rem;
+      margin-top: 0.1rem;
+    }
+
+    .experience-panel {
+      padding-bottom: 1.2rem;
+    }
+
+    .experience-panel h4 {
+      font-size: clamp(1.3rem, 8vw, 2rem);
+      line-height: 0.94;
+    }
+
+    .experience-panel p {
+      line-height: 1.42;
+    }
+  }
+</style>

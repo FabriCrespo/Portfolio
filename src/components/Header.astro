@@ -2,217 +2,185 @@
 import ThemeToggle from "./ThemeToggle.astro"
 import LanguageToggle from "./LanguageToggle.astro"
 import { t } from "../utils/i18n"
-
-const navItems = [
-  {
-    title: t('nav.experience'),
-    label: "experience",
-    url: "#experience",
-  },
-  {
-    title: t('nav.projects'),
-    label: "projects",
-    url: "#projects",
-  },
-  {
-    title: t('nav.achievements'),
-    label: "achievements",
-    url: "#achievements",
-  },
-  {
-    title: t('nav.about'),
-    label: "about-me",
-    url: "#about-me",
-  },
-  {
-    title: t('nav.contact'),
-    label: "contact",
-    url: "#contact",
-  },
-]
 ---
 
-<header
-  class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
->
-  <nav
-    class="flex px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center relative"
-  >
-    <!-- Menú móvil -->
-    <button
-      id="mobile-menu-button"
-      class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-      aria-label="Toggle menu"
-    >
-      <svg
-        class="w-6 h-6"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"
-        />
-      </svg>
-    </button>
+<header class="top-shell">
+  <div class="top-shell__brand">
+    <p id="brand-title" class="top-shell__title">{t("header.brand.es")}</p>
+    <p id="brand-subtitle" class="top-shell__subtitle">{t("header.subtitle")}</p>
+  </div>
 
-    <!-- Enlaces de navegación -->
-    <div
-      id="nav-links"
-      class="hidden md:flex items-center space-x-1"
-    >
-      {
-        navItems.map((link) => (
-          <a
-            class="relative block px-3 py-2 transition hover:text-blue-500 dark:hover:text-blue-500"
-            aria-label={link.label}
-            href={link.url}
-          >
-            {link.title}
-          </a>
-        ))
-      }
-    </div>
-
-    <!-- Controles (idioma y tema) -->
-    <div class="flex items-center space-x-2 ml-2">
+  <div class="top-shell__controls" aria-label="Site controls">
+    <div class="top-shell__control-item">
       <LanguageToggle />
+    </div>
+    <div class="top-shell__control-item">
       <ThemeToggle />
     </div>
-
-    <!-- Menú móvil desplegable -->
-    <div
-      id="mobile-menu"
-      class="hidden absolute top-full left-0 right-0 mt-2 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg"
-    >
-      {
-        navItems.map((link) => (
-          <a
-            class="block px-4 py-2 text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-            aria-label={link.label}
-            href={link.url}
-          >
-            {link.title}
-          </a>
-        ))
-      }
-    </div>
-  </nav>
+  </div>
 </header>
 
 <script>
+  import { t } from "../utils/i18n"
+  const updateBrandTitle = () => {
+    const brandTitle = document.getElementById("brand-title")
+    const brandSubtitle = document.getElementById("brand-subtitle")
+    const currentLanguage = localStorage.getItem("language") ?? "Español"
+    if (!brandTitle) return
+    brandTitle.textContent =
+      currentLanguage === "English" ? t("header.brand.en") : t("header.brand.es")
+    if (brandSubtitle) brandSubtitle.textContent = t("header.subtitle")
+  }
+
+  window.addEventListener("storage", (e) => {
+    if (e.key === "language") {
+      updateBrandTitle()
+    }
+  })
+  window.addEventListener("language-change", updateBrandTitle)
+
   document.addEventListener("astro:page-load", () => {
-    const sections = document.querySelectorAll("section")
-    const navItems = document.querySelectorAll("header nav a")
-    const mobileMenuButton = document.getElementById("mobile-menu-button")
-    const mobileMenu = document.getElementById("mobile-menu")
-
-    // Toggle menú móvil
-    mobileMenuButton?.addEventListener("click", () => {
-      mobileMenu?.classList.toggle("hidden")
-    })
-
-    // Cerrar menú al hacer clic en un enlace
-    const mobileLinks = mobileMenu?.querySelectorAll("a")
-    mobileLinks?.forEach((link) => {
-      link.addEventListener("click", () => {
-        mobileMenu?.classList.add("hidden")
-      })
-    })
-
-    // Smooth scroll para los enlaces
-    navItems.forEach(link => {
-      link.addEventListener('click', (e: Event) => {
-        e.preventDefault();
-        const targetId = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
-        if (!targetId) return;
-
-        const targetElement = document.querySelector(targetId);
-        if (!targetElement) return;
-
-        const headerHeight = document.querySelector('header')?.offsetHeight || 0;
-        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
-
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        });
-      });
-    });
-
-    const callback = (entries: any[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navItems.forEach((item) => {
-            const itemLabel = item.getAttribute("aria-label");
-            const sectionId = entry.target.id;
-            if (itemLabel === sectionId) {
-              item.classList.add("text-blue-500")
-            } else {
-              item.classList.remove("text-blue-500")
-            }
-          })
-        }
-      })
-    }
-
-    const observer = new IntersectionObserver(callback, {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.3,
-    })
-
-    sections.forEach((section) => {
-      observer.observe(section)
-    })
-
-    // Cleanup function
-    document.onvisibilitychange = () => {
-      if (document.visibilityState === "hidden") {
-        observer.disconnect()
-      } else {
-        sections.forEach((section) => {
-          observer.observe(section)
-        })
-      }
-    }
+    updateBrandTitle()
   })
 </script>
 
 <style>
-  nav {
-    animation: nav-shadown 1s linear both;
-    animation-timeline: scroll();
-    animation-range: 0 100px;
+  .top-shell {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    min-height: 93px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 48px;
+    background: #fff;
+    border-bottom: 1px solid #000;
+    color: #000;
   }
 
-  nav {
-    @apply dark:bg-gray-800/90 bg-white/50;
+  :global(html.dark) .top-shell {
+    background: #000;
+    border-bottom: 1px solid #fff;
+    color: #fff;
   }
 
-  @keyframes nav-shadown {
-    0% {
-      @apply dark:bg-gray-800/0 bg-white/0;
+  .top-shell__brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    min-width: 0;
+  }
+
+  .top-shell__title {
+    margin: 0;
+    font-family: "Arial Black", "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: clamp(1.35rem, 2.2vw, 1.875rem);
+    line-height: 1;
+    letter-spacing: -0.1em;
+    color: #000;
+    white-space: nowrap;
+    transition: letter-spacing 280ms ease, opacity 200ms ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .top-shell__brand:hover .top-shell__title {
+      letter-spacing: -0.12em;
     }
-    to {
-      @apply shadow-lg ring-1 backdrop-blur ring-white/10;
+  }
+
+  :global(html.dark) .top-shell__title {
+    color: #fff;
+  }
+
+  .top-shell__subtitle {
+    margin: 0;
+    opacity: 0.6;
+    font-family: "JetBrains Mono", "Courier New", monospace;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 9px;
+    line-height: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1b1c1c;
+    white-space: nowrap;
+  }
+
+  :global(html.dark) .top-shell__subtitle {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .top-shell__controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .top-shell__control-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    color: #1b1c1c;
+    font-family: "JetBrains Mono", "Courier New", monospace;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    text-transform: uppercase;
+  }
+
+  :global(html.dark) .top-shell__control-item {
+    color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    .top-shell {
+      min-height: 93px;
+      padding: 12px 16px;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+
+    .top-shell__brand {
+      width: auto;
+      min-width: 0;
+    }
+
+    .top-shell__title {
+      font-size: 20px;
+    }
+
+    .top-shell__subtitle {
+      display: none;
+    }
+
+    .top-shell__controls {
+      width: auto;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-left: auto;
     }
   }
 
-  /* Animación para el menú móvil */
-  #mobile-menu {
-    transform-origin: top;
-    transition: transform 0.2s ease-out;
-  }
+  @media (max-width: 460px) {
+    .top-shell__title {
+      font-size: 17px;
+      letter-spacing: -0.05em;
+    }
 
-  #mobile-menu.hidden {
-    transform: scaleY(0);
-  }
-
-  #mobile-menu:not(.hidden) {
-    transform: scaleY(1);
+    .top-shell {
+      padding-inline: 12px;
+    }
   }
 </style>

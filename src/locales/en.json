@@ -3,12 +3,27 @@
     "experience": "Experience",
     "projects": "Projects",
     "achievements": "Achievements",
-    "about": "About Me"
+    "about": "About Me",
+    "contact": "Contact"
   },
   "hero": {
     "title": "Hey, I'm Fabricio",
     "description": "Egressed in <strong>Computer Systems Engineering</strong> from Universidad del Valle. <strong>Full-Stack Developer</strong>: frontend with <strong>Next.js, React, Astro, Tailwind & Figma</strong>, backend with <strong>Laravel & Firebase</strong>. I design in Figma and code to production—including several freelance projects from Figma to deploy. I build end-to-end at Reborn Developments and Rekaliber. Former <strong>Team Leader</strong> at GoIT. DevOps with Dokploy, VPS and Cloudflare. From Cochabamba, Bolivia 🇧🇴.",
-    "contact": "Contact me"
+    "contact": "Contact me",
+    "note": {
+      "profile": "FABRICIO_CRESPO_PROFILE",
+      "role": "WEB DEVELOPER // SOFTWARE ENGINEER",
+      "tag": "// ABOUT_ME",
+      "description": "I BUILD WEB PRODUCTS END-TO-END: STRONG FRONTEND SYSTEMS, SOLID BACKEND LOGIC, AND CLEAN DELIVERY TO PRODUCTION. FOCUSED ON PERFORMANCE, STRUCTURE, AND REAL BUSINESS IMPACT."
+    }
+  },
+  "header": {
+    "brand": {
+      "en": "FABRICIO_PORTFOLIO",
+      "es": "FABRICIO_PORTAFOLIO"
+    },
+    "subtitle": "ARCHITECTURAL LOGIC // DIGITAL RAWNESS",
+    "chooseLanguage": "Choose language"
   },
   "experience": {
     "title": "Experience",
@@ -53,6 +68,20 @@
         "company": "Freelance",
         "description": "Developed web and mobile applications using ReactJS, React Native, and Laravel. Specialized in database design, UI/UX improvements, and full-stack development."
       }
+    },
+    "ui": {
+      "filterBy": "Filter_By",
+      "region": "Region",
+      "regionValue": "LATAM / REMOTE",
+      "stackIntegrityTitle": "STACK_INTEGRITY",
+      "stackIntegrityDescription": "All projects undergo rigorous technical vetting and maintain a 98% uptime baseline during development cycles.",
+      "downloadCv": "DOWNLOAD_FULL_VITA.PDF",
+      "filters": {
+        "all": "All Entries",
+        "leadership": "Leadership",
+        "development": "Development",
+        "remote": "Remote"
+      }
     }
   },
   "projects": {
@@ -63,10 +92,6 @@
       "grb": {
         "title": "GRB Group - Corporate Website",
         "description": "Modern corporate website built with Astro for GRB Group, a global real estate company. Features elegant and professional design with intuitive navigation, dynamic sections, and SEO optimization to showcase real estate investment and technology services."
-      },
-      "tracto": {
-        "title": "Tracto Camiones Andina",
-        "description": "An ecommerce application designed to facilitate direct communication between clients and truck dealers. Built with WordPress, it provides a robust platform for heavy vehicle inventory management and sales."
       },
       "rebornrental": {
         "title": "Reborn Rental - Construction Equipment Rental",
@@ -88,11 +113,44 @@
         "title": "Hydraulic Sistem - E-commerce Repuestos Hidráulicos",
         "description": "E-commerce for hydraulic parts and repair services for agricultural and heavy machinery. Built with Astro and Firebase, hosted on Vercel. Features services catalog, product cart, WhatsApp-based sales, and quote requests for cylinders, pumps, motors and valves."
       }
+    },
+    "meta": {
+      "labels": {
+        "status": "STATUS",
+        "stack": "TECH_STACK",
+        "openFile": "OPEN_FILE_",
+        "previewDescription": "PREVIEW + DESCRIPTION"
+      },
+      "status": {
+        "active": "ACTIVE",
+        "closed": "CLOSED",
+        "ongoing": "ONGOING"
+      },
+      "stack": {
+        "astroTailwind": "ASTRO / TAILWIND",
+        "laravelBlade": "LARAVEL / BLADE",
+        "nextLaravel": "NEXT.JS / LARAVEL",
+        "htmlCss": "HTML / CSS",
+        "astroFirebase": "ASTRO / FIREBASE"
+      },
+      "sector": {
+        "infrastructureLogistics": "INFRASTRUCTURE_LOGISTICS",
+        "constructionRental": "CONSTRUCTION_RENTAL",
+        "bioDigitalSystems": "BIO_DIGITAL_SYSTEMS",
+        "propertyOperations": "PROPERTY_OPERATIONS",
+        "ecommerceSystem": "E_COMMERCE_SYSTEM",
+        "heavyEquipmentServices": "HEAVY_EQUIPMENT_SERVICES"
+      }
     }
   },
   "footer": {
     "about": "About me",
-    "contact": "Contact"
+    "contact": "Contact",
+    "links": {
+      "github": "GITHUB",
+      "cv": "FULL_CV.PDF"
+    },
+    "matrixMessage": "FOLLOW THE WHITE RABBIT."
   },
   "achievements": {
     "items": {
@@ -119,7 +177,16 @@
     "paragraph1": "My name is Fabricio Rene Crespo Rossel, and I'm 22 years old. I have completed all academic semesters for Computer Systems Engineering, with only the final degree certification pending. I've been programming since I was 12, and I love both crafting interfaces and designing APIs and systems—true full-stack.",
     "paragraph2": "One of my significant achievements is delivering <strong>five deployment-ready projects at UMA for Universidad del Valle</strong>, which earned me a letter of recommendation from my department director.",
     "paragraph3": "I work as a <strong>Full-Stack Developer</strong> across the whole stack: <strong>frontend</strong> with Next.js, React, Astro, Tailwind CSS, <strong>Figma</strong> for design and prototyping, and modern UI; <strong>backend</strong> with Laravel, Firebase and REST APIs. I have delivered several freelance projects from Figma mockups to production. I apply this at Reborn Developments (Reborn Developments, Reborn Rental, Reborn Host) and on <strong>Rekaliber</strong> (Next.js + Laravel). I also do <strong>DevOps</strong>—deployment and servers with Dokploy, Hostinger VPS and Cloudflare. I was <strong>Full Stack Team Leader at GoIT</strong>, leading the project and integrating Moodle.",
-    "paragraph4": "My goal is to keep growing as a full-stack developer—from UI and UX to APIs, databases and deployment—and as a project manager who ships quality software and leads teams effectively."
+    "paragraph4": "My goal is to keep growing as a full-stack developer—from UI and UX to APIs, databases and deployment—and as a project manager who ships quality software and leads teams effectively.",
+    "roles": {
+      "webDeveloper": "WEB DEVELOPER",
+      "softwareEngineer": "SOFTWARE ENGINEER"
+    },
+    "meta": {
+      "born": "BORN_2002_06_04",
+      "agePrefix": "AGE_",
+      "location": "BASED_IN_CBB"
+    }
   },
   "sections": {
     "experience": "Work Experience",

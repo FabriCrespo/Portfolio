@@ -12,9 +12,9 @@ import ThemeToggle from "./ThemeToggle.astro";
           Fabricio Crespo
         </a>
         <div class="hidden md:flex items-center space-x-1">
-          <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-          <span class="w-2 h-2 bg-purple-500 rounded-full animate-pulse" style="animation-delay: 0.2s"></span>
-          <span class="w-2 h-2 bg-pink-500 rounded-full animate-pulse" style="animation-delay: 0.4s"></span>
+          <span class="w-2 h-2 bg-black dark:bg-white rounded-full animate-pulse"></span>
+          <span class="w-2 h-2 bg-black/60 dark:bg-white/60 rounded-full animate-pulse" style="animation-delay: 0.2s"></span>
+          <span class="w-2 h-2 bg-black/35 dark:bg-white/35 rounded-full animate-pulse" style="animation-delay: 0.4s"></span>
         </div>
       </div>
 
@@ -23,7 +23,7 @@ import ThemeToggle from "./ThemeToggle.astro";
         <ThemeToggle />
         <a 
           href="#contact" 
-          class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors transform hover:scale-105"
+          class="px-4 py-2 bg-black text-white border border-black rounded-full hover:bg-white hover:text-black dark:bg-white dark:text-black dark:border-white dark:hover:bg-black dark:hover:text-white transition-colors transform hover:scale-105"
         >
           {t('nav.contact')}
         </a>

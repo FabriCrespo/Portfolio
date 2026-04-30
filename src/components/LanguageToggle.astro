@@ -1,5 +1,7 @@
 ---
-const LANGUAGES = ["Español", "English"]
+import { t } from "../utils/i18n"
+
+const LANGUAGES = ["Español", "English"] as const
 
 const getCurrentLanguage = () => {
   if (typeof localStorage !== "undefined") {
@@ -9,27 +11,30 @@ const getCurrentLanguage = () => {
 }
 ---
 
-<div class="relative ml-1 mr-1">
+<div class="language-toggle-root relative">
   <button
-    transition:persist
-    id="language-toggle-btn"
-    class="appearance-none border-none flex hover:scale-125 transition"
+    type="button"
+    class="js-lang-toggle-btn toggle-shell appearance-none flex items-center justify-center border border-black bg-white px-2 py-1 font-mono text-[11px] font-bold uppercase text-black transition hover:bg-black hover:text-white dark:border-white dark:bg-black dark:text-white dark:hover:bg-white dark:hover:text-black"
   >
-    <span class="sr-only">Elige el idioma</span>
+    <span class="sr-only">{t("header.chooseLanguage")}</span>
     <span class="language-toggle-icon size-5 transition-all">
       {getCurrentLanguage() === "Español" ? "ES" : "EN"}
     </span>
   </button>
   <div
-    transition:persist
-    id="languages-menu"
-    class="absolute hidden scale-80 top-8 right-0 text-sm p-1 min-w-[8rem] rounded-md border border-gray-100 bg-white/90 dark:bg-gray-900/90 dark:border-gray-500/20 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur-md"
+    class="js-lang-menu absolute right-0 top-[calc(100%+8px)] z-[90] hidden min-w-[9rem] border border-black bg-white p-1 text-sm text-black shadow-[0_3px_0_0_#000] dark:border-white dark:bg-black dark:text-white dark:shadow-[0_3px_0_0_#fff]"
   >
     <ul>
       {
         LANGUAGES.map((language) => (
-          <li class="languages-menu-option px-2 py-1.5 cursor-default hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm">
-            {language}
+          <li>
+            <button
+              type="button"
+              class="js-lang-option block w-full cursor-pointer px-2 py-1.5 text-left uppercase hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+              data-language={language}
+            >
+              {language}
+            </button>
           </li>
         ))
       }
@@ -37,10 +42,93 @@ const getCurrentLanguage = () => {
   </div>
 </div>
 
+<script>
+  const dispatchLanguage = (language: string) => {
+    const previous = localStorage.getItem("language");
+    localStorage.setItem("language", language);
+    window.dispatchEvent(new CustomEvent("language-change", { detail: { language } }));
+    window.dispatchEvent(
+      new StorageEvent("storage", {
+        key: "language",
+        newValue: language,
+        oldValue: previous,
+        storageArea: localStorage,
+      }),
+    );
+    document.querySelectorAll(".language-toggle-icon").forEach((icon) => {
+      icon.textContent = language === "Español" ? "ES" : "EN";
+    });
+  };
+
+  const closeAllMenus = () => {
+    document.querySelectorAll(".js-lang-menu").forEach((menu) => menu.classList.remove("open"));
+  };
+
+  let languageToggleReady = false;
+
+  const setupLanguageToggle = () => {
+    if (languageToggleReady) return;
+    languageToggleReady = true;
+
+    document.addEventListener("click", (event) => {
+      const raw = event.target;
+      const base =
+        raw instanceof Element ? raw : raw instanceof Node ? (raw.parentElement ?? null) : null;
+      if (!base) return;
+
+      const toggleBtn = base.closest(".js-lang-toggle-btn");
+      const optionBtn = base.closest(".js-lang-option");
+
+      if (toggleBtn) {
+        event.stopPropagation();
+        const root = toggleBtn.closest(".language-toggle-root");
+        const menu = root?.querySelector(".js-lang-menu");
+        if (menu) {
+          const willOpen = !menu.classList.contains("open");
+          closeAllMenus();
+          if (willOpen) menu.classList.add("open");
+        }
+        return;
+      }
+
+      if (optionBtn) {
+        event.stopPropagation();
+        const lang = optionBtn.getAttribute("data-language")?.trim();
+        if (lang === "Español" || lang === "English") {
+          dispatchLanguage(lang);
+        }
+        closeAllMenus();
+        return;
+      }
+
+      closeAllMenus();
+    });
+
+    const syncIcons = () => {
+      const lang = localStorage.getItem("language") ?? "Español";
+      document.querySelectorAll(".language-toggle-icon").forEach((icon) => {
+        icon.textContent = lang === "Español" ? "ES" : "EN";
+      });
+    };
+
+    document.addEventListener("astro:page-load", syncIcons);
+    syncIcons();
+  };
+
+  setupLanguageToggle();
+</script>
+
 <style>
-  #languages-menu.open {
-    display: inline;
+  .js-lang-menu.open {
+    display: block;
+    transform-origin: top right;
     animation: scale-up-center 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  .toggle-shell {
+    min-width: 46px;
+    min-height: 34px;
+    line-height: 1;
   }
 
   @keyframes scale-up-center {
@@ -54,62 +142,12 @@ const getCurrentLanguage = () => {
       opacity: 1;
     }
   }
+
+  @media (max-width: 768px) {
+    .js-lang-menu {
+      right: 0;
+      left: auto;
+      min-width: 8rem;
+    }
+  }
 </style>
-
-<script is:inline>
-  const languagesMenu = document.getElementById("languages-menu")
-  const languageToggleBtn = document.getElementById("language-toggle-btn")
-  const languageToggleIcon = document.querySelector(".language-toggle-icon")
-
-  const updateLanguageIcon = (language) => {
-    if (languageToggleIcon) {
-      languageToggleIcon.textContent = language === "Español" ? "ES" : "EN"
-    }
-  }
-
-  const handleLanguageChange = (language) => {
-    localStorage.setItem("language", language)
-    // Disparar el evento de almacenamiento
-    window.dispatchEvent(new StorageEvent('storage', {
-      key: 'language',
-      newValue: language,
-      oldValue: localStorage.getItem('language'),
-      storageArea: localStorage
-    }))
-    updateLanguageIcon(language)
-  }
-
-  document.addEventListener("click", () => {
-    if (languagesMenu) {
-      languagesMenu.classList.remove("open")
-    }
-  })
-
-  if (languageToggleBtn) {
-    languageToggleBtn.addEventListener("click", (e) => {
-      e.stopPropagation()
-      if (languagesMenu) {
-        const isClosed = !languagesMenu.classList.contains("open")
-        languagesMenu.classList[isClosed ? "add" : "remove"]("open")
-      }
-    })
-  }
-
-  document.querySelectorAll(".languages-menu-option").forEach((element) => {
-    element.addEventListener("click", (e) => {
-      const target = e.target
-      if (target && target.innerText) {
-        const language = target.innerText.trim()
-        handleLanguageChange(language)
-      }
-    })
-  })
-
-  // Inicializar el ícono con el idioma actual
-  const currentLanguage = localStorage.getItem("language") ?? "Español"
-  updateLanguageIcon(currentLanguage)
-
-  document.addEventListener('astro:after-swap', () => {
-    window.scrollTo({ left: 0, top: 0, behavior: 'instant' })
-  })
-</script> 
