@@ -1,7 +1,11 @@
 ---
 import { t } from "../utils/i18n"
-const githubUrl = "https://github.com/cbbeandresvargas/grbg-astro/tree/main/src"
-const cvUrl = "/Fabricio%20Crespo%20CV.pdf"
+import { getCurrentLanguage } from "../utils/i18n"
+const githubUrl = "https://github.com/FabriCrespo"
+const baseUrl = "/Portfolio/"
+const cvEnUrl = `${baseUrl}Fabricio%20Crespo%20CV.pdf`
+const cvEsUrl = `${baseUrl}CV-FabricioCrespo%20.pdf`
+const cvUrl = getCurrentLanguage() === "English" ? cvEnUrl : cvEsUrl
 const phoneDisplay = "+591 61615979"
 const phoneHref = "tel:+59161615979"
 const mail = "fabrinephi04@gmail.com"
@@ -191,13 +195,20 @@ const mail = "fabrinephi04@gmail.com"
 
 <script>
   import { t } from "../utils/i18n"
+  const baseUrl = "/Portfolio/"
+  const cvEnUrl = `${baseUrl}Fabricio%20Crespo%20CV.pdf`
+  const cvEsUrl = `${baseUrl}CV-FabricioCrespo%20.pdf`
 
   const updateFooterText = () => {
     const github = document.getElementById("footer-link-github")
-    const cv = document.getElementById("footer-link-cv")
+    const cv = document.getElementById("footer-link-cv") as HTMLAnchorElement | null
     const msg = document.getElementById("footer-msg")
+    const language = localStorage.getItem("language") ?? "Español"
     if (github) github.textContent = t("footer.links.github")
     if (cv) cv.textContent = t("footer.links.cv")
+    if (cv) {
+      cv.href = language === "English" ? cvEnUrl : cvEsUrl
+    }
     if (msg) msg.textContent = t("footer.matrixMessage")
   }
 

@@ -1,6 +1,6 @@
 ---
 import ExperienceItem from "./ExperienceItem.astro";
-import { t } from "../utils/i18n";
+import { getCurrentLanguage, t } from "../utils/i18n";
 
 type ExperienceEntry = {
   date: string;
@@ -81,6 +81,10 @@ const EXPERIENCE: ExperienceEntry[] = [
     remote: false,
   },
 ];
+const baseUrl = "/Portfolio/"
+const cvEnUrl = `${baseUrl}Fabricio%20Crespo%20CV.pdf`
+const cvEsUrl = `${baseUrl}CV-FabricioCrespo%20.pdf`
+const cvDownloadUrl = getCurrentLanguage() === "English" ? cvEnUrl : cvEsUrl
 ---
 
 <div class="experience-split mt-8 grid gap-7 lg:grid-cols-[180px_1fr] lg:gap-10">
@@ -124,8 +128,9 @@ const EXPERIENCE: ExperienceEntry[] = [
     </p>
   </div>
   <a
-    href="/Fabricio%20Crespo%20CV.pdf"
+    href={cvDownloadUrl}
     download
+    id="experience-download-cv-link"
     class="inline-flex items-center justify-center border border-black bg-black px-7 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-white transition hover:bg-white hover:text-black dark:border-white dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text-white"
   >
     <span class="experience-download-cv">{t("experience.ui.downloadCv")}</span>
@@ -258,6 +263,9 @@ const EXPERIENCE: ExperienceEntry[] = [
 
 <script>
   import { t } from "../utils/i18n"
+  const baseUrl = "/Portfolio/"
+  const cvEnUrl = `${baseUrl}Fabricio%20Crespo%20CV.pdf`
+  const cvEsUrl = `${baseUrl}CV-FabricioCrespo%20.pdf`
 
   const updateExperienceText = () => {
     const experienceItems = document.querySelectorAll('.experience-item')
@@ -287,7 +295,9 @@ const EXPERIENCE: ExperienceEntry[] = [
     const stackTitle = document.querySelector(".experience-stack-title")
     const stackDescription = document.querySelector(".experience-stack-description")
     const downloadCv = document.querySelector(".experience-download-cv")
+    const downloadCvLink = document.getElementById("experience-download-cv-link") as HTMLAnchorElement | null
     const filterButtons = document.querySelectorAll(".experience-filter")
+    const language = localStorage.getItem("language") ?? "Español"
 
     experienceItems.forEach((item, index) => {
       const title = item.querySelector('.experience-title')
@@ -311,6 +321,9 @@ const EXPERIENCE: ExperienceEntry[] = [
     if (stackTitle) stackTitle.textContent = t("experience.ui.stackIntegrityTitle")
     if (stackDescription) stackDescription.textContent = t("experience.ui.stackIntegrityDescription")
     if (downloadCv) downloadCv.textContent = t("experience.ui.downloadCv")
+    if (downloadCvLink) {
+      downloadCvLink.href = language === "English" ? cvEnUrl : cvEsUrl
+    }
     if (filterButtons[0]) filterButtons[0].textContent = t("experience.ui.filters.all")
     if (filterButtons[1]) filterButtons[1].textContent = t("experience.ui.filters.leadership")
     if (filterButtons[2]) filterButtons[2].textContent = t("experience.ui.filters.development")
