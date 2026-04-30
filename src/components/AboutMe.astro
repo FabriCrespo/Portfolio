@@ -126,11 +126,19 @@ const imagePath = "/Portfolio/pfp.png"
     .about-editorial__image:hover {
       transform: translate(-5px, -5px);
       box-shadow: 16px 16px 0 rgba(0, 0, 0, 0.28);
+      animation: aboutVhsFlicker 420ms steps(2, end) infinite;
     }
 
     :global(html.dark) .about-editorial__image:hover {
       box-shadow: 16px 16px 0 rgba(255, 255, 255, 0.28);
     }
+  }
+
+  @keyframes aboutVhsFlicker {
+    0% { filter: grayscale(1) contrast(1.06); }
+    35% { filter: grayscale(1) contrast(1.18) brightness(0.95); }
+    55% { filter: grayscale(1) contrast(1.03) brightness(1.04); }
+    100% { filter: grayscale(1) contrast(1.06); }
   }
   :global(html.dark) .about-editorial {
     border-color: rgba(255, 255, 255, 0.45);

@@ -35,6 +35,7 @@ const PROJECTS: ProjectRow[] = [
           rel="noopener noreferrer"
           class="file-card__trigger"
         >
+          <p class="file-card__poster-title" aria-hidden="true">{project.title}</p>
           <div class="file-card__inner">
             <h4 class="project-title">{project.title}</h4>
             <p class="file-card__sector">{t(`projects.meta.sector.${project.sectorKey}`)}</p>
@@ -67,10 +68,28 @@ const PROJECTS: ProjectRow[] = [
     border: 1px solid #111;
     box-shadow: 8px 8px 0 #111;
     transition: transform 200ms ease, box-shadow 200ms ease;
+    overflow: hidden;
   }
   .file-card__trigger { display: block; width: 100%; color: inherit; text-decoration: none; position: relative; }
+  .file-card__poster-title {
+    position: absolute;
+    top: 0.65rem;
+    left: 0.7rem;
+    right: 0.7rem;
+    z-index: 1;
+    margin: 0;
+    font-family: "Arial Black", "Inter", sans-serif;
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
+    line-height: 0.84;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.11);
+    pointer-events: none;
+    transform: translateY(0) rotate(-1deg);
+    transition: transform 220ms ease, opacity 220ms ease;
+  }
   .file-card__tab { position: absolute; top: -1px; left: -1px; background: #111; color: #fff; font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 0.13em; text-transform: uppercase; padding: 0.32rem 0.8rem 0.32rem 0.62rem; clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%); }
-  .file-card__inner { min-height: 300px; padding: 1.8rem 1rem 0.95rem; display: flex; flex-direction: column; transition: transform 180ms ease, opacity 180ms ease; }
+  .file-card__inner { min-height: 300px; padding: 5.2rem 1rem 0.95rem; display: flex; flex-direction: column; transition: transform 180ms ease, opacity 180ms ease; position: relative; z-index: 2; }
   .project-title { margin: 0; font-family: "Times New Roman", serif; font-size: clamp(1.8rem, 2.2vw, 2.35rem); line-height: 0.95; text-transform: uppercase; letter-spacing: -0.015em; }
   .file-card__sector { margin: 0.6rem 0 1rem; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0, 0, 0, 0.65); padding-bottom: 0.55rem; border-bottom: 1px solid rgba(0, 0, 0, 0.35); }
   .file-card__row { display: flex; justify-content: space-between; gap: 0.6rem; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0, 0, 0, 0.78); padding: 0.55rem 0; border-bottom: 1px solid rgba(0, 0, 0, 0.14); }
@@ -92,6 +111,30 @@ const PROJECTS: ProjectRow[] = [
     justify-content: flex-end;
     padding: 1rem;
   }
+
+  .file-card__preview-overlay::before,
+  .file-card__preview-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .file-card__preview-overlay::before {
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0 3px,
+        rgba(255, 255, 255, 0.08) 3px 4px
+      );
+    mix-blend-mode: screen;
+  }
+
+  .file-card__preview-overlay::after {
+    background: linear-gradient(90deg, rgba(255, 0, 0, 0.09), transparent 45%, rgba(0, 180, 255, 0.08));
+    mix-blend-mode: lighten;
+  }
   .file-card__preview-label { margin: 0 0 0.5rem; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.86); }
   .file-card__preview-description { margin: 0; font-size: clamp(0.92rem, 1.2vw, 1rem); line-height: 1.45; color: #fff; max-height: 8.3em; overflow: hidden; }
   .file-card__trigger:hover .file-card__preview,
@@ -103,6 +146,7 @@ const PROJECTS: ProjectRow[] = [
   .file-card__trigger:focus-visible { outline: 1px dashed #111; outline-offset: 4px; }
   :global(html.dark) .project-files { border-color: rgba(255, 255, 255, 0.45); }
   :global(html.dark) .file-card { background: #0b0b0b; border-color: rgba(255, 255, 255, 0.72); box-shadow: 8px 8px 0 rgba(255, 255, 255, 0.7); }
+  :global(html.dark) .file-card__poster-title { color: rgba(255, 255, 255, 0.14); }
   :global(html.dark) .file-card__tab { background: #fff; color: #000; }
   :global(html.dark) .file-card__sector, :global(html.dark) .file-card__row { color: rgba(255, 255, 255, 0.75); border-color: rgba(255, 255, 255, 0.24); }
   :global(html.dark) .file-card__footer { border-color: rgba(255, 255, 255, 0.8); }
@@ -116,6 +160,47 @@ const PROJECTS: ProjectRow[] = [
     :global(html.dark) .file-card:has(.file-card__trigger:hover) {
       box-shadow: 12px 12px 0 rgba(255, 255, 255, 0.72);
     }
+
+    .file-card__trigger:hover .file-card__tab {
+      animation: jitterX 160ms steps(2, end) 2;
+    }
+
+    .file-card__trigger:hover .file-card__preview-overlay::before {
+      opacity: 1;
+      animation: vhsNoise 520ms steps(3, end) infinite;
+    }
+
+    .file-card__trigger:hover .file-card__preview-overlay::after {
+      opacity: 1;
+      animation: vhsShift 320ms steps(2, end) infinite;
+    }
+
+    .file-card__trigger:hover .file-card__poster-title {
+      transform: translateY(-6px) rotate(-2deg);
+      opacity: 0.6;
+    }
+  }
+
+  @keyframes jitterX {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(1px); }
+    50% { transform: translateX(-1px); }
+    75% { transform: translateX(1px); }
+    100% { transform: translateX(0); }
+  }
+
+  @keyframes vhsNoise {
+    0% { transform: translateY(0); opacity: 0.28; }
+    40% { transform: translateY(-2px); opacity: 0.22; }
+    70% { transform: translateY(2px); opacity: 0.32; }
+    100% { transform: translateY(0); opacity: 0.26; }
+  }
+
+  @keyframes vhsShift {
+    0% { transform: translateX(0); }
+    30% { transform: translateX(-1px); }
+    60% { transform: translateX(1px); }
+    100% { transform: translateX(0); }
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -134,8 +219,24 @@ const PROJECTS: ProjectRow[] = [
     }
   }
 
+  .project-entry:nth-child(odd) .file-card__trigger {
+    transform: rotate(-0.45deg);
+  }
+
+  .project-entry:nth-child(even) .file-card__trigger {
+    transform: rotate(0.55deg);
+  }
+
+  .project-entry:nth-child(3n) .file-card__trigger {
+    transform: translateY(8px) rotate(-0.7deg);
+  }
+
+  .project-entry:nth-child(4n) .file-card__trigger {
+    transform: translateX(6px) rotate(0.8deg);
+  }
+
   @media (max-width: 1100px) { .project-files__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 700px) { .project-files__grid { grid-template-columns: 1fr; gap: 1rem; } .file-card__inner { min-height: 280px; } .project-title { font-size: clamp(1.45rem, 7.2vw, 2rem); } .file-card__preview-description { max-height: none; } .file-card__trigger:active .file-card__preview { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 700px) { .project-files__grid { grid-template-columns: 1fr; gap: 1rem; } .file-card__inner { min-height: 280px; padding-top: 4.5rem; } .project-title { font-size: clamp(1.45rem, 7.2vw, 2rem); } .file-card__preview-description { max-height: none; } .file-card__trigger:active .file-card__preview { opacity: 1; transform: translateY(0); } .project-entry .file-card__trigger { transform: none !important; } }
 </style>
 
 <script>

@@ -88,6 +88,38 @@ const { title, company, description, link, date, category = "development", remot
     padding-bottom: 1.15rem;
   }
 
+  .experience-more-link {
+    position: relative;
+    border-bottom: none !important;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 2px;
+    transition: background-size 170ms steps(4, end), opacity 130ms ease;
+  }
+
+  @keyframes jitterText {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(1px, 0); }
+    40% { transform: translate(-1px, 0); }
+    60% { transform: translate(1px, -1px); }
+    80% { transform: translate(-1px, 1px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .experience-more-link:hover {
+      background-size: 100% 2px;
+      animation: jitterText 180ms steps(2, end) 2;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .experience-more-link {
+      transition: opacity 120ms ease;
+    }
+  }
+
   @media (max-width: 767px) {
     .experience-summary {
       display: grid;

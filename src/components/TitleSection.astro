@@ -1,13 +1,46 @@
+---
+interface Props {
+  className?: string
+}
+
+const { className = "" } = Astro.props
+---
+
 <h2
-	class={`title-section flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 transition-transform duration-300 ease-out dark:text-white ${Astro.props.className}`}
+	class={`title-section flex items-center mb-6 text-3xl font-semibold gap-x-3 text-black/80 transition-transform duration-300 ease-out dark:text-white ${className}`}
 >
     <slot />
 </h2>
 
 <style>
+  .title-section {
+    text-wrap: balance;
+  }
+
+  .title-section--brutal {
+    font-family: "Arial Black", "Inter", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: -0.06em;
+    line-height: 0.88;
+  }
+
+  section:nth-of-type(odd) .title-section {
+    transform: translateX(0);
+  }
+
+  section:nth-of-type(even) .title-section {
+    transform: translateX(6px);
+  }
+
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     .title-section:hover {
-      transform: translateX(4px);
+      transform: translateX(10px);
+    }
+  }
+
+  @media (max-width: 700px) {
+    section:nth-of-type(even) .title-section {
+      transform: translateX(0);
     }
   }
 </style>
