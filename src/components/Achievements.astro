@@ -21,12 +21,16 @@ const achievements: AchievementRow[] = [
   {achievements.map((achievement, index) => (
     <article class="floating-file" data-index={index} data-key={achievement.key}>
       <a href={achievement.pdf} target="_blank" rel="noopener noreferrer" class="floating-file__sheet">
-        <iframe
-          class="floating-file__preview"
-          src={`${achievement.pdf}#toolbar=0&navpanes=0&scrollbar=0`}
-          title={achievement.title}
-          loading="lazy"
-        />
+        <div class="floating-file__preview" aria-hidden="true">
+          <div class="floating-file__preview-paper">
+            <p class="floating-file__preview-code">{achievement.code}</p>
+            <h4 class="floating-file__preview-title">{achievement.title}</h4>
+            <div class="floating-file__preview-lines">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p class="floating-file__preview-mark">PDF // OPEN FILE</p>
+          </div>
+        </div>
         <footer class="floating-file__meta">
           <span>{achievement.code}</span>
           <span class="floating-file__title">{achievement.title}</span>
@@ -68,9 +72,66 @@ const achievements: AchievementRow[] = [
   .floating-file__preview {
     width: 100%;
     height: 100%;
-    border: none;
-    filter: grayscale(1) contrast(1.08);
+    padding: 0.7rem;
+    background:
+      linear-gradient(135deg, rgba(0, 0, 0, 0.06), transparent 42%),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.04) 0 1px,
+        transparent 1px 26px
+      ),
+      #f2f2f2;
     pointer-events: none;
+    overflow: hidden;
+  }
+  .floating-file__preview-paper {
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0.8rem 0.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .floating-file__preview-code {
+    margin: 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .floating-file__preview h4 {
+    margin: 0;
+    font-family: "Times New Roman", serif;
+    font-size: clamp(1.1rem, 1.35vw, 1.35rem);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  .floating-file__preview-lines {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 0.15rem;
+  }
+  .floating-file__preview-lines span {
+    display: block;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.32);
+  }
+  .floating-file__preview-lines span:nth-child(1) { width: 96%; }
+  .floating-file__preview-lines span:nth-child(2) { width: 88%; }
+  .floating-file__preview-lines span:nth-child(3) { width: 94%; }
+  .floating-file__preview-lines span:nth-child(4) { width: 72%; }
+  .floating-file__preview-lines span:nth-child(5) { width: 82%; }
+  .floating-file__preview-mark {
+    margin-top: auto;
+    margin-bottom: 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    opacity: 0.75;
   }
   .floating-file__meta {
     border-top: 1px solid rgba(0, 0, 0, 0.35);
@@ -105,7 +166,23 @@ const achievements: AchievementRow[] = [
     border-color: rgba(255, 255, 255, 0.74);
     box-shadow: 14px 16px 0 rgba(255, 255, 255, 0.2);
   }
-  :global(html.dark) .floating-file__preview { filter: grayscale(1) contrast(1.1) brightness(0.9); }
+  :global(html.dark) .floating-file__preview {
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 42%),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.06) 0 1px,
+        transparent 1px 26px
+      ),
+      #111;
+  }
+  :global(html.dark) .floating-file__preview-paper {
+    border-color: rgba(255, 255, 255, 0.26);
+    background: rgba(10, 10, 10, 0.9);
+  }
+  :global(html.dark) .floating-file__preview-lines span {
+    background: rgba(255, 255, 255, 0.35);
+  }
   :global(html.dark) .floating-file__meta {
     border-color: rgba(255, 255, 255, 0.32);
     background: rgba(15, 15, 15, 0.92);
@@ -140,7 +217,9 @@ const achievements: AchievementRow[] = [
     const achievementItems = document.querySelectorAll(".floating-file");
     achievementItems.forEach((item, index) => {
       const title = item.querySelector(".floating-file__title");
+      const previewTitle = item.querySelector(".floating-file__preview-title");
       if (title) title.textContent = t(`achievements.items.${KEYS[index]}.title`);
+      if (previewTitle) previewTitle.textContent = t(`achievements.items.${KEYS[index]}.title`);
     });
   };
 

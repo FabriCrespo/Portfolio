@@ -14,6 +14,7 @@ type ProjectRow = {
 
 const PROJECTS: ProjectRow[] = [
   { key: "grb", title: t("projects.items.grb.title"), description: t("projects.items.grb.description"), link: "https://www.grb-group.com/en/", stackKey: "astroTailwind", sectorKey: "infrastructureLogistics", statusKey: "active", caseId: "CASE_ID: 449-G" },
+  { key: "profunded", title: t("projects.items.profunded.title"), description: t("projects.items.profunded.description"), link: "https://profunded.com/", stackKey: "nextjs", sectorKey: "fintechTrading", statusKey: "active", caseId: "CASE_ID: 144-P" },
   { key: "rebornrental", title: t("projects.items.rebornrental.title"), description: t("projects.items.rebornrental.description"), link: "https://rebornrental.com/", stackKey: "laravelBlade", sectorKey: "constructionRental", statusKey: "closed", caseId: "CASE_ID: 112-A" },
   { key: "reborn", title: t("projects.items.reborn.title"), description: t("projects.items.reborn.description"), link: "https://www.reborndevelopments.com/", stackKey: "nextLaravel", sectorKey: "bioDigitalSystems", statusKey: "ongoing", caseId: "CASE_ID: 009-R" },
   { key: "rebornhost", title: t("projects.items.rebornhost.title"), description: t("projects.items.rebornhost.description"), link: "https://www.rebornhost.com/index.html", stackKey: "htmlCss", sectorKey: "propertyOperations", statusKey: "active", caseId: "CASE_ID: 223-H" },
@@ -21,8 +22,6 @@ const PROJECTS: ProjectRow[] = [
   { key: "hydraulics", title: t("projects.items.hydraulics.title"), description: t("projects.items.hydraulics.description"), link: "https://hydraylics-system.vercel.app/", stackKey: "astroFirebase", sectorKey: "heavyEquipmentServices", statusKey: "active", caseId: "CASE_ID: 781-H" },
 ];
 
-const getPreviewImage = (link?: string) =>
-  link ? `https://image.thum.io/get/width/1200/noanimate/${link}` : "";
 ---
 
 <section class="project-files">
@@ -44,7 +43,6 @@ const getPreviewImage = (link?: string) =>
             <footer class="file-card__footer"><span class="project-open-label">{t("projects.meta.labels.openFile")}</span><span aria-hidden="true">→</span></footer>
           </div>
           <div class="file-card__preview" aria-hidden="true">
-            <img src={getPreviewImage(project.link)} alt="" loading="lazy" />
             <div class="file-card__preview-overlay">
               <p class="file-card__preview-label">{t("projects.meta.labels.previewDescription")}</p>
               <p class="file-card__preview-description project-description">{project.description}</p>
@@ -79,8 +77,21 @@ const getPreviewImage = (link?: string) =>
   .file-card__footer { margin-top: auto; padding-top: 0.7rem; border-top: 2px solid rgba(0, 0, 0, 0.7); display: flex; justify-content: space-between; align-items: center; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
   .file-card__footer span { font-size: 1.4rem; line-height: 1; }
   .file-card__preview { position: absolute; inset: 0; opacity: 0; transform: translateY(8px); transition: opacity 180ms ease, transform 180ms ease; pointer-events: none; }
-  .file-card__preview img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); }
-  .file-card__preview-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.84) 0%, rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0.18) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem; }
+  .file-card__preview-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.68) 60%, rgba(0, 0, 0, 0.52) 100%),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.05) 0 1px,
+        transparent 1px 20px
+      );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+  }
   .file-card__preview-label { margin: 0 0 0.5rem; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.86); }
   .file-card__preview-description { margin: 0; font-size: clamp(0.92rem, 1.2vw, 1rem); line-height: 1.45; color: #fff; max-height: 8.3em; overflow: hidden; }
   .file-card__trigger:hover .file-card__preview,
@@ -129,10 +140,10 @@ const getPreviewImage = (link?: string) =>
 
 <script>
   import { t } from "../utils/i18n";
-  const ITEMS = ["grb", "rebornrental", "reborn", "rebornhost", "eipet", "hydraulics"];
-  const SECTORS = ["infrastructureLogistics", "constructionRental", "bioDigitalSystems", "propertyOperations", "ecommerceSystem", "heavyEquipmentServices"];
-  const STATUSES = ["active", "closed", "ongoing", "active", "active", "active"];
-  const STACKS = ["astroTailwind", "laravelBlade", "nextLaravel", "htmlCss", "astroFirebase", "astroFirebase"];
+  const ITEMS = ["grb", "profunded", "rebornrental", "reborn", "rebornhost", "eipet", "hydraulics"];
+  const SECTORS = ["infrastructureLogistics", "fintechTrading", "constructionRental", "bioDigitalSystems", "propertyOperations", "ecommerceSystem", "heavyEquipmentServices"];
+  const STATUSES = ["active", "active", "closed", "ongoing", "active", "active", "active"];
+  const STACKS = ["astroTailwind", "nextjs", "laravelBlade", "nextLaravel", "htmlCss", "astroFirebase", "astroFirebase"];
   const updateProjectsText = () => {
     const rows = document.querySelectorAll(".project-entry");
     rows.forEach((row, index) => {

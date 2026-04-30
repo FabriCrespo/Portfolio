@@ -32,6 +32,7 @@
     "dates": {
       "goit": "March 2025 - June 2025",
       "current": "2025 (Current)",
+      "profunded": "September 2025 - December 2025",
       "ongoing": "Ongoing",
       "rekaliber": "2025 (In development)",
       "spm": "2024 (4 months)",
@@ -43,6 +44,11 @@
         "company": "Reborn Developments",
         "description": "Full-stack development (frontend and backend) for the Reborn ecosystem: Reborn Developments (investment platform), Reborn Rental (construction equipment rental), and Reborn Host (property management). Work with Next.js, Laravel, and related stacks. Server management and deployment with Dokploy, Hostinger VPS, and Cloudflare."
       },
+      "rebornrental": {
+        "title": "Full-Stack Developer",
+        "company": "Reborn Rental",
+        "description": "Current role at Reborn Rental delivering both frontend and backend work. Led a creative project overhaul to improve product UX/UI and user flow, while extending and maintaining the website built with Blade and Laravel PHP."
+      },
       "goit": {
         "title": "Full Stack Team Leader",
         "company": "Grupo GOIT",
@@ -52,6 +58,11 @@
         "title": "Full-Stack Developer",
         "company": "Rekaliber",
         "description": "Development of Rekaliber, a complete environment and system currently in development. Full-stack implementation with Next.js and Laravel, covering frontend and backend."
+      },
+      "profunded": {
+        "title": "Frontend Developer",
+        "company": "ProFunded",
+        "description": "Frontend-exclusive work for ProFunded. Built reusable UI components and carried out migration from Blade views to Next.js to improve maintainability, design consistency, and product scalability."
       },
       "founder": {
         "title": "Software Project Manager & Founder",
@@ -93,9 +104,13 @@
         "title": "GRB Group - Corporate Website",
         "description": "Modern corporate website built with Astro for GRB Group, a global real estate company. Features elegant and professional design with intuitive navigation, dynamic sections, and SEO optimization to showcase real estate investment and technology services."
       },
+      "profunded": {
+        "title": "ProFunded - Prop Trading Platform",
+        "description": "Frontend-exclusive development at ProFunded. Built reusable components in Next.js and migrated key views from Blade to Next.js to unify the UI system, speed up iteration, and improve platform performance."
+      },
       "rebornrental": {
         "title": "Reborn Rental - Construction Equipment Rental",
-        "description": "A construction equipment rental website based in Denver, Colorado. Developed with Laravel and Blade, it features Odoo integration for comprehensive management."
+        "description": "Construction equipment rental platform based in Denver, Colorado. Active frontend and backend contribution with a creative product overhaul, UX improvements, and continuous evolution on a Blade + Laravel PHP architecture with operational integrations."
       },
       "reborn": {
         "title": "Reborn Developments - Investment Platform",
@@ -128,6 +143,7 @@
       },
       "stack": {
         "astroTailwind": "ASTRO / TAILWIND",
+        "nextjs": "NEXT.JS",
         "laravelBlade": "LARAVEL / BLADE",
         "nextLaravel": "NEXT.JS / LARAVEL",
         "htmlCss": "HTML / CSS",
@@ -135,6 +151,7 @@
       },
       "sector": {
         "infrastructureLogistics": "INFRASTRUCTURE_LOGISTICS",
+        "fintechTrading": "FINTECH_TRADING",
         "constructionRental": "CONSTRUCTION_RENTAL",
         "bioDigitalSystems": "BIO_DIGITAL_SYSTEMS",
         "propertyOperations": "PROPERTY_OPERATIONS",

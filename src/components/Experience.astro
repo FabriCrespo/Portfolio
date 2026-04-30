@@ -22,6 +22,24 @@ const EXPERIENCE: ExperienceEntry[] = [
     remote: true,
   },
   {
+    date: t('experience.dates.current'),
+    title: t('experience.items.rebornrental.title'),
+    company: t('experience.items.rebornrental.company'),
+    description: t('experience.items.rebornrental.description'),
+    link: "https://rebornrental.com/",
+    category: "development",
+    remote: true,
+  },
+  {
+    date: t('experience.dates.profunded'),
+    title: t('experience.items.profunded.title'),
+    company: t('experience.items.profunded.company'),
+    description: t('experience.items.profunded.description'),
+    link: "https://profunded.com/",
+    category: "development",
+    remote: true,
+  },
+  {
     date: t('experience.dates.rekaliber'),
     title: t('experience.items.rekaliber.title'),
     company: t('experience.items.rekaliber.company'),
@@ -245,6 +263,8 @@ const EXPERIENCE: ExperienceEntry[] = [
     const experienceItems = document.querySelectorAll('.experience-item')
     const items = [
       'reborn',
+      'rebornrental',
+      'profunded',
       'rekaliber',
       'goit',
       'founder',
@@ -253,6 +273,8 @@ const EXPERIENCE: ExperienceEntry[] = [
     ]
     const dates = [
       'current',
+      'current',
+      'profunded',
       'rekaliber',
       'goit',
       'ongoing',
