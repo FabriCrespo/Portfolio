@@ -170,6 +170,20 @@
     "matrixMessage": "FOLLOW THE WHITE RABBIT."
   },
   "achievements": {
+    "ui": {
+      "invocation": "Focus and choose your energy.",
+      "selectPrompt": "SHUFFLE THE CARDS AND PICK ONE",
+      "shuffle": "SHUFFLE_CARDS",
+      "openSelected": "OPEN_CERTIFICATE",
+      "revealedTitle": "YOUR CARD WAS REVEALED",
+      "revealedDescription": "Destiny picked an achievement. Open the certificate to discover it.",
+      "arcana": {
+        "mentor": "THE MENTOR",
+        "healer": "THE HEALER",
+        "builder": "THE BUILDER",
+        "executor": "THE EXECUTOR"
+      }
+    },
     "items": {
       "recommendation": {
         "title": "Engineering Recommendation Letter",

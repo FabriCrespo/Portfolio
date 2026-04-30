@@ -15,9 +15,17 @@ const achievements: AchievementRow[] = [
   { key: "sedes", title: t("achievements.items.sedes.title"), description: t("achievements.items.sedes.description"), pdf: "/Portfolio/certificates/sedes-certificate.pdf", code: "LOG_03" },
   { key: "tracto", title: t("achievements.items.tracto.title"), description: t("achievements.items.tracto.description"), pdf: "/Portfolio/certificates/tractocamiones-certificate.pdf", code: "LOG_04" },
 ];
+
+const CARD_ICONS: Record<string, string[]> = {
+  recommendation: ["school", "workspace_premium", "menu_book", "emoji_events", "co_present"],
+  goit: ["verified", "military_tech", "business_center", "star", "workspace_premium"],
+  sedes: ["health_and_safety", "medical_services", "vaccines", "monitor_heart", "stethoscope"],
+  tracto: ["local_shipping", "engineering", "inventory_2", "construction", "storefront"],
+};
 ---
 
 <section class="files-scene">
+  <p class="files-scene__hint" aria-hidden="true">TAP CARD TO SHUFFLE →</p>
   {achievements.map((achievement, index) => (
     <article class="floating-file" data-index={index} data-key={achievement.key}>
       <a href={achievement.pdf} target="_blank" rel="noopener noreferrer" class="floating-file__sheet">
@@ -40,6 +48,46 @@ const achievements: AchievementRow[] = [
   ))}
 </section>
 
+<section class="mobile-card-game" aria-label="Achievements card game">
+  <p class="mobile-card-game__invocation" id="achievements-mobile-invocation">{t("achievements.ui.invocation")}</p>
+  <p class="mobile-card-game__prompt" id="achievements-mobile-prompt">{t("achievements.ui.selectPrompt")}</p>
+  <button type="button" class="mobile-card-game__shuffle" id="achievements-mobile-shuffle">
+    {t("achievements.ui.shuffle")}
+  </button>
+  <div class="mobile-card-game__deck" id="achievements-mobile-deck">
+    {achievements.map((achievement, index) => (
+      <button
+        type="button"
+        class="mobile-card-game__card"
+        data-card-index={index}
+        data-key={achievement.key}
+      >
+        <span class="mobile-card-game__fc">FC</span>
+        <div class="mobile-card-game__icon-field" aria-hidden="true">
+          {(CARD_ICONS[achievement.key] ?? []).map((icon) => (
+            <span class="material-symbols-outlined mobile-card-game__icon">{icon}</span>
+          ))}
+        </div>
+      </button>
+    ))}
+  </div>
+  <article class="mobile-card-game__selected" id="achievements-mobile-selected" hidden>
+    <p class="mobile-card-game__selected-code" id="achievements-mobile-code"></p>
+    <p class="mobile-card-game__selected-arcana" id="achievements-mobile-arcana"></p>
+    <h4 class="mobile-card-game__selected-title" id="achievements-mobile-title">{t("achievements.ui.revealedTitle")}</h4>
+    <p class="mobile-card-game__selected-desc" id="achievements-mobile-desc">{t("achievements.ui.revealedDescription")}</p>
+    <a
+      id="achievements-mobile-open"
+      class="mobile-card-game__selected-open"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {t("achievements.ui.openSelected")}
+    </a>
+  </article>
+</section>
+
 <style>
   .files-scene {
     margin-inline: calc(50% - 50vw + 1rem);
@@ -51,6 +99,15 @@ const achievements: AchievementRow[] = [
     align-items: center;
     perspective: 1800px;
     padding: 1rem 0.4rem 2rem;
+  }
+  .files-scene__hint {
+    display: none;
+    margin: 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.72;
   }
   .floating-file { display: flex; justify-content: center; }
 
@@ -200,11 +257,362 @@ const achievements: AchievementRow[] = [
     .files-scene {
       margin-inline: 0;
       width: 100%;
-      grid-template-columns: 1fr;
-      gap: 1.2rem;
-      padding: 0.7rem 0 0;
+      display: block;
+      min-height: auto;
+      padding: 0.2rem 0 0;
+      perspective: 1200px;
+    }
+    .files-scene__hint {
+      display: block;
+      margin: 0 0 0.6rem 0.2rem;
+      animation: hintBlink 1300ms steps(2, end) infinite;
+    }
+    .files-scene.is-mobile-deck {
+      height: min(78vh, 620px);
+      max-height: 620px;
+      overflow: hidden;
+    }
+    .files-scene.is-mobile-deck .floating-file {
+      position: absolute;
+      left: 50%;
+      top: 2.4rem;
+      transform:
+        translateX(-50%)
+        translateY(calc(var(--deck-offset, 0) * 4px))
+        rotate(calc(var(--deck-offset, 0) * -1.1deg));
+      z-index: var(--deck-z, 1);
+      transition: transform 240ms ease, opacity 240ms ease;
+      opacity: calc(1 - (var(--deck-offset, 0) * 0.18));
+      pointer-events: none;
+    }
+    .files-scene.is-mobile-deck .floating-file.is-active {
+      pointer-events: auto;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) rotate(-0.2deg);
+    }
+    .files-scene.is-mobile-deck .floating-file.is-shuffling {
+      animation: cardShuffle 380ms cubic-bezier(0.22, 1, 0.36, 1);
     }
     .floating-file__sheet { width: min(100%, 360px); }
+    .files-scene.is-mobile-deck .floating-file__sheet {
+      width: min(94vw, 360px);
+      box-shadow: 10px 12px 0 rgba(0, 0, 0, 0.26);
+    }
+    :global(html.dark) .files-scene.is-mobile-deck .floating-file__sheet {
+      box-shadow: 10px 12px 0 rgba(255, 255, 255, 0.24);
+    }
+  }
+
+  .mobile-card-game {
+    display: none;
+  }
+
+  @media (max-width: 760px) {
+    .files-scene {
+      display: none;
+    }
+
+    .mobile-card-game {
+      display: block;
+      margin: 0 auto;
+      width: min(100%, 420px);
+      border-top: 1px solid rgba(0, 0, 0, 0.45);
+      padding-top: 0.65rem;
+    }
+
+    .mobile-card-game__prompt {
+      margin: 0;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.72;
+    }
+    .mobile-card-game__invocation {
+      margin: 0 0 0.35rem;
+      font-family: "Crimson Pro", serif;
+      font-style: italic;
+      font-size: 0.98rem;
+      line-height: 1.3;
+      opacity: 0.82;
+      letter-spacing: 0.01em;
+    }
+
+    .mobile-card-game__shuffle {
+      margin-top: 0.55rem;
+      border: 1px solid #111;
+      background: #111;
+      color: #fff;
+      padding: 0.45rem 0.62rem;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .mobile-card-game__deck {
+      margin-top: 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.95rem;
+      perspective: 1000px;
+      position: relative;
+    }
+
+    .mobile-card-game__card {
+      position: relative;
+      width: calc(50% - 0.475rem);
+      aspect-ratio: 0.72;
+      border: 1px solid #111;
+      background:
+        radial-gradient(circle at 50% 36%, rgba(0, 0, 0, 0.08), transparent 58%),
+        linear-gradient(125deg, rgba(0, 0, 0, 0.1), transparent 42%),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.05) 0 1px,
+          transparent 1px 24px
+        ),
+        #efefef;
+      color: #111;
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.22) inset,
+        7px 9px 0 rgba(0, 0, 0, 0.24);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform: rotate(0deg);
+      transition: transform 260ms ease, box-shadow 260ms ease, filter 260ms ease;
+      overflow: hidden;
+    }
+
+    .mobile-card-game__fc {
+      position: relative;
+      z-index: 2;
+      font-family: "Monsieur La Doulaise", cursive;
+      font-style: normal;
+      font-weight: 400;
+      font-size: clamp(2.1rem, 10.5vw, 3.6rem);
+      line-height: 1;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      opacity: 0.98;
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.55),
+        0 0 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .mobile-card-game__icon-field {
+      position: absolute;
+      inset: 0.42rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-content: space-between;
+      justify-items: center;
+      pointer-events: none;
+      opacity: 0.24;
+    }
+    .mobile-card-game__icon {
+      font-size: 1rem;
+      line-height: 1;
+      transform: rotate(var(--ir, 0deg));
+    }
+    .mobile-card-game__icon.material-symbols-outlined {
+      font-family: "Material Symbols Outlined";
+      font-weight: normal;
+      font-style: normal;
+      font-variation-settings:
+        "FILL" 0,
+        "wght" 500,
+        "GRAD" 0,
+        "opsz" 24;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      display: inline-block;
+    }
+    .mobile-card-game__icon:nth-child(1) { --ir: -8deg; }
+    .mobile-card-game__icon:nth-child(2) { --ir: 6deg; }
+    .mobile-card-game__icon:nth-child(3) { --ir: -4deg; }
+    .mobile-card-game__icon:nth-child(4) { --ir: 8deg; }
+    .mobile-card-game__icon:nth-child(5) { --ir: -7deg; }
+
+    .mobile-card-game__card::before,
+    .mobile-card-game__card::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(0, 0, 0, 0.35);
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+      opacity: 0.72;
+    }
+
+    .mobile-card-game__card::before {
+      top: 0.35rem;
+      left: 0.35rem;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .mobile-card-game__card::after {
+      right: 0.35rem;
+      bottom: 0.35rem;
+      border-left: none;
+      border-top: none;
+    }
+
+    .mobile-card-game__card.is-shuffling {
+      animation: mobileCardShuffle 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .mobile-card-game__deck.is-shuffling .mobile-card-game__card {
+      animation: gatherShuffle 720ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .mobile-card-game__card.is-selected {
+      box-shadow: 10px 11px 0 rgba(0, 0, 0, 0.34);
+      transform: rotate(0deg) translateY(-2px);
+      filter: saturate(1.08);
+    }
+
+    .mobile-card-game__selected {
+      margin-top: 0.9rem;
+      border: 1px solid #111;
+      background: #f7f7f7;
+      box-shadow: 8px 9px 0 rgba(0, 0, 0, 0.24);
+      padding: 0.65rem 0.62rem;
+      transform-style: preserve-3d;
+    }
+    .mobile-card-game__selected.is-revealing {
+      animation: revealFlip 250ms ease both;
+    }
+
+    .mobile-card-game__selected-code {
+      margin: 0;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      opacity: 0.72;
+    }
+
+    .mobile-card-game__selected-title {
+      margin: 0.4rem 0 0;
+      font-family: "Times New Roman", serif;
+      font-size: clamp(1.05rem, 5.4vw, 1.5rem);
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -0.015em;
+    }
+
+    .mobile-card-game__selected-desc {
+      margin: 0.55rem 0 0;
+      font-size: 0.92rem;
+      line-height: 1.42;
+      color: rgba(0, 0, 0, 0.76);
+    }
+    .mobile-card-game__selected-arcana {
+      margin: 0.35rem 0 0;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.68;
+    }
+
+    .mobile-card-game__selected-open {
+      margin-top: 0.7rem;
+      display: inline-flex;
+      border: 1px solid #111;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      padding: 0.42rem 0.55rem;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    :global(html.dark) .mobile-card-game {
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+    :global(html.dark) .mobile-card-game__shuffle {
+      border-color: #fff;
+      background: #fff;
+      color: #000;
+    }
+    :global(html.dark) .mobile-card-game__card {
+      border-color: rgba(255, 255, 255, 0.75);
+      color: #fff;
+      background:
+        radial-gradient(circle at 50% 36%, rgba(255, 255, 255, 0.1), transparent 58%),
+        linear-gradient(125deg, rgba(255, 255, 255, 0.11), transparent 42%),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.06) 0 1px,
+          transparent 1px 24px
+        ),
+        #0f0f0f;
+      box-shadow: 7px 9px 0 rgba(255, 255, 255, 0.22);
+    }
+    :global(html.dark) .mobile-card-game__icon-field {
+      opacity: 0.34;
+    }
+    :global(html.dark) .mobile-card-game__card::before,
+    :global(html.dark) .mobile-card-game__card::after {
+      border-color: rgba(255, 255, 255, 0.42);
+    }
+    :global(html.dark) .mobile-card-game__card.is-selected {
+      box-shadow: 10px 11px 0 rgba(255, 255, 255, 0.3);
+    }
+    :global(html.dark) .mobile-card-game__selected {
+      border-color: rgba(255, 255, 255, 0.75);
+      background: #0f0f0f;
+      box-shadow: 8px 9px 0 rgba(255, 255, 255, 0.22);
+    }
+    :global(html.dark) .mobile-card-game__selected-desc {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    :global(html.dark) .mobile-card-game__invocation {
+      opacity: 0.86;
+    }
+    :global(html.dark) .mobile-card-game__selected-open {
+      border-color: #fff;
+      background: #fff;
+      color: #000;
+    }
+  }
+
+  @keyframes mobileCardShuffle {
+    0% { transform: rotate(0deg) translate(0, 0) scale(1); }
+    18% { transform: rotate(8deg) translate(10px, -8px) scale(1.02); }
+    36% { transform: rotate(-9deg) translate(-11px, 5px) scale(1.01); }
+    60% { transform: rotate(6deg) translate(7px, -3px) scale(1.015); }
+    82% { transform: rotate(-4deg) translate(-5px, 2px) scale(1.005); }
+    100% { transform: rotate(0deg) translate(0, 0) scale(1); }
+  }
+  @keyframes revealFlip {
+    0% { transform: rotateY(90deg) scale(0.98); opacity: 0.2; }
+    100% { transform: rotateY(0deg) scale(1); opacity: 1; }
+  }
+
+  @keyframes gatherShuffle {
+    0% { transform: translate(0, 0) scale(1); }
+    35% { transform: translate(calc((2 - var(--i)) * 8px), calc((2 - var(--i)) * -6px)) scale(1.01); }
+    55% { transform: translate(0, 0) scale(0.98); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  @keyframes hintBlink {
+    0%, 100% { opacity: 0.45; transform: translateX(0); }
+    50% { opacity: 0.95; transform: translateX(4px); }
+  }
+
+  @keyframes cardShuffle {
+    0% { transform: translateX(-50%) translateY(0) rotate(-0.2deg); }
+    30% { transform: translateX(-44%) translateY(-5px) rotate(4deg); }
+    70% { transform: translateX(-54%) translateY(4px) rotate(-4deg); }
+    100% { transform: translateX(-50%) translateY(0) rotate(-0.2deg); }
   }
 </style>
 
@@ -212,6 +620,42 @@ const achievements: AchievementRow[] = [
   import { t } from "../utils/i18n";
 
   const KEYS = ["recommendation", "goit", "sedes", "tracto"];
+  const ACHIEVEMENTS_META = [
+    { key: "recommendation", code: "LOG_01", pdf: "/Portfolio/Carta Ing Rene.pdf" },
+    { key: "goit", code: "LOG_02", pdf: "/Portfolio/GoITRecommendation.pdf" },
+    { key: "sedes", code: "LOG_03", pdf: "/Portfolio/certificates/sedes-certificate.pdf" },
+    { key: "tracto", code: "LOG_04", pdf: "/Portfolio/certificates/tractocamiones-certificate.pdf" },
+  ];
+  const ARCANA_KEY_BY_ITEM: Record<string, string> = {
+    recommendation: "achievements.ui.arcana.mentor",
+    goit: "achievements.ui.arcana.executor",
+    sedes: "achievements.ui.arcana.healer",
+    tracto: "achievements.ui.arcana.builder",
+  };
+
+  const playTone = (frequency: number, durationMs: number, volume = 0.015) => {
+    try {
+      const Ctx = globalThis.AudioContext
+        ?? (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!Ctx) return;
+      const ctx = new Ctx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "triangle";
+      osc.frequency.value = frequency;
+      gain.gain.value = volume;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      window.setTimeout(() => {
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.06);
+        osc.stop(ctx.currentTime + 0.07);
+      }, Math.max(10, durationMs - 80));
+      window.setTimeout(() => void ctx.close(), durationMs + 120);
+    } catch {
+      // ignore audio capability errors
+    }
+  };
 
   const updateAchievementsText = () => {
     const achievementItems = document.querySelectorAll(".floating-file");
@@ -221,6 +665,107 @@ const achievements: AchievementRow[] = [
       if (title) title.textContent = t(`achievements.items.${KEYS[index]}.title`);
       if (previewTitle) previewTitle.textContent = t(`achievements.items.${KEYS[index]}.title`);
     });
+    const prompt = document.getElementById("achievements-mobile-prompt");
+    const invocation = document.getElementById("achievements-mobile-invocation");
+    const shuffle = document.getElementById("achievements-mobile-shuffle");
+    const open = document.getElementById("achievements-mobile-open");
+    const selectedTitle = document.getElementById("achievements-mobile-title");
+    const selectedDescription = document.getElementById("achievements-mobile-desc");
+    const selectedArcana = document.getElementById("achievements-mobile-arcana");
+    const selected = document.getElementById("achievements-mobile-selected");
+    if (prompt) prompt.textContent = t("achievements.ui.selectPrompt");
+    if (invocation) invocation.textContent = t("achievements.ui.invocation");
+    if (shuffle) shuffle.textContent = t("achievements.ui.shuffle");
+    if (open) open.textContent = t("achievements.ui.openSelected");
+    if (selectedTitle) selectedTitle.textContent = t("achievements.ui.revealedTitle");
+    if (selectedDescription) selectedDescription.textContent = t("achievements.ui.revealedDescription");
+    if (selectedArcana && selected?.getAttribute("data-arcana-key")) {
+      selectedArcana.textContent = t(selected.getAttribute("data-arcana-key") as string);
+    }
+  };
+
+  const initMobileCardGame = () => {
+    const deck = document.getElementById("achievements-mobile-deck");
+    const shuffleButton = document.getElementById("achievements-mobile-shuffle");
+    const selected = document.getElementById("achievements-mobile-selected");
+    const code = document.getElementById("achievements-mobile-code");
+    const title = document.getElementById("achievements-mobile-title");
+    const desc = document.getElementById("achievements-mobile-desc");
+    const arcana = document.getElementById("achievements-mobile-arcana");
+    const open = document.getElementById("achievements-mobile-open") as HTMLAnchorElement | null;
+    if (!(deck instanceof HTMLElement) || !(shuffleButton instanceof HTMLButtonElement)) return;
+
+    const cards = Array.from(deck.querySelectorAll(".mobile-card-game__card"));
+    if (!cards.length) return;
+
+    let order = cards.map((_, i) => i);
+    let canPick = true;
+
+    const paintOrder = () => {
+      cards.forEach((card, i) => {
+        const ord = order[i] ?? i;
+        (card as HTMLElement).style.order = String(ord);
+        (card as HTMLElement).style.setProperty("--i", String(i));
+      });
+    };
+
+    const selectCard = (index: number) => {
+      const meta = ACHIEVEMENTS_META[index];
+      if (!meta || !selected || !code || !title || !desc || !arcana || !open) return;
+      code.textContent = meta.code;
+      title.textContent = t(`achievements.items.${meta.key}.title`);
+      desc.textContent = t("achievements.ui.revealedDescription");
+      const arcanaKey = ARCANA_KEY_BY_ITEM[meta.key] ?? "achievements.ui.arcana.mentor";
+      arcana.textContent = t(arcanaKey);
+      selected.setAttribute("data-arcana-key", arcanaKey);
+      open.href = meta.pdf;
+      selected.hidden = false;
+      selected.classList.remove("is-revealing");
+      window.setTimeout(() => selected.classList.add("is-revealing"), 10);
+      cards.forEach((card) => card.classList.remove("is-selected"));
+      const chosen = cards.find((card) => Number(card.getAttribute("data-card-index")) === index);
+      chosen?.classList.add("is-selected");
+      playTone(392, 170, 0.018);
+    };
+
+    const shuffle = () => {
+      if (!canPick) return;
+      canPick = false;
+      deck.classList.add("is-shuffling");
+      selected?.setAttribute("hidden", "true");
+      cards.forEach((card) => card.classList.add("is-shuffling"));
+      playTone(180, 300, 0.014);
+      window.setTimeout(() => playTone(240, 220, 0.012), 180);
+      order = [...order].sort(() => Math.random() - 0.5);
+      paintOrder();
+      window.setTimeout(() => {
+        cards.forEach((card) => card.classList.remove("is-shuffling"));
+        deck.classList.remove("is-shuffling");
+        const randomIndex = Math.floor(Math.random() * cards.length);
+        const randomCardIndex = Number(cards[randomIndex]?.getAttribute("data-card-index"));
+        if (!Number.isNaN(randomCardIndex)) {
+          selectCard(randomCardIndex);
+        }
+        canPick = true;
+      }, 740);
+    };
+
+    if (shuffleButton.dataset.bound !== "true") {
+      shuffleButton.addEventListener("click", shuffle);
+      shuffleButton.dataset.bound = "true";
+    }
+
+    cards.forEach((card) => {
+      if ((card as HTMLElement).dataset.bound === "true") return;
+      card.addEventListener("click", () => {
+        if (!canPick) return;
+        const index = Number(card.getAttribute("data-card-index"));
+        selectCard(index);
+      });
+      (card as HTMLElement).dataset.bound = "true";
+    });
+
+    paintOrder();
   };
 
   window.addEventListener("storage", (e) => {
@@ -228,5 +773,9 @@ const achievements: AchievementRow[] = [
   });
   window.addEventListener("language-change", updateAchievementsText);
 
-  document.addEventListener("astro:page-load", updateAchievementsText);
+  window.addEventListener("resize", initMobileCardGame);
+  document.addEventListener("astro:page-load", () => {
+    updateAchievementsText();
+    initMobileCardGame();
+  });
 </script>

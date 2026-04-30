@@ -170,6 +170,20 @@
     "matrixMessage": "SIGUE AL CONEJO BLANCO."
   },
   "achievements": {
+    "ui": {
+      "invocation": "Concéntrate y elige tu energía.",
+      "selectPrompt": "MEZCLA LAS CARTAS Y ELIGE UNA",
+      "shuffle": "MEZCLAR_CARTAS",
+      "openSelected": "ABRIR_CERTIFICADO",
+      "revealedTitle": "TU CARTA FUE REVELADA",
+      "revealedDescription": "El destino eligió un logro. Abre el certificado para descubrirlo.",
+      "arcana": {
+        "mentor": "THE MENTOR",
+        "healer": "THE HEALER",
+        "builder": "THE BUILDER",
+        "executor": "THE EXECUTOR"
+      }
+    },
     "items": {
       "recommendation": {
         "title": "Carta de recomendación de Director de Carrera",
