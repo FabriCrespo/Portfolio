@@ -82,6 +82,11 @@ const { description, title } = Astro.props
         padding-top: calc(93px + env(safe-area-inset-top, 0px));
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
+      @media (max-width: 768px) {
+        .main-offset {
+          padding-top: 0;
+        }
+      }
 
       @media (prefers-reduced-motion: reduce) {
         html {
