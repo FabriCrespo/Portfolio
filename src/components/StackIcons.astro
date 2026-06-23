@@ -1,0 +1,78 @@
+---
+import {
+  Astro as AstroIcon,
+  Tailwindcss,
+  Nextdotjs,
+  Laravel,
+  Php,
+  Firebase,
+  Supabase,
+  Netlify,
+  Html5,
+  Css,
+  Hostinger,
+} from "simple-icons-astro";
+import { STACK_ICON_MAP, type StackIconSlug } from "../utils/stackIcons";
+
+interface Props {
+  stackKey: string;
+  size?: number;
+}
+
+const { stackKey, size = 17 } = Astro.props;
+
+const ICON_COMPONENTS: Record<StackIconSlug, typeof AstroIcon> = {
+  astro: AstroIcon,
+  tailwindcss: Tailwindcss,
+  nextdotjs: Nextdotjs,
+  laravel: Laravel,
+  php: Php,
+  firebase: Firebase,
+  supabase: Supabase,
+  netlify: Netlify,
+  html5: Html5,
+  css: Css,
+  hostinger: Hostinger,
+};
+
+const icons = STACK_ICON_MAP[stackKey] ?? [];
+---
+
+{icons.length > 0 && (
+  <span class="stack-icons">
+    {icons.map((slug) => {
+      const Icon = ICON_COMPONENTS[slug];
+      return <Icon size={size} class="stack-icon" />;
+    })}
+  </span>
+)}
+
+<style>
+  .stack-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.28rem;
+    flex-shrink: 0;
+  }
+
+  .stack-icon {
+    display: block;
+    flex-shrink: 0;
+    opacity: 0.95;
+    transition: transform 160ms ease, opacity 160ms ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    :global(.file-card__trigger:hover) .stack-icon {
+      opacity: 1;
+    }
+
+    :global(.file-card__trigger:hover) .stack-icon:nth-child(odd) {
+      transform: translateY(-1px);
+    }
+
+    :global(.file-card__trigger:hover) .stack-icon:nth-child(even) {
+      transform: translateY(1px);
+    }
+  }
+</style>

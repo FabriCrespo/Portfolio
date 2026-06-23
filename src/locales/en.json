@@ -8,7 +8,7 @@
   },
   "hero": {
     "title": "Hey, I'm Fabricio",
-    "description": "Egressed in <strong>Computer Systems Engineering</strong> from Universidad del Valle. <strong>Full-Stack Developer</strong>: frontend with <strong>Next.js, React, Astro, Tailwind & Figma</strong>, backend with <strong>Laravel & Firebase</strong>. I design in Figma and code to production—including several freelance projects from Figma to deploy. I build end-to-end at Reborn Developments and Rekaliber. Former <strong>Team Leader</strong> at GoIT. DevOps with Dokploy, VPS and Cloudflare. From Cochabamba, Bolivia 🇧🇴.",
+    "description": "Egressed in <strong>Computer Systems Engineering</strong> from Universidad del Valle. <strong>Full-Stack Developer</strong>: frontend with <strong>Next.js, React, Astro, Tailwind & Figma</strong>, backend with <strong>Laravel & Firebase</strong>. At Reborn Developments and Rekaliber; own production projects like Hydraulic Sistem and Eipet. Former <strong>Team Leader</strong> at GoIT. DevOps with Hostinger, Netlify, and Cloudflare. From Cochabamba, Bolivia 🇧🇴.",
     "contact": "Contact me",
     "note": {
       "profile": "FABRICIO_CRESPO_PROFILE",
@@ -34,7 +34,7 @@
       "current": "2025 (Current)",
       "profunded": "September 2025 - December 2025",
       "ongoing": "Ongoing",
-      "rekaliber": "2025 (In development)",
+      "rekaliber": "2025 (Private beta)",
       "spm": "2024 (4 months)",
       "freelance": "2023"
     },
@@ -42,7 +42,7 @@
       "reborn": {
         "title": "Full-Stack Developer",
         "company": "Reborn Developments",
-        "description": "Full-stack development (frontend and backend) for the Reborn ecosystem: Reborn Developments (investment platform), Reborn Rental (construction equipment rental), and Reborn Host (property management). Work with Next.js, Laravel, and related stacks. Server management and deployment with Dokploy, Hostinger VPS, and Cloudflare."
+        "description": "Full-stack development for Reborn Developments and Reborn Host. PHP Laravel backend and Next.js frontend for the international investment platform; Reborn Host with Next.js frontend and PHP for email delivery. Deployed both on Hostinger with Cloudflare connected for the domain."
       },
       "rebornrental": {
         "title": "Full-Stack Developer",
@@ -57,7 +57,7 @@
       "rekaliber": {
         "title": "Full-Stack Developer",
         "company": "Rekaliber",
-        "description": "Development of Rekaliber, a complete environment and system currently in development. Full-stack implementation with Next.js and Laravel, covering frontend and backend."
+        "description": "All-in-one enterprise SaaS: credential vault with 2FA/TOTP, session proxy, workflow editor, task manager, team chat, and multi-LLM AI Hub with tool calling. I contributed full-stack to the Laravel backend: authenticated REST APIs, secret encryption, OAuth, AI module with external integrations, and multi-tenant business logic per company. Private beta — not yet open to the public."
       },
       "profunded": {
         "title": "Frontend Developer",
@@ -77,7 +77,7 @@
       "freelance": {
         "title": "Full-Stack Developer",
         "company": "Freelance",
-        "description": "Developed web and mobile applications using ReactJS, React Native, and Laravel. Specialized in database design, UI/UX improvements, and full-stack development."
+        "description": "End-to-end freelance projects from design to production. Hydraulic Sistem: Astro + Supabase e-commerce, WhatsApp sales, SEO, deployed on Netlify (hydraulics-sistem.com). Eipet: full Next.js + Firebase frontend, orders module and area-based discounts (eipet.com.bo)."
       }
     },
     "ui": {
@@ -108,25 +108,29 @@
         "title": "ProFunded - Prop Trading Platform",
         "description": "Frontend-exclusive development at ProFunded. Built reusable components in Next.js and migrated key views from Blade to Next.js to unify the UI system, speed up iteration, and improve platform performance."
       },
+      "rekaliber": {
+        "title": "Rekaliber - All-in-One Enterprise SaaS",
+        "description": "All-in-one enterprise SaaS: credential vault with 2FA/TOTP, session proxy, workflow editor, task manager, team chat, and multi-LLM AI Hub with tool calling. I contributed full-stack to the Laravel backend: authenticated REST APIs, secret encryption, OAuth, AI module with external integrations, and multi-tenant business logic per company. Private beta — not yet open to the public."
+      },
       "rebornrental": {
         "title": "Reborn Rental - Construction Equipment Rental",
         "description": "Construction equipment rental platform based in Denver, Colorado. Active frontend and backend contribution with a creative product overhaul, UX improvements, and continuous evolution on a Blade + Laravel PHP architecture with operational integrations."
       },
       "reborn": {
         "title": "Reborn Developments - Investment Platform",
-        "description": "Modern web platform for international investments built with Next.js and Tailwind CSS on the frontend, and Laravel on the backend. Offers real estate project management, risk analysis, and global investment opportunities with intuitive interface and advanced technical analysis."
+        "description": "Web platform for international investments. I developed the backend in PHP Laravel and the frontend in Next.js. Deployed both on Hostinger with Cloudflare connected for the domain. Includes real estate project management, risk analysis, and global investment opportunities."
       },
       "rebornhost": {
         "title": "Reborn Host - Property Management",
-        "description": "Landing page for Reborn Host, a company specialized in short-term rental property management for Airbnb, VRBO, Booking.com and other platforms. Simple, responsive site built with pure HTML and CSS showcasing services, pricing and co-founders."
+        "description": "Site for Reborn Host, specialized in short-term rental property management for Airbnb, VRBO, Booking.com and other platforms. Next.js frontend with PHP for email delivery. Deployed on Hostinger with Cloudflare connected for the domain."
       },
       "eipet": {
         "title": "Eipet - Pet Store E-commerce",
-        "description": "E-commerce site for a veterinary pet store: browse and buy products for dogs and cats. Built with Astro and Firebase (frontend and backend). Features product catalog, categories, cart, user auth, and admin panel. Deployed on Vercel temporarily."
+        "description": "Pet products e-commerce in Bolivia. I built the complete frontend and the full orders and area-based discounts modules. Stack with Next.js and Firebase as backend and database. Dog and cat catalog, cart, authentication, and admin panel."
       },
       "hydraulics": {
         "title": "Hydraulic Sistem - E-commerce Repuestos Hidráulicos",
-        "description": "E-commerce for hydraulic parts and repair services for agricultural and heavy machinery. Built with Astro and Firebase, hosted on Vercel. Features services catalog, product cart, WhatsApp-based sales, and quote requests for cylinders, pumps, motors and valves."
+        "description": "E-commerce for hydraulic parts and repair services for agricultural and heavy machinery. End-to-end project developed by me with Astro, Supabase database, and WhatsApp sales. Product catalog, cart, and quote requests. Live in production on Netlify with custom domain, SEO optimization, and full infrastructure setup."
       }
     },
     "meta": {
@@ -139,19 +143,27 @@
       "status": {
         "active": "ACTIVE",
         "closed": "CLOSED",
-        "ongoing": "ONGOING"
+        "ongoing": "ONGOING",
+        "privateBeta": "PRIVATE_BETA"
       },
       "stack": {
         "astroTailwind": "ASTRO / TAILWIND",
         "nextjs": "NEXT.JS",
+        "nextjsFirebase": "NEXT.JS / FIREBASE",
         "laravelBlade": "LARAVEL / BLADE",
+        "laravel": "LARAVEL",
         "nextLaravel": "NEXT.JS / LARAVEL",
+        "nextLaravelHostinger": "NEXT.JS / LARAVEL / HOSTINGER",
         "htmlCss": "HTML / CSS",
-        "astroFirebase": "ASTRO / FIREBASE"
+        "htmlCssHostinger": "HTML / CSS / HOSTINGER",
+        "nextjsPhpHostinger": "NEXT.JS / PHP / HOSTINGER",
+        "astroFirebase": "ASTRO / FIREBASE",
+        "astroSupabaseNetlify": "ASTRO / SUPABASE / NETLIFY"
       },
       "sector": {
         "infrastructureLogistics": "INFRASTRUCTURE_LOGISTICS",
         "fintechTrading": "FINTECH_TRADING",
+        "enterpriseSaas": "ENTERPRISE_SAAS",
         "constructionRental": "CONSTRUCTION_RENTAL",
         "bioDigitalSystems": "BIO_DIGITAL_SYSTEMS",
         "propertyOperations": "PROPERTY_OPERATIONS",
@@ -207,7 +219,7 @@
     "title": "About Me",
     "paragraph1": "My name is Fabricio Rene Crespo Rossel, and I'm 22 years old. I have completed all academic semesters for Computer Systems Engineering, with only the final degree certification pending. I've been programming since I was 12, and I love both crafting interfaces and designing APIs and systems—true full-stack.",
     "paragraph2": "One of my significant achievements is delivering <strong>five deployment-ready projects at UMA for Universidad del Valle</strong>, which earned me a letter of recommendation from my department director.",
-    "paragraph3": "I work as a <strong>Full-Stack Developer</strong> across the whole stack: <strong>frontend</strong> with Next.js, React, Astro, Tailwind CSS, <strong>Figma</strong> for design and prototyping, and modern UI; <strong>backend</strong> with Laravel, Firebase and REST APIs. I have delivered several freelance projects from Figma mockups to production. I apply this at Reborn Developments (Reborn Developments, Reborn Rental, Reborn Host) and on <strong>Rekaliber</strong> (Next.js + Laravel). I also do <strong>DevOps</strong>—deployment and servers with Dokploy, Hostinger VPS and Cloudflare. I was <strong>Full Stack Team Leader at GoIT</strong>, leading the project and integrating Moodle.",
+    "paragraph3": "I work as a <strong>Full-Stack Developer</strong>: <strong>frontend</strong> with Next.js, React, Astro, Tailwind CSS, and Figma; <strong>backend</strong> with Laravel, Firebase, and REST APIs. At Reborn Developments (Laravel + Next.js) and Reborn Host (Next.js + PHP) I handle deployment on Hostinger with Cloudflare. At <strong>Rekaliber</strong> I develop the Laravel backend for an all-in-one enterprise SaaS in private beta. Production freelance projects: <strong>Hydraulic Sistem</strong> (Astro, Supabase, Netlify) and <strong>Eipet</strong> (Next.js, Firebase). I also do <strong>DevOps</strong> with Dokploy, Hostinger VPS, and Cloudflare. Former <strong>Full Stack Team Leader at GoIT</strong>.",
     "paragraph4": "My goal is to keep growing as a full-stack developer—from UI and UX to APIs, databases and deployment—and as a project manager who ships quality software and leads teams effectively.",
     "roles": {
       "webDeveloper": "WEB DEVELOPER",

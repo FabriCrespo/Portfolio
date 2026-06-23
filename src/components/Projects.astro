@@ -1,5 +1,6 @@
 ---
 import { t } from "../utils/i18n";
+import StackIcons from "./StackIcons.astro";
 
 type ProjectRow = {
   key: string;
@@ -15,11 +16,12 @@ type ProjectRow = {
 const PROJECTS: ProjectRow[] = [
   { key: "grb", title: t("projects.items.grb.title"), description: t("projects.items.grb.description"), link: "https://www.grb-group.com/en/", stackKey: "astroTailwind", sectorKey: "infrastructureLogistics", statusKey: "active", caseId: "CASE_ID: 449-G" },
   { key: "profunded", title: t("projects.items.profunded.title"), description: t("projects.items.profunded.description"), link: "https://profunded.com/", stackKey: "nextjs", sectorKey: "fintechTrading", statusKey: "active", caseId: "CASE_ID: 144-P" },
+  { key: "rekaliber", title: t("projects.items.rekaliber.title"), description: t("projects.items.rekaliber.description"), link: "https://sso.rekaliber.com/", stackKey: "laravel", sectorKey: "enterpriseSaas", statusKey: "privateBeta", caseId: "CASE_ID: 338-R" },
   { key: "rebornrental", title: t("projects.items.rebornrental.title"), description: t("projects.items.rebornrental.description"), link: "https://rebornrental.com/", stackKey: "laravelBlade", sectorKey: "constructionRental", statusKey: "closed", caseId: "CASE_ID: 112-A" },
-  { key: "reborn", title: t("projects.items.reborn.title"), description: t("projects.items.reborn.description"), link: "https://www.reborndevelopments.com/", stackKey: "nextLaravel", sectorKey: "bioDigitalSystems", statusKey: "ongoing", caseId: "CASE_ID: 009-R" },
-  { key: "rebornhost", title: t("projects.items.rebornhost.title"), description: t("projects.items.rebornhost.description"), link: "https://www.rebornhost.com/index.html", stackKey: "htmlCss", sectorKey: "propertyOperations", statusKey: "active", caseId: "CASE_ID: 223-H" },
-  { key: "eipet", title: t("projects.items.eipet.title"), description: t("projects.items.eipet.description"), link: "https://eipet-delta.vercel.app/", stackKey: "astroFirebase", sectorKey: "ecommerceSystem", statusKey: "active", caseId: "CASE_ID: 615-E" },
-  { key: "hydraulics", title: t("projects.items.hydraulics.title"), description: t("projects.items.hydraulics.description"), link: "https://hydraulicssistem.netlify.app/", stackKey: "astroFirebase", sectorKey: "heavyEquipmentServices", statusKey: "active", caseId: "CASE_ID: 781-H" },
+  { key: "reborn", title: t("projects.items.reborn.title"), description: t("projects.items.reborn.description"), link: "https://www.reborndevelopments.com/", stackKey: "nextLaravelHostinger", sectorKey: "bioDigitalSystems", statusKey: "ongoing", caseId: "CASE_ID: 009-R" },
+  { key: "rebornhost", title: t("projects.items.rebornhost.title"), description: t("projects.items.rebornhost.description"), link: "https://www.rebornhost.com/", stackKey: "nextjsPhpHostinger", sectorKey: "propertyOperations", statusKey: "active", caseId: "CASE_ID: 223-H" },
+  { key: "eipet", title: t("projects.items.eipet.title"), description: t("projects.items.eipet.description"), link: "https://eipet.com.bo/", stackKey: "nextjsFirebase", sectorKey: "ecommerceSystem", statusKey: "active", caseId: "CASE_ID: 615-E" },
+  { key: "hydraulics", title: t("projects.items.hydraulics.title"), description: t("projects.items.hydraulics.description"), link: "https://hydraulics-sistem.com/", stackKey: "astroSupabaseNetlify", sectorKey: "heavyEquipmentServices", statusKey: "active", caseId: "CASE_ID: 781-H" },
 ];
 
 ---
@@ -40,7 +42,13 @@ const PROJECTS: ProjectRow[] = [
             <h4 class="project-title">{project.title}</h4>
             <p class="file-card__sector">{t(`projects.meta.sector.${project.sectorKey}`)}</p>
             <div class="file-card__row"><span class="project-label-status">{t("projects.meta.labels.status")}</span><span class="project-value-status">{t(`projects.meta.status.${project.statusKey}`)}</span></div>
-            <div class="file-card__row"><span class="project-label-stack">{t("projects.meta.labels.stack")}</span><span class="project-value-stack">{t(`projects.meta.stack.${project.stackKey}`)}</span></div>
+            <div class="file-card__row file-card__row--stack">
+              <span class="project-label-stack">{t("projects.meta.labels.stack")}</span>
+              <span class="project-stack-meta">
+                <StackIcons stackKey={project.stackKey} />
+                <span class="project-value-stack">{t(`projects.meta.stack.${project.stackKey}`)}</span>
+              </span>
+            </div>
             <footer class="file-card__footer"><span class="project-open-label">{t("projects.meta.labels.openFile")}</span><span aria-hidden="true">→</span></footer>
           </div>
           <div class="file-card__preview" aria-hidden="true">
@@ -93,6 +101,22 @@ const PROJECTS: ProjectRow[] = [
   .project-title { margin: 0; font-family: "Times New Roman", serif; font-size: clamp(1.8rem, 2.2vw, 2.35rem); line-height: 0.95; text-transform: uppercase; letter-spacing: -0.015em; }
   .file-card__sector { margin: 0.6rem 0 1rem; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0, 0, 0, 0.65); padding-bottom: 0.55rem; border-bottom: 1px solid rgba(0, 0, 0, 0.35); }
   .file-card__row { display: flex; justify-content: space-between; gap: 0.6rem; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0, 0, 0, 0.78); padding: 0.55rem 0; border-bottom: 1px solid rgba(0, 0, 0, 0.14); }
+  .file-card__row--stack { align-items: center; }
+  .project-stack-meta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    max-width: 62%;
+    text-align: right;
+  }
+  .project-value-stack {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    line-height: 1.25;
+    color: rgba(0, 0, 0, 0.62);
+  }
   .file-card__footer { margin-top: auto; padding-top: 0.7rem; border-top: 2px solid rgba(0, 0, 0, 0.7); display: flex; justify-content: space-between; align-items: center; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
   .file-card__footer span { font-size: 1.4rem; line-height: 1; }
   .file-card__preview { position: absolute; inset: 0; opacity: 0; transform: translateY(8px); transition: opacity 180ms ease, transform 180ms ease; pointer-events: none; }
@@ -149,6 +173,7 @@ const PROJECTS: ProjectRow[] = [
   :global(html.dark) .file-card__poster-title { color: rgba(255, 255, 255, 0.14); }
   :global(html.dark) .file-card__tab { background: #fff; color: #000; }
   :global(html.dark) .file-card__sector, :global(html.dark) .file-card__row { color: rgba(255, 255, 255, 0.75); border-color: rgba(255, 255, 255, 0.24); }
+  :global(html.dark) .project-value-stack { color: rgba(255, 255, 255, 0.58); }
   :global(html.dark) .file-card__footer { border-color: rgba(255, 255, 255, 0.8); }
   :global(html.dark) .file-card__trigger:focus-visible { outline-color: rgba(255, 255, 255, 0.75); }
 
@@ -236,15 +261,15 @@ const PROJECTS: ProjectRow[] = [
   }
 
   @media (max-width: 1100px) { .project-files__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 700px) { .project-files__grid { grid-template-columns: 1fr; gap: 1rem; } .file-card__inner { min-height: 280px; padding-top: 4.5rem; } .project-title { font-size: clamp(1.45rem, 7.2vw, 2rem); } .file-card__preview-description { max-height: none; } .file-card__trigger:active .file-card__preview { opacity: 1; transform: translateY(0); } .project-entry .file-card__trigger { transform: none !important; } }
+  @media (max-width: 700px) { .project-files__grid { grid-template-columns: 1fr; gap: 1rem; } .file-card__inner { min-height: 280px; padding-top: 4.5rem; } .project-title { font-size: clamp(1.45rem, 7.2vw, 2rem); } .file-card__preview-description { max-height: none; } .file-card__trigger:active .file-card__preview { opacity: 1; transform: translateY(0); } .project-entry .file-card__trigger { transform: none !important; } .project-stack-meta { max-width: 68%; } .project-value-stack { display: none; } }
 </style>
 
 <script>
   import { t } from "../utils/i18n";
-  const ITEMS = ["grb", "profunded", "rebornrental", "reborn", "rebornhost", "eipet", "hydraulics"];
-  const SECTORS = ["infrastructureLogistics", "fintechTrading", "constructionRental", "bioDigitalSystems", "propertyOperations", "ecommerceSystem", "heavyEquipmentServices"];
-  const STATUSES = ["active", "active", "closed", "ongoing", "active", "active", "active"];
-  const STACKS = ["astroTailwind", "nextjs", "laravelBlade", "nextLaravel", "htmlCss", "astroFirebase", "astroFirebase"];
+  const ITEMS = ["grb", "profunded", "rekaliber", "rebornrental", "reborn", "rebornhost", "eipet", "hydraulics"];
+  const SECTORS = ["infrastructureLogistics", "fintechTrading", "enterpriseSaas", "constructionRental", "bioDigitalSystems", "propertyOperations", "ecommerceSystem", "heavyEquipmentServices"];
+  const STATUSES = ["active", "active", "privateBeta", "closed", "ongoing", "active", "active", "active"];
+  const STACKS = ["astroTailwind", "nextjs", "laravel", "laravelBlade", "nextLaravelHostinger", "nextjsPhpHostinger", "nextjsFirebase", "astroSupabaseNetlify"];
   const updateProjectsText = () => {
     const rows = document.querySelectorAll(".project-entry");
     rows.forEach((row, index) => {
