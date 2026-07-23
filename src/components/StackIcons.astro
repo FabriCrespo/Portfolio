@@ -63,14 +63,17 @@ const icons = STACK_ICON_MAP[stackKey] ?? [];
   }
 
   @media (hover: hover) and (pointer: fine) {
+    :global(.tv-set:hover) .stack-icon,
     :global(.file-card__trigger:hover) .stack-icon {
       opacity: 1;
     }
 
+    :global(.tv-set:hover) .stack-icon:nth-child(odd),
     :global(.file-card__trigger:hover) .stack-icon:nth-child(odd) {
       transform: translateY(-1px);
     }
 
+    :global(.tv-set:hover) .stack-icon:nth-child(even),
     :global(.file-card__trigger:hover) .stack-icon:nth-child(even) {
       transform: translateY(1px);
     }

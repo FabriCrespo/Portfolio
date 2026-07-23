@@ -8,13 +8,13 @@
   },
   "hero": {
     "title": "Hola, soy Fabricio",
-    "description": "Egresado de <strong>Ingeniería de Sistemas</strong> de la Universidad del Valle. <strong>Desarrollador Full-Stack</strong>: frontend con <strong>Next.js, React, Astro, Tailwind y Figma</strong>, backend con <strong>Laravel y Firebase</strong>. En Reborn Developments y Rekaliber; proyectos propios en producción como Hydraulic Sistem y Eipet. Ex <strong>Team Leader</strong> en GoIT. DevOps con Hostinger, Netlify y Cloudflare. De Cochabamba, Bolivia 🇧🇴.",
+    "description": "<strong>Full Stack Software Engineer</strong> con experiencia entregando software en producción en SaaS, real estate, hospitalidad y plataformas empresariales. Especializado en <strong>React, Next.js, Laravel y TypeScript</strong>, con ownership de productos end-to-end, infraestructura cloud y DevOps. En <strong>Reborn Developments</strong> (Rekaliber, Reborn Rentals, GRBG, Reborn Host). Ex Team Lead en GoIT. De Cochabamba, Bolivia 🇧🇴.",
     "contact": "Contáctame",
     "note": {
       "profile": "PERFIL_FABRICIO_CRESPO",
-      "role": "WEB DEVELOPER // INGENIERO DE SOFTWARE",
+      "role": "FULL STACK SOFTWARE ENGINEER",
       "tag": "// SOBRE_MI",
-      "description": "CONSTRUYO PRODUCTOS WEB DE PUNTA A PUNTA: FRONTEND SÓLIDO, BACKEND ROBUSTO Y ENTREGA LIMPIA A PRODUCCIÓN. ENFOCADO EN PERFORMANCE, ESTRUCTURA E IMPACTO REAL."
+      "description": "ENTREGO SOFTWARE LISTO PARA PRODUCCIÓN: FRONTEND SÓLIDO, BACKEND ROBUSTO, INFRAESTRUCTURA Y CONTINUIDAD OPERATIVA. ENFOCADO EN ESCALABILIDAD, CONFIABILIDAD E IMPACTO REAL."
     }
   },
   "header": {
@@ -30,54 +30,54 @@
     "current": "Actual",
     "learnMore": "Saber más",
     "dates": {
-      "goit": "Marzo 2025 - Junio 2025",
-      "current": "2025 (Actual)",
-      "profunded": "Septiembre 2025 - Diciembre 2025",
+      "goit": "Marzo 2025 – Junio 2025",
+      "current": "2025 – Presente",
+      "profunded": "Septiembre 2025 – Diciembre 2025",
       "ongoing": "En curso",
-      "rekaliber": "2025 (Beta privada)",
-      "spm": "2024 (4 meses)",
-      "freelance": "2023"
+      "rekaliber": "2025 – Presente",
+      "spm": "2024",
+      "freelance": "2025"
     },
     "items": {
       "reborn": {
-        "title": "Desarrollador Full-Stack",
+        "title": "Full Stack Software Engineer",
         "company": "Reborn Developments",
-        "description": "Desarrollo full-stack para Reborn Developments y Reborn Host. Backend en PHP Laravel y frontend en Next.js para la plataforma de inversiones internacionales; Reborn Host con frontend en Next.js y PHP para envío de emails. Deployment de ambos en Hostinger con conexión a Cloudflare para el dominio."
+        "description": "Desarrollo full-stack de la plataforma de inversiones internacionales y Reborn Host. Backend en Laravel/PHP y frontend en Next.js/React/TypeScript; Host con Next.js y PHP (SMTP) para emails. Ownership de deployments en Hostinger VPS con Cloudflare (DNS, SSL), CI/CD y operaciones en producción. APIs REST, autenticación e integraciones de terceros."
       },
       "rebornrental": {
-        "title": "Desarrollador Full-Stack",
-        "company": "Reborn Rental",
-        "description": "Trabajo actual en Reborn Rental desarrollando frontend y backend. Realicé un overhaul creativo del proyecto, mejorando UX/UI y flujo de producto, además de ampliar y mantener la página web construida con Blade y Laravel PHP."
-      },
-      "goit": {
-        "title": "Team Leader Full Stack",
-        "company": "Grupo GOIT",
-        "description": "Team Leader del proyecto full-stack de la academia GOIT de desarrolladores; desarrollo de una plataforma web/móvil con NextJS, Expo y PostgreSQL. Lideré la integración de Moodle en la plataforma para gestionar el contenido educativo y la experiencia de aprendizaje de los estudiantes."
+        "title": "Full Stack Software Engineer",
+        "company": "Reborn Rentals",
+        "description": "Desarrollo frontend y backend de la plataforma de alquiler de equipos de construcción. Overhaul creativo de UX/UI y flujo de producto sobre Blade + Laravel/PHP, manteniendo y evolucionando el sitio en producción."
       },
       "rekaliber": {
-        "title": "Desarrollador Full-Stack",
+        "title": "Full Stack Software Engineer",
         "company": "Rekaliber",
-        "description": "SaaS empresarial all-in-one: vault de credenciales con 2FA/TOTP, proxy de sesiones, editor de workflows, task manager, team chat e AI Hub multi-LLM con tool calling. Participé en el desarrollo full stack del backend Laravel: APIs REST autenticadas, cifrado de secretos, OAuth, módulo de IA con integraciones externas y lógica de negocio multi-tenant por empresa. Plataforma en beta privada, aún no abierta al público."
+        "description": "SaaS empresarial all-in-one en beta privada: vault de credenciales (2FA/TOTP), proxy de sesiones, workflows, task manager, team chat e AI Hub multi-LLM. Backend Laravel: APIs REST, cifrado de secretos, OAuth, lógica multi-tenant e integraciones de IA (OpenAI, Gemini, Azure AI)."
       },
       "profunded": {
         "title": "Frontend Developer",
         "company": "ProFunded",
-        "description": "Trabajo exclusivo de frontend para ProFunded. Desarrollé componentes reutilizables y ejecuté la migración de interfaces desde Blade hacia Next.js para mejorar mantenibilidad, consistencia visual y escalabilidad del producto."
+        "description": "Desarrollo exclusivo de frontend: componentes reutilizables en Next.js/React/TypeScript y migración de vistas Blade a Next.js para unificar UI, mejorar mantenibilidad y acelerar iteraciones."
       },
-      "founder": {
-        "title": "Gerente de Proyectos de Software & Fundador",
-        "company": "FluenceSoft",
-        "description": "Fundador y gerente de proyectos en FluenceSoft, una empresa de desarrollo de software. Liderando múltiples equipos de desarrollo, supervisando la entrega de proyectos y asegurando soluciones de software de alta calidad para los clientes."
+      "goit": {
+        "title": "Full Stack Developer Intern – Team Lead",
+        "company": "Grupo GOIT",
+        "description": "Lideré una plataforma educativa full-stack: web (Next.js, NestJS) y móvil (React Native, Expo) con PostgreSQL. Integré Moodle para cursos, inscripción y progreso. Mentoría, code reviews y entrega a tiempo."
       },
       "spm": {
-        "title": "Gerente de Proyectos de Software (SPM)",
-        "company": "UMA, Universidad del Valle, Cochabamba",
-        "description": "Gestioné cinco equipos de desarrollo, asegurando que los requisitos del proyecto se cumplieran a tiempo. Proporcioné capacitación en ReactJS y React Native, supervisé repositorios e integré múltiples bases de código."
+        "title": "Software Project Manager Intern",
+        "company": "Universidad del Valle (UMA)",
+        "description": "Gestioné cinco equipos de desarrollo: planificación, requisitos, timelines y entregables. Capacité en React, React Native y Git. Supervisé repositorios e integración, entregando proyectos listos para deployment."
+      },
+      "founder": {
+        "title": "Fundador & Gerente de Proyectos",
+        "company": "FluenceSoft",
+        "description": "Fundé FluenceSoft para soluciones de software a medida. Mentoricé desarrolladores en React y React Native con formación técnica y acompañamiento."
       },
       "freelance": {
-        "title": "Desarrollador Full-Stack",
+        "title": "Full Stack Software Engineer",
         "company": "Freelance",
-        "description": "Proyectos freelance end-to-end desde diseño hasta producción. Hydraulic Sistem: e-commerce con Astro y Supabase, ventas por WhatsApp, SEO y deploy en Netlify (hydraulics-sistem.com). Eipet: frontend completo en Next.js + Firebase, módulo de pedidos y descuentos por áreas (eipet.com.bo)."
+        "description": "Proyectos end-to-end en producción. Hydraulic Sistem: e-commerce con Astro y Supabase, ventas por WhatsApp, SEO y deploy en Netlify (hydraulics-sistem.com)."
       }
     },
     "ui": {
@@ -102,43 +102,47 @@
     "items": {
       "grb": {
         "title": "GRB Group - Sitio Web Corporativo",
-        "description": "Sitio web corporativo moderno desarrollado con Astro para GRB Group, una empresa global de bienes raíces. Presenta un diseño elegante y profesional con navegación intuitiva, secciones dinámicas y optimización SEO para mostrar los servicios de inversión inmobiliaria y tecnología."
+        "description": "Parte del ecosistema Reborn Developments. Sitio corporativo para GRB Group (bienes raíces globales), desarrollado con Astro: diseño profesional, navegación clara, secciones dinámicas y SEO para servicios de inversión inmobiliaria y tecnología."
       },
       "profunded": {
         "title": "ProFunded - Plataforma Prop Trading",
-        "description": "Desarrollo exclusivo de frontend en ProFunded. Construcción de componentes reutilizables en Next.js y migración de vistas desde Blade a Next.js para unificar el sistema de UI, acelerar iteraciones y mejorar el rendimiento de la plataforma."
+        "description": "Desarrollo de frontend en ProFunded: componentes reutilizables en Next.js y migración de vistas Blade a Next.js para unificar UI, acelerar iteraciones y mejorar rendimiento."
       },
       "rekaliber": {
         "title": "Rekaliber - SaaS Empresarial All-in-One",
-        "description": "SaaS empresarial all-in-one: vault de credenciales con 2FA/TOTP, proxy de sesiones, editor de workflows, task manager, team chat e AI Hub multi-LLM con tool calling. Participé en el desarrollo full stack del backend Laravel: APIs REST autenticadas, cifrado de secretos, OAuth, módulo de IA con integraciones externas y lógica de negocio multi-tenant por empresa. Plataforma en beta privada, aún no abierta al público."
+        "description": "Producto del ecosistema Reborn. SaaS empresarial: vault de credenciales con 2FA/TOTP, proxy de sesiones, workflows, task manager, team chat e AI Hub multi-LLM. Backend Laravel: APIs REST, cifrado de secretos, OAuth, módulo de IA (OpenAI, Gemini, Azure AI) y lógica multi-tenant. Beta privada."
       },
       "rebornrental": {
         "title": "Reborn Rental - Renta de Material de Construcción",
-        "description": "Plataforma web de alquiler de equipos de construcción en Denver, Colorado. Participación activa en frontend y backend con overhaul creativo del producto, mejoras de experiencia y evolución continua sobre arquitectura Blade + Laravel PHP con integración operativa."
+        "description": "Parte del ecosistema Reborn. Plataforma de alquiler de equipos en Denver, Colorado. Full-stack sobre Blade + Laravel PHP con overhaul creativo de UX/UI, mantenimiento y evolución operativa del producto."
       },
       "reborn": {
         "title": "Reborn Developments - Plataforma de Inversiones",
-        "description": "Plataforma web para inversiones internacionales. Desarrollé el backend en PHP Laravel y el frontend en Next.js. Deployment de ambos en Hostinger con conexión a Cloudflare para el dominio. Incluye gestión de proyectos inmobiliarios, análisis de riesgo y oportunidades de inversión globales."
+        "description": "Plataforma central del ecosistema Reborn para inversiones internacionales. Backend PHP Laravel y frontend Next.js; deploy en Hostinger con Cloudflare. Gestión de proyectos inmobiliarios, análisis de riesgo e integraciones de producción."
       },
       "rebornhost": {
         "title": "Reborn Host - Gestión de Propiedades",
-        "description": "Sitio para Reborn Host, empresa especializada en gestión de propiedades para alquileres vacacionales en Airbnb, VRBO, Booking.com y otras plataformas. Frontend en Next.js con PHP para envío de emails. Deployment en Hostinger con conexión a Cloudflare para el dominio."
-      },
-      "eipet": {
-        "title": "Eipet - E-commerce Tienda de Mascotas",
-        "description": "E-commerce de productos para mascotas en Bolivia. Desarrollé el frontend completo y todo el módulo de pedidos y descuentos por áreas. Stack con Next.js y Firebase como backend y base de datos. Catálogo para perros y gatos, carrito, autenticación y panel de administración."
+        "description": "Parte del ecosistema Reborn. Sitio de hospitalidad / short-term rentals (Airbnb, VRBO, Booking.com). Frontend Next.js con PHP para envío de emails (SMTP). Deploy en Hostinger con Cloudflare."
       },
       "hydraulics": {
         "title": "Hydraulic Sistem - E-commerce Repuestos Hidráulicos",
-        "description": "E-commerce de repuestos hidráulicos y servicios de reparación para maquinaria agrícola y pesada. Proyecto desarrollado end-to-end por mí con Astro, base de datos Supabase y ventas por WhatsApp. Catálogo, carrito y cotizaciones. En producción en Netlify con dominio propio, SEO optimizado y configuración completa de infraestructura."
+        "description": "Proyecto end-to-end en producción: e-commerce de repuestos hidráulicos con Astro, Supabase, ventas por WhatsApp, SEO y deploy en Netlify con dominio propio."
       }
     },
     "meta": {
       "labels": {
         "status": "ESTADO",
         "stack": "STACK_TEC",
-        "openFile": "ABRIR_ARCHIVO_",
-        "previewDescription": "VISTA_PREVIA + DESCRIPCIÓN"
+        "openFile": "SINTONIZAR_CANAL_",
+        "previewDescription": "SEÑAL EN VIVO + DESCRIPCIÓN",
+        "signalLost": "SEÑAL_PERDIDA",
+        "channel": "CANAL",
+        "locked": "LOCKED",
+        "lockedHint": "AUTH_REQUIRED // BETA_PRIVADA",
+        "lockedCta": "CANAL_BLOQUEADO_",
+        "remote": "Control remoto de proyectos",
+        "prevChannel": "CH −",
+        "nextChannel": "CH +"
       },
       "status": {
         "active": "ACTIVO",
@@ -217,13 +221,13 @@
   },
   "about": {
     "title": "Sobre Mí",
-    "paragraph1": "Mi nombre es Fabricio Rene Crespo Rossel, y tengo 22 años. He completado todos los semestres académicos de Ingeniería en Sistemas Computacionales, solo pendiente la certificación final de grado. Programo desde los 12 años y me apasiona tanto la interfaz de usuario como las APIs y el backend—full-stack de verdad.",
-    "paragraph2": "Uno de mis logros significativos es haber entregado <strong>cinco proyectos listos para producción en UMA para la Universidad del Valle</strong>, lo que me valió una carta de recomendación del director de mi departamento.",
-    "paragraph3": "Trabajo como <strong>Desarrollador Full-Stack</strong>: <strong>frontend</strong> con Next.js, React, Astro, Tailwind CSS y Figma; <strong>backend</strong> con Laravel, Firebase y APIs REST. En Reborn Developments (Laravel + Next.js) y Reborn Host (Next.js + PHP) hago deployment en Hostinger con Cloudflare. En <strong>Rekaliber</strong> desarrollo el backend Laravel de un SaaS empresarial all-in-one en beta privada. Proyectos freelance en producción: <strong>Hydraulic Sistem</strong> (Astro, Supabase, Netlify) y <strong>Eipet</strong> (Next.js, Firebase). También <strong>DevOps</strong> con Dokploy, VPS Hostinger y Cloudflare. Ex <strong>Team Leader Full Stack en GoIT</strong>.",
-    "paragraph4": "Mi objetivo es seguir creciendo como desarrollador full-stack—desde UI y UX hasta APIs, bases de datos y deployment—y como gerente de proyectos que entrega software de calidad y lidera equipos con criterio.",
+    "paragraph1": "Soy <strong>Full Stack Software Engineer</strong> egresado de Ingeniería en Sistemas Computacionales de la Universidad del Valle (2020–2024), Cochabamba, Bolivia. Programo desde los 12 años y me especializo en entregar software listo para producción.",
+    "paragraph2": "Tengo experiencia construyendo plataformas en SaaS, real estate, hospitalidad y enterprise. Un logro clave fue entregar <strong>cinco proyectos listos para producción en UMA</strong>, con reconocimiento como Software Project Manager Intern y carta de recomendación del director de carrera.",
+    "paragraph3": "Trabajo por separado en <strong>Reborn Developments</strong>, <strong>Reborn Rentals</strong>, <strong>Rekaliber</strong> y <strong>Reborn Host</strong>: full-stack con Next.js, React, TypeScript, Laravel y MySQL; infraestructura con Hostinger VPS, Dokploy y Cloudflare; e integraciones con Odoo, OpenAI, Gemini y Azure AI. Antes fui <strong>Team Lead en GoIT</strong> (Next.js, NestJS, React Native, Moodle, PostgreSQL).",
+    "paragraph4": "Mi objetivo es seguir liderando iniciativas técnicas end-to-end—desde arquitectura y backend hasta deployment—asegurando confiabilidad, escalabilidad y continuidad de sistemas en producción.",
     "roles": {
-      "webDeveloper": "DESARROLLADOR WEB",
-      "softwareEngineer": "INGENIERO DE SOFTWARE"
+      "webDeveloper": "FULL STACK DEVELOPER",
+      "softwareEngineer": "SOFTWARE ENGINEER"
     },
     "meta": {
       "born": "NAC_2002_06_04",

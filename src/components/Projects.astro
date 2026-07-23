@@ -11,290 +11,1030 @@ type ProjectRow = {
   sectorKey: string;
   statusKey: string;
   caseId: string;
+  preview: string;
+  locked?: boolean;
 };
 
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+
 const PROJECTS: ProjectRow[] = [
-  { key: "grb", title: t("projects.items.grb.title"), description: t("projects.items.grb.description"), link: "https://www.grb-group.com/en/", stackKey: "astroTailwind", sectorKey: "infrastructureLogistics", statusKey: "active", caseId: "CASE_ID: 449-G" },
-  { key: "profunded", title: t("projects.items.profunded.title"), description: t("projects.items.profunded.description"), link: "https://profunded.com/", stackKey: "nextjs", sectorKey: "fintechTrading", statusKey: "active", caseId: "CASE_ID: 144-P" },
-  { key: "rekaliber", title: t("projects.items.rekaliber.title"), description: t("projects.items.rekaliber.description"), link: "https://sso.rekaliber.com/", stackKey: "laravel", sectorKey: "enterpriseSaas", statusKey: "privateBeta", caseId: "CASE_ID: 338-R" },
-  { key: "rebornrental", title: t("projects.items.rebornrental.title"), description: t("projects.items.rebornrental.description"), link: "https://rebornrental.com/", stackKey: "laravelBlade", sectorKey: "constructionRental", statusKey: "closed", caseId: "CASE_ID: 112-A" },
-  { key: "reborn", title: t("projects.items.reborn.title"), description: t("projects.items.reborn.description"), link: "https://www.reborndevelopments.com/", stackKey: "nextLaravelHostinger", sectorKey: "bioDigitalSystems", statusKey: "ongoing", caseId: "CASE_ID: 009-R" },
-  { key: "rebornhost", title: t("projects.items.rebornhost.title"), description: t("projects.items.rebornhost.description"), link: "https://www.rebornhost.com/", stackKey: "nextjsPhpHostinger", sectorKey: "propertyOperations", statusKey: "active", caseId: "CASE_ID: 223-H" },
-  { key: "eipet", title: t("projects.items.eipet.title"), description: t("projects.items.eipet.description"), link: "https://eipet.com.bo/", stackKey: "nextjsFirebase", sectorKey: "ecommerceSystem", statusKey: "active", caseId: "CASE_ID: 615-E" },
-  { key: "hydraulics", title: t("projects.items.hydraulics.title"), description: t("projects.items.hydraulics.description"), link: "https://hydraulics-sistem.com/", stackKey: "astroSupabaseNetlify", sectorKey: "heavyEquipmentServices", statusKey: "active", caseId: "CASE_ID: 781-H" },
+  { key: "rebornrental", title: t("projects.items.rebornrental.title"), description: t("projects.items.rebornrental.description"), link: "https://rebornrental.com/", stackKey: "laravelBlade", sectorKey: "constructionRental", statusKey: "closed", caseId: "CH-01", preview: `${base}projects/rebornrental.jpg` },
+  { key: "hydraulics", title: t("projects.items.hydraulics.title"), description: t("projects.items.hydraulics.description"), link: "https://hydraulics-sistem.com/", stackKey: "astroSupabaseNetlify", sectorKey: "heavyEquipmentServices", statusKey: "active", caseId: "CH-02", preview: `${base}projects/hydraulics.jpg` },
+  { key: "profunded", title: t("projects.items.profunded.title"), description: t("projects.items.profunded.description"), link: "https://profunded.com/", stackKey: "nextjs", sectorKey: "fintechTrading", statusKey: "active", caseId: "CH-03", preview: `${base}projects/profunded.jpg` },
+  { key: "rebornhost", title: t("projects.items.rebornhost.title"), description: t("projects.items.rebornhost.description"), link: "https://www.rebornhost.com/", stackKey: "nextjsPhpHostinger", sectorKey: "propertyOperations", statusKey: "active", caseId: "CH-04", preview: `${base}projects/rebornhost.png` },
+  { key: "reborn", title: t("projects.items.reborn.title"), description: t("projects.items.reborn.description"), link: "https://www.reborndevelopments.com/", stackKey: "nextLaravelHostinger", sectorKey: "bioDigitalSystems", statusKey: "ongoing", caseId: "CH-05", preview: `${base}projects/reborn.jpg` },
+  { key: "grb", title: t("projects.items.grb.title"), description: t("projects.items.grb.description"), link: "https://www.grb-group.com/en/", stackKey: "astroTailwind", sectorKey: "infrastructureLogistics", statusKey: "active", caseId: "CH-06", preview: `${base}projects/grb.png` },
+  { key: "rekaliber", title: t("projects.items.rekaliber.title"), description: t("projects.items.rekaliber.description"), link: "https://sso.rekaliber.com/", stackKey: "laravel", sectorKey: "enterpriseSaas", statusKey: "privateBeta", caseId: "CH-07", preview: `${base}projects/rekaliber.png`, locked: true },
 ];
 
+const hostOf = (url?: string) => {
+  if (!url) return "offline.local";
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "offline.local";
+  }
+};
 ---
 
-<section class="project-files">
-  <div class="project-files__grid">
-    {PROJECTS.map((project) => (
-      <article class="file-card project-entry">
-        <div class="file-card__tab">{project.caseId}</div>
+<section class="project-tvs" data-channel-count={PROJECTS.length}>
+  <div class="project-tvs__grid">
+    {PROJECTS.map((project, index) => (
+      <article
+        class:list={["tv-set", "project-entry", { "tv-set--locked": project.locked, "is-on-air": index === 0 }]}
+        data-project-key={project.key}
+        data-status={project.statusKey}
+        data-stack-key={project.stackKey}
+        data-sector-key={project.sectorKey}
+        data-locked={project.locked ? "true" : "false"}
+        data-channel-index={index}
+        data-case-id={project.caseId}
+      >
+        <div class="tv-antenna" aria-hidden="true">
+          <span class="tv-antenna__rod tv-antenna__rod--l"></span>
+          <span class="tv-antenna__rod tv-antenna__rod--r"></span>
+          <span class="tv-antenna__base"></span>
+        </div>
+
         <a
           href={project.link ?? "#"}
           target="_blank"
           rel="noopener noreferrer"
-          class="file-card__trigger"
+          class="tv-set__trigger"
+          aria-label={project.locked ? `${project.title} (${t("projects.meta.labels.locked")})` : project.title}
         >
-          <p class="file-card__poster-title" aria-hidden="true">{project.title}</p>
-          <div class="file-card__inner">
-            <h4 class="project-title">{project.title}</h4>
-            <p class="file-card__sector">{t(`projects.meta.sector.${project.sectorKey}`)}</p>
-            <div class="file-card__row"><span class="project-label-status">{t("projects.meta.labels.status")}</span><span class="project-value-status">{t(`projects.meta.status.${project.statusKey}`)}</span></div>
-            <div class="file-card__row file-card__row--stack">
-              <span class="project-label-stack">{t("projects.meta.labels.stack")}</span>
-              <span class="project-stack-meta">
-                <StackIcons stackKey={project.stackKey} />
-                <span class="project-value-stack">{t(`projects.meta.stack.${project.stackKey}`)}</span>
-              </span>
+          <div class="tv-bezel">
+            <div class="tv-channel project-case-id">{project.caseId}</div>
+
+            <div class="tv-screen-wrap">
+              <div class:list={["tv-screen", { "is-locked": project.locked }]}>
+                {!project.locked && (
+                  <img
+                    class="tv-preview"
+                    src={project.preview}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    data-fallback-host={hostOf(project.link)}
+                  />
+                )}
+                <div class="tv-fallback" aria-hidden="true">
+                  <p class="tv-fallback__label project-signal-lost">{t("projects.meta.labels.signalLost")}</p>
+                  <p class="tv-fallback__host">{hostOf(project.link)}</p>
+                </div>
+                {project.locked && (
+                  <div class="tv-locked" aria-hidden="true">
+                    <svg class="tv-locked__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square">
+                      <rect x="5" y="11" width="14" height="10" />
+                      <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+                      <circle cx="12" cy="16" r="1.2" fill="currentColor" stroke="none" />
+                    </svg>
+                    <p class="tv-locked__title project-locked-label">{t("projects.meta.labels.locked")}</p>
+                    <p class="tv-locked__sub project-locked-hint">{t("projects.meta.labels.lockedHint")}</p>
+                    <p class="tv-locked__host">{hostOf(project.link)}</p>
+                  </div>
+                )}
+                <div class="tv-scanlines" aria-hidden="true"></div>
+                <div class="tv-vignette" aria-hidden="true"></div>
+                <div class="tv-glow" aria-hidden="true"></div>
+                <div class="tv-hover-copy" aria-hidden="true">
+                  <p class="tv-hover-label project-preview-label">{t("projects.meta.labels.previewDescription")}</p>
+                  <p class="tv-hover-description project-description">{project.description}</p>
+                </div>
+              </div>
             </div>
-            <footer class="file-card__footer"><span class="project-open-label">{t("projects.meta.labels.openFile")}</span><span aria-hidden="true">→</span></footer>
-          </div>
-          <div class="file-card__preview" aria-hidden="true">
-            <div class="file-card__preview-overlay">
-              <p class="file-card__preview-label">{t("projects.meta.labels.previewDescription")}</p>
-              <p class="file-card__preview-description project-description">{project.description}</p>
+
+            <div class="tv-controls" aria-hidden="true">
+              <span class={`tv-led tv-led--${project.statusKey}${project.locked ? " tv-led--locked" : ""}`}></span>
+              <span class="tv-knob"></span>
+              <span class="tv-knob"></span>
             </div>
           </div>
+
+          <div class="tv-stand" aria-hidden="true"></div>
         </a>
+
+        <div class="tv-meta">
+          <p class="tv-meta__channel">
+            <span class="project-channel-label">{t("projects.meta.labels.channel")}</span>
+            <span class="project-case-id-meta">{project.caseId}</span>
+            {project.locked && <span class="tv-meta__lock-badge project-locked-badge">{t("projects.meta.labels.locked")}</span>}
+          </p>
+          <h4 class="project-title">{project.title}</h4>
+          <p class="tv-meta__sector file-card__sector">{t(`projects.meta.sector.${project.sectorKey}`)}</p>
+          <div class="tv-meta__row">
+            <span class="project-label-status">{t("projects.meta.labels.status")}</span>
+            <span class={`project-value-status tv-status tv-status--${project.statusKey}`}>{t(`projects.meta.status.${project.statusKey}`)}</span>
+          </div>
+          <div class="tv-meta__row tv-meta__row--stack">
+            <span class="project-label-stack">{t("projects.meta.labels.stack")}</span>
+            <span class="project-stack-meta">
+              <StackIcons stackKey={project.stackKey} />
+              <span class="project-value-stack">{t(`projects.meta.stack.${project.stackKey}`)}</span>
+            </span>
+          </div>
+          <a
+            href={project.link ?? "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={["tv-meta__tune", { "tv-meta__tune--locked": project.locked }]}
+          >
+            <span class="project-open-label">{project.locked ? t("projects.meta.labels.lockedCta") : t("projects.meta.labels.openFile")}</span>
+            <span aria-hidden="true">{project.locked ? "#" : "→"}</span>
+          </a>
+        </div>
       </article>
     ))}
+  </div>
+
+  <div class="tv-remote" aria-label={t("projects.meta.labels.remote")}>
+    <button type="button" class="tv-remote__btn" data-channel-dir="prev" aria-label={t("projects.meta.labels.prevChannel")}>
+      <span class="tv-remote__btn-label project-prev-channel">{t("projects.meta.labels.prevChannel")}</span>
+    </button>
+    <div class="tv-remote__panel">
+      <p class="tv-remote__eyebrow project-channel-label">{t("projects.meta.labels.channel")}</p>
+      <p class="tv-remote__channel" data-remote-channel>{PROJECTS[0].caseId}</p>
+      <p class="tv-remote__counter">
+        <span data-remote-index>1</span>
+        <span aria-hidden="true">/</span>
+        <span data-remote-total>{PROJECTS.length}</span>
+      </p>
+    </div>
+    <button type="button" class="tv-remote__btn" data-channel-dir="next" aria-label={t("projects.meta.labels.nextChannel")}>
+      <span class="tv-remote__btn-label project-next-channel">{t("projects.meta.labels.nextChannel")}</span>
+    </button>
   </div>
 </section>
 
 <style>
-  .project-files {
+  .project-tvs {
     border-top: 1px solid rgba(0, 0, 0, 0.55);
-    padding-top: 1.1rem;
+    padding-top: 1.35rem;
     overflow-x: clip;
   }
-  .project-files__grid { display: grid; gap: 1.4rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .file-card {
+
+  .project-tvs__grid {
+    display: grid;
+    gap: 2rem 1.35rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tv-set {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tv-antenna {
     position: relative;
-    background: #f7f7f7;
+    height: 28px;
+    margin: 0 auto;
+    width: 42%;
+  }
+
+  .tv-antenna__base {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 10px;
+    height: 8px;
+    transform: translateX(-50%);
+    background: #1a1a1a;
     border: 1px solid #111;
+  }
+
+  .tv-antenna__rod {
+    position: absolute;
+    bottom: 6px;
+    width: 2px;
+    height: 22px;
+    background: #222;
+    transform-origin: bottom center;
+  }
+
+  .tv-antenna__rod--l { left: 48%; transform: rotate(-28deg); }
+  .tv-antenna__rod--r { left: 52%; transform: rotate(32deg); }
+
+  .tv-set__trigger {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    outline: none;
+  }
+
+  .tv-set__trigger:focus-visible {
+    outline: 1px dashed #111;
+    outline-offset: 4px;
+  }
+
+  .tv-bezel {
+    position: relative;
+    background:
+      linear-gradient(160deg, #d8d4cc 0%, #b7b2a8 42%, #9a958c 100%);
+    border: 2px solid #111;
     box-shadow: 8px 8px 0 #111;
+    padding: 0.85rem 0.85rem 0.7rem;
     transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .tv-channel {
+    position: absolute;
+    top: 0.35rem;
+    left: 0.55rem;
+    z-index: 3;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.55);
+  }
+
+  .tv-screen-wrap {
+    position: relative;
+    border: 2px solid #111;
+    background: #050505;
+    padding: 0.35rem;
+    border-radius: 18px / 22px;
+  }
+
+  .tv-screen {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 14px / 18px;
+    background:
+      radial-gradient(circle at 50% 45%, #1a2a1a 0%, #050805 70%),
+      #050505;
+    box-shadow:
+      inset 0 0 28px rgba(0, 0, 0, 0.85),
+      inset 0 0 8px rgba(120, 255, 140, 0.12);
+  }
+
+  .tv-preview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    filter: contrast(1.05) saturate(0.92) brightness(0.92);
+    transition: filter 220ms ease, opacity 220ms ease, transform 280ms ease;
+  }
+
+  .tv-preview.is-broken {
+    display: none;
+  }
+
+  .tv-fallback {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1rem;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 100, 0.04) 0 1px,
+        transparent 1px 3px
+      ),
+      radial-gradient(circle at center, #0d1a10 0%, #020302 75%);
+    color: #7dff9a;
+    text-align: center;
+  }
+
+  .tv-screen.is-offline .tv-fallback {
+    display: flex;
+  }
+
+  .tv-locked {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 1rem;
+    text-align: center;
+    color: #ffc14d;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        rgba(255, 180, 60, 0.05) 0 1px,
+        transparent 1px 3px
+      ),
+      radial-gradient(circle at center, #1a1408 0%, #050402 78%);
+  }
+
+  .tv-locked__icon {
+    display: block;
+    margin-bottom: 0.15rem;
+    opacity: 0.95;
+  }
+
+  .tv-locked__title {
+    margin: 0.15rem 0 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .tv-locked__sub {
+    margin: 0;
+    max-width: 16ch;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 210, 140, 0.72);
+    line-height: 1.35;
+  }
+
+  .tv-locked__host {
+    margin: 0.45rem 0 0;
+    font-family: "Times New Roman", serif;
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    letter-spacing: -0.02em;
+    color: rgba(255, 230, 180, 0.88);
+  }
+
+  .tv-led--locked {
+    background: #ffc14d;
+    box-shadow: 0 0 6px rgba(255, 193, 77, 0.75);
+    animation: ledBlink 1.2s steps(2, end) infinite;
+  }
+
+  .tv-meta__lock-badge {
+    margin-left: 0.45rem;
+    padding: 0.12rem 0.35rem;
+    border: 1px solid rgba(0, 0, 0, 0.55);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: #111;
+    background: #ffc14d;
+  }
+
+  .tv-meta__tune--locked {
+    opacity: 0.88;
+  }
+
+  .tv-set--locked .tv-bezel {
+    background: linear-gradient(160deg, #cfc8b8 0%, #a89f8c 45%, #8a8274 100%);
+  }
+
+  .tv-set--locked .tv-glow {
+    box-shadow: inset 0 0 24px rgba(255, 180, 60, 0.14);
+  }
+
+  .tv-fallback__label {
+    margin: 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .tv-fallback__host {
+    margin: 0;
+    font-family: "Times New Roman", serif;
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    letter-spacing: -0.02em;
+  }
+
+  .tv-scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.045) 0 1px,
+      transparent 1px 3px
+    );
+    mix-blend-mode: soft-light;
+    opacity: 0.55;
+  }
+
+  .tv-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.55) 100%);
+  }
+
+  .tv-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 24px rgba(90, 255, 140, 0.08);
+    opacity: 0.7;
+    transition: opacity 200ms ease;
+  }
+
+  .tv-hover-copy {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0.85rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.35) 55%, transparent 100%);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 180ms ease, transform 180ms ease;
+    pointer-events: none;
+  }
+
+  .tv-hover-label {
+    margin: 0 0 0.35rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(180, 255, 190, 0.9);
+  }
+
+  .tv-hover-description {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+    line-height: 1.4;
+    max-height: 6.2em;
     overflow: hidden;
   }
-  .file-card__trigger { display: block; width: 100%; color: inherit; text-decoration: none; position: relative; }
-  .file-card__poster-title {
-    position: absolute;
-    top: 0.65rem;
-    left: 0.7rem;
-    right: 0.7rem;
-    z-index: 1;
-    margin: 0;
-    font-family: "Arial Black", "Inter", sans-serif;
-    font-size: clamp(2rem, 3.8vw, 3.2rem);
-    line-height: 0.84;
-    letter-spacing: -0.06em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.11);
-    pointer-events: none;
-    transform: translateY(0) rotate(-1deg);
-    transition: transform 220ms ease, opacity 220ms ease;
+
+  .tv-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.45rem;
+    margin-top: 0.55rem;
+    padding-right: 0.15rem;
   }
-  .file-card__tab { position: absolute; top: -1px; left: -1px; background: #111; color: #fff; font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 0.13em; text-transform: uppercase; padding: 0.32rem 0.8rem 0.32rem 0.62rem; clip-path: polygon(0 0, 92% 0, 100% 100%, 0 100%); }
-  .file-card__inner { min-height: 300px; padding: 5.2rem 1rem 0.95rem; display: flex; flex-direction: column; transition: transform 180ms ease, opacity 180ms ease; position: relative; z-index: 2; }
-  .project-title { margin: 0; font-family: "Times New Roman", serif; font-size: clamp(1.8rem, 2.2vw, 2.35rem); line-height: 0.95; text-transform: uppercase; letter-spacing: -0.015em; }
-  .file-card__sector { margin: 0.6rem 0 1rem; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0, 0, 0, 0.65); padding-bottom: 0.55rem; border-bottom: 1px solid rgba(0, 0, 0, 0.35); }
-  .file-card__row { display: flex; justify-content: space-between; gap: 0.6rem; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0, 0, 0, 0.78); padding: 0.55rem 0; border-bottom: 1px solid rgba(0, 0, 0, 0.14); }
-  .file-card__row--stack { align-items: center; }
+
+  .tv-led {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid #111;
+    background: #3a3a3a;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.6);
+  }
+
+  .tv-led--active,
+  .tv-led--ongoing {
+    background: #3dff6a;
+    box-shadow: 0 0 6px rgba(61, 255, 106, 0.75);
+  }
+
+  .tv-led--privateBeta {
+    background: #ffc14d;
+    box-shadow: 0 0 6px rgba(255, 193, 77, 0.7);
+    animation: ledBlink 1.2s steps(2, end) infinite;
+  }
+
+  .tv-led--closed {
+    background: #555;
+    box-shadow: none;
+  }
+
+  .tv-knob {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid #111;
+    background:
+      radial-gradient(circle at 35% 30%, #f0ece4 0%, #bdb7ac 55%, #7f7a72 100%);
+    box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.4);
+  }
+
+  .tv-stand {
+    width: 48%;
+    height: 10px;
+    margin: 0 auto;
+    border: 1px solid #111;
+    border-top: 0;
+    background: #cfcac0;
+    box-shadow: 4px 4px 0 #111;
+  }
+
+  .tv-meta {
+    margin-top: 0.95rem;
+    padding: 0 0.1rem;
+  }
+
+  .tv-meta__channel {
+    margin: 0 0 0.35rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.55);
+  }
+
+  .project-title {
+    margin: 0;
+    font-family: "Times New Roman", serif;
+    font-size: clamp(1.35rem, 1.8vw, 1.75rem);
+    line-height: 0.98;
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+  }
+
+  .tv-meta__sector,
+  .file-card__sector {
+    margin: 0.45rem 0 0.65rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.62);
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.28);
+  }
+
+  .tv-meta__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.78);
+    padding: 0.42rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .tv-meta__row--stack { align-items: center; }
+
   .project-stack-meta {
     display: inline-flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 0.45rem;
+    gap: 0.4rem;
     flex-wrap: wrap;
-    max-width: 62%;
+    max-width: 65%;
     text-align: right;
   }
+
   .project-value-stack {
     font-size: 9px;
     letter-spacing: 0.06em;
     line-height: 1.25;
-    color: rgba(0, 0, 0, 0.62);
+    color: rgba(0, 0, 0, 0.58);
   }
-  .file-card__footer { margin-top: auto; padding-top: 0.7rem; border-top: 2px solid rgba(0, 0, 0, 0.7); display: flex; justify-content: space-between; align-items: center; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
-  .file-card__footer span { font-size: 1.4rem; line-height: 1; }
-  .file-card__preview { position: absolute; inset: 0; opacity: 0; transform: translateY(8px); transition: opacity 180ms ease, transform 180ms ease; pointer-events: none; }
-  .file-card__preview-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.68) 60%, rgba(0, 0, 0, 0.52) 100%),
-      repeating-linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.05) 0 1px,
-        transparent 1px 20px
-      );
+
+  .tv-meta__tune {
+    margin-top: 0.7rem;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 0.55rem;
+    border-top: 2px solid rgba(0, 0, 0, 0.7);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: inherit;
+    text-decoration: none;
   }
 
-  .file-card__preview-overlay::before,
-  .file-card__preview-overlay::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0;
+  .tv-meta__tune span:last-child {
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: transform 180ms ease;
   }
 
-  .file-card__preview-overlay::before {
-    background:
-      repeating-linear-gradient(
-        to bottom,
-        transparent 0 3px,
-        rgba(255, 255, 255, 0.08) 3px 4px
-      );
-    mix-blend-mode: screen;
-  }
-
-  .file-card__preview-overlay::after {
-    background: linear-gradient(90deg, rgba(255, 0, 0, 0.09), transparent 45%, rgba(0, 180, 255, 0.08));
-    mix-blend-mode: lighten;
-  }
-  .file-card__preview-label { margin: 0 0 0.5rem; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.86); }
-  .file-card__preview-description { margin: 0; font-size: clamp(0.92rem, 1.2vw, 1rem); line-height: 1.45; color: #fff; max-height: 8.3em; overflow: hidden; }
-  .file-card__trigger:hover .file-card__preview,
-  .file-card__trigger:focus-visible .file-card__preview,
-  .file-card__trigger:focus .file-card__preview { opacity: 1; transform: translateY(0); }
-  .file-card__trigger:hover .file-card__inner,
-  .file-card__trigger:focus-visible .file-card__inner,
-  .file-card__trigger:focus .file-card__inner { opacity: 0.08; transform: scale(0.99); }
-  .file-card__trigger:focus-visible { outline: 1px dashed #111; outline-offset: 4px; }
-  :global(html.dark) .project-files { border-color: rgba(255, 255, 255, 0.45); }
-  :global(html.dark) .file-card { background: #0b0b0b; border-color: rgba(255, 255, 255, 0.72); box-shadow: 8px 8px 0 rgba(255, 255, 255, 0.7); }
-  :global(html.dark) .file-card__poster-title { color: rgba(255, 255, 255, 0.14); }
-  :global(html.dark) .file-card__tab { background: #fff; color: #000; }
-  :global(html.dark) .file-card__sector, :global(html.dark) .file-card__row { color: rgba(255, 255, 255, 0.75); border-color: rgba(255, 255, 255, 0.24); }
-  :global(html.dark) .project-value-stack { color: rgba(255, 255, 255, 0.58); }
-  :global(html.dark) .file-card__footer { border-color: rgba(255, 255, 255, 0.8); }
-  :global(html.dark) .file-card__trigger:focus-visible { outline-color: rgba(255, 255, 255, 0.75); }
-
-  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .file-card:has(.file-card__trigger:hover) {
-      transform: translate(-4px, -4px);
-      box-shadow: 12px 12px 0 #111;
-    }
-    :global(html.dark) .file-card:has(.file-card__trigger:hover) {
-      box-shadow: 12px 12px 0 rgba(255, 255, 255, 0.72);
-    }
-
-    .file-card__trigger:hover .file-card__tab {
-      animation: jitterX 160ms steps(2, end) 2;
-    }
-
-    .file-card__trigger:hover .file-card__preview-overlay::before {
-      opacity: 1;
-      animation: vhsNoise 520ms steps(3, end) infinite;
-    }
-
-    .file-card__trigger:hover .file-card__preview-overlay::after {
-      opacity: 1;
-      animation: vhsShift 320ms steps(2, end) infinite;
-    }
-
-    .file-card__trigger:hover .file-card__poster-title {
-      transform: translateY(-6px) rotate(-2deg);
-      opacity: 0.6;
-    }
-  }
-
-  @keyframes jitterX {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(1px); }
-    50% { transform: translateX(-1px); }
-    75% { transform: translateX(1px); }
-    100% { transform: translateX(0); }
-  }
-
-  @keyframes vhsNoise {
-    0% { transform: translateY(0); opacity: 0.28; }
-    40% { transform: translateY(-2px); opacity: 0.22; }
-    70% { transform: translateY(2px); opacity: 0.32; }
-    100% { transform: translateY(0); opacity: 0.26; }
-  }
-
-  @keyframes vhsShift {
-    0% { transform: translateX(0); }
-    30% { transform: translateX(-1px); }
-    60% { transform: translateX(1px); }
-    100% { transform: translateX(0); }
-  }
+  .tv-set:nth-child(odd) .tv-bezel { transform: rotate(-0.5deg); }
+  .tv-set:nth-child(even) .tv-bezel { transform: rotate(0.55deg); }
+  .tv-set:nth-child(3n) .tv-bezel { transform: translateY(6px) rotate(-0.65deg); }
 
   @media (hover: hover) and (pointer: fine) {
-    .file-card__footer span:last-child {
-      display: inline-block;
-      transition: transform 180ms ease;
+    .tv-set__trigger:hover .tv-hover-copy,
+    .tv-set__trigger:focus-visible .tv-hover-copy {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .file-card__trigger:hover .file-card__footer span:last-child {
+
+    .tv-set__trigger:hover .tv-preview,
+    .tv-set__trigger:focus-visible .tv-preview {
+      filter: contrast(1.08) saturate(1.05) brightness(1.05);
+      transform: scale(1.03);
+    }
+
+    .tv-set__trigger:hover .tv-glow,
+    .tv-set__trigger:focus-visible .tv-glow {
+      opacity: 1;
+    }
+
+    .tv-meta__tune:hover span:last-child {
       transform: translateX(4px);
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .file-card {
-      transition: none;
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .tv-set:has(.tv-set__trigger:hover) .tv-bezel,
+    .tv-set:has(.tv-set__trigger:focus-visible) .tv-bezel {
+      transform: translate(-3px, -3px) rotate(0deg);
+      box-shadow: 11px 11px 0 #111;
+    }
+
+    .tv-set__trigger:hover .tv-scanlines {
+      animation: vhsNoise 520ms steps(3, end) infinite;
+    }
+
+    .tv-set__trigger:hover .tv-glow {
+      animation: crtPulse 900ms ease-in-out infinite;
     }
   }
 
-  .project-entry:nth-child(odd) .file-card__trigger {
-    transform: rotate(-0.45deg);
+  @keyframes ledBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
   }
 
-  .project-entry:nth-child(even) .file-card__trigger {
-    transform: rotate(0.55deg);
+  @keyframes vhsNoise {
+    0% { transform: translateY(0); opacity: 0.5; }
+    40% { transform: translateY(-2px); opacity: 0.4; }
+    70% { transform: translateY(2px); opacity: 0.58; }
+    100% { transform: translateY(0); opacity: 0.48; }
   }
 
-  .project-entry:nth-child(3n) .file-card__trigger {
-    transform: translateY(8px) rotate(-0.7deg);
+  @keyframes crtPulse {
+    0%, 100% { opacity: 0.75; }
+    50% { opacity: 1; }
   }
 
-  .project-entry:nth-child(4n) .file-card__trigger {
-    transform: translateX(6px) rotate(0.8deg);
+  @media (prefers-reduced-motion: reduce) {
+    .tv-bezel,
+    .tv-preview,
+    .tv-hover-copy,
+    .tv-glow {
+      transition: none;
+    }
+    .tv-led--privateBeta {
+      animation: none;
+    }
   }
 
-  @media (max-width: 1100px) { .project-files__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 700px) { .project-files__grid { grid-template-columns: 1fr; gap: 1rem; } .file-card__inner { min-height: 280px; padding-top: 4.5rem; } .project-title { font-size: clamp(1.45rem, 7.2vw, 2rem); } .file-card__preview-description { max-height: none; } .file-card__trigger:active .file-card__preview { opacity: 1; transform: translateY(0); } .project-entry .file-card__trigger { transform: none !important; } .project-stack-meta { max-width: 68%; } .project-value-stack { display: none; } }
+  :global(html.dark) .project-tvs { border-color: rgba(255, 255, 255, 0.45); }
+  :global(html.dark) .tv-bezel {
+    background: linear-gradient(160deg, #2a2a2a 0%, #151515 55%, #0c0c0c 100%);
+    border-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 8px 8px 0 rgba(255, 255, 255, 0.7);
+  }
+  :global(html.dark) .tv-channel { color: rgba(255, 255, 255, 0.55); }
+  :global(html.dark) .tv-screen-wrap { border-color: rgba(255, 255, 255, 0.55); }
+  :global(html.dark) .tv-stand {
+    background: #1a1a1a;
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.65);
+  }
+  :global(html.dark) .tv-antenna__rod,
+  :global(html.dark) .tv-antenna__base { background: #ddd; border-color: #fff; }
+  :global(html.dark) .tv-meta__channel,
+  :global(html.dark) .tv-meta__sector,
+  :global(html.dark) .file-card__sector,
+  :global(html.dark) .tv-meta__row {
+    color: rgba(255, 255, 255, 0.72);
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+  :global(html.dark) .project-value-stack { color: rgba(255, 255, 255, 0.55); }
+  :global(html.dark) .tv-meta__tune { border-color: rgba(255, 255, 255, 0.8); }
+  :global(html.dark) .tv-set__trigger:focus-visible { outline-color: rgba(255, 255, 255, 0.75); }
+  :global(html.dark) .tv-meta__lock-badge {
+    border-color: rgba(255, 255, 255, 0.55);
+    color: #111;
+  }
+  :global(html.dark) .tv-set--locked .tv-bezel {
+    background: linear-gradient(160deg, #2e2a22 0%, #1a1712 55%, #0e0c09 100%);
+  }
+
+  @media (max-width: 1100px) {
+    .project-tvs__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  .tv-remote {
+    display: none;
+  }
+
+  @media (max-width: 700px) {
+    .project-tvs__grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .tv-set {
+      display: none;
+    }
+
+    .tv-set.is-on-air {
+      display: flex;
+    }
+
+    .tv-set .tv-bezel { transform: none !important; }
+    .project-title { font-size: clamp(1.35rem, 6.5vw, 1.7rem); }
+    .project-value-stack { display: none; }
+    .project-stack-meta { max-width: 70%; }
+    .tv-set__trigger:active .tv-hover-copy {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tv-set.is-zapping .tv-screen::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.18) 0 1px,
+          transparent 1px 2px
+        ),
+        #0a0a0a;
+      animation: channelZap 280ms steps(2, end);
+    }
+
+    .tv-remote {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 0.55rem;
+      align-items: stretch;
+      margin-top: 1.1rem;
+      padding: 0.7rem;
+      background: linear-gradient(160deg, #d8d4cc 0%, #b7b2a8 50%, #9a958c 100%);
+      border: 2px solid #111;
+      box-shadow: 6px 6px 0 #111;
+    }
+
+    .tv-remote__btn {
+      appearance: none;
+      border: 2px solid #111;
+      background: #111;
+      color: #fff;
+      min-height: 52px;
+      padding: 0.45rem 0.35rem;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .tv-remote__btn:active {
+      transform: translate(1px, 1px);
+    }
+
+    .tv-remote__btn-label {
+      display: block;
+      line-height: 1.25;
+    }
+
+    .tv-remote__panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      border: 2px solid #111;
+      background: #0b0b0b;
+      color: #7dff9a;
+      padding: 0.45rem 0.35rem;
+      min-height: 52px;
+    }
+
+    .tv-remote__eyebrow {
+      margin: 0;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 8px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .tv-remote__channel {
+      margin: 0;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 15px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffc14d;
+    }
+
+    .tv-remote__counter {
+      margin: 0;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      opacity: 0.75;
+    }
+
+    :global(html.dark) .tv-remote {
+      background: linear-gradient(160deg, #2a2a2a 0%, #151515 55%, #0c0c0c 100%);
+      border-color: rgba(255, 255, 255, 0.75);
+      box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    :global(html.dark) .tv-remote__btn {
+      background: #fff;
+      color: #111;
+      border-color: #fff;
+    }
+
+    :global(html.dark) .tv-remote__panel {
+      border-color: rgba(255, 255, 255, 0.55);
+    }
+  }
+
+  @keyframes channelZap {
+    0% { opacity: 0.95; }
+    40% { opacity: 0.35; }
+    100% { opacity: 0; }
+  }
 </style>
 
 <script>
   import { t } from "../utils/i18n";
-  const ITEMS = ["grb", "profunded", "rekaliber", "rebornrental", "reborn", "rebornhost", "eipet", "hydraulics"];
-  const SECTORS = ["infrastructureLogistics", "fintechTrading", "enterpriseSaas", "constructionRental", "bioDigitalSystems", "propertyOperations", "ecommerceSystem", "heavyEquipmentServices"];
-  const STATUSES = ["active", "active", "privateBeta", "closed", "ongoing", "active", "active", "active"];
-  const STACKS = ["astroTailwind", "nextjs", "laravel", "laravelBlade", "nextLaravelHostinger", "nextjsPhpHostinger", "nextjsFirebase", "astroSupabaseNetlify"];
+
+  const markBrokenPreview = (img: HTMLImageElement) => {
+    img.classList.add("is-broken");
+    const screen = img.closest(".tv-screen");
+    if (screen) screen.classList.add("is-offline");
+  };
+
+  const markLoadedPreview = (img: HTMLImageElement) => {
+    img.classList.remove("is-broken");
+    const screen = img.closest(".tv-screen");
+    if (screen) screen.classList.remove("is-offline");
+  };
+
+  const bindPreviewFallbacks = () => {
+    document.querySelectorAll<HTMLImageElement>(".tv-preview").forEach((img) => {
+      if (img.dataset.bound === "1") {
+        if (img.complete && img.naturalWidth > 0) markLoadedPreview(img);
+        return;
+      }
+      img.dataset.bound = "1";
+      img.addEventListener("load", () => markLoadedPreview(img));
+      img.addEventListener("error", () => markBrokenPreview(img));
+      if (img.complete) {
+        if (img.naturalWidth > 0) markLoadedPreview(img);
+        else if (img.currentSrc || img.src) markBrokenPreview(img);
+      }
+    });
+  };
+
   const updateProjectsText = () => {
-    const rows = document.querySelectorAll(".project-entry");
-    rows.forEach((row, index) => {
-      const title = row.querySelector(".project-title");
+    document.querySelectorAll(".project-entry").forEach((row) => {
+      const key = row.getAttribute("data-project-key");
+      const statusKey = row.getAttribute("data-status");
+      const stackKey = row.getAttribute("data-stack-key");
+      const sectorKey = row.getAttribute("data-sector-key");
+      if (!key) return;
+
+      const titleNodes = row.querySelectorAll(".project-title");
       const description = row.querySelector(".project-description");
-      const sector = row.querySelector(".file-card__sector");
+      const sector = row.querySelector(".tv-meta__sector, .file-card__sector");
       const statusLabel = row.querySelector(".project-label-status");
       const statusValue = row.querySelector(".project-value-status");
       const stackLabel = row.querySelector(".project-label-stack");
       const stackValue = row.querySelector(".project-value-stack");
       const openLabel = row.querySelector(".project-open-label");
-      const previewLabel = row.querySelector(".file-card__preview-label");
-      if (title) title.textContent = t(`projects.items.${ITEMS[index]}.title`);
-      if (description) description.textContent = t(`projects.items.${ITEMS[index]}.description`);
-      if (sector && SECTORS[index]) sector.textContent = t(`projects.meta.sector.${SECTORS[index]}`);
+      const previewLabel = row.querySelector(".project-preview-label");
+      const signalLost = row.querySelector(".project-signal-lost");
+      const lockedLabel = row.querySelector(".project-locked-label");
+      const lockedHint = row.querySelector(".project-locked-hint");
+      const lockedBadge = row.querySelector(".project-locked-badge");
+      const trigger = row.querySelector(".tv-set__trigger");
+      const isLocked = row.getAttribute("data-locked") === "true";
+
+      const nextTitle = t(`projects.items.${key}.title`);
+      const nextDescription = t(`projects.items.${key}.description`);
+
+      titleNodes.forEach((node) => {
+        if (nextTitle) node.textContent = nextTitle;
+      });
+      if (trigger instanceof HTMLElement && nextTitle) {
+        trigger.setAttribute(
+          "aria-label",
+          isLocked ? `${nextTitle} (${t("projects.meta.labels.locked")})` : nextTitle
+        );
+      }
+      if (description && nextDescription) description.textContent = nextDescription;
+      if (sector && sectorKey) sector.textContent = t(`projects.meta.sector.${sectorKey}`);
       if (statusLabel) statusLabel.textContent = t("projects.meta.labels.status");
-      if (statusValue && STATUSES[index]) statusValue.textContent = t(`projects.meta.status.${STATUSES[index]}`);
+      if (statusValue && statusKey) statusValue.textContent = t(`projects.meta.status.${statusKey}`);
       if (stackLabel) stackLabel.textContent = t("projects.meta.labels.stack");
-      if (stackValue && STACKS[index]) stackValue.textContent = t(`projects.meta.stack.${STACKS[index]}`);
-      if (openLabel) openLabel.textContent = t("projects.meta.labels.openFile");
+      if (stackValue && stackKey) stackValue.textContent = t(`projects.meta.stack.${stackKey}`);
+      if (openLabel) {
+        openLabel.textContent = isLocked
+          ? t("projects.meta.labels.lockedCta")
+          : t("projects.meta.labels.openFile");
+      }
       if (previewLabel) previewLabel.textContent = t("projects.meta.labels.previewDescription");
+      if (signalLost) signalLost.textContent = t("projects.meta.labels.signalLost");
+      if (lockedLabel) lockedLabel.textContent = t("projects.meta.labels.locked");
+      if (lockedHint) lockedHint.textContent = t("projects.meta.labels.lockedHint");
+      if (lockedBadge) lockedBadge.textContent = t("projects.meta.labels.locked");
     });
+
+    document.querySelectorAll(".project-channel-label").forEach((el) => {
+      el.textContent = t("projects.meta.labels.channel");
+    });
+    document.querySelectorAll(".project-prev-channel").forEach((el) => {
+      el.textContent = t("projects.meta.labels.prevChannel");
+    });
+    document.querySelectorAll(".project-next-channel").forEach((el) => {
+      el.textContent = t("projects.meta.labels.nextChannel");
+    });
+    const remote = document.querySelector(".tv-remote");
+    if (remote instanceof HTMLElement) {
+      remote.setAttribute("aria-label", t("projects.meta.labels.remote"));
+      remote.querySelectorAll("[data-channel-dir='prev']").forEach((btn) => {
+        btn.setAttribute("aria-label", t("projects.meta.labels.prevChannel"));
+      });
+      remote.querySelectorAll("[data-channel-dir='next']").forEach((btn) => {
+        btn.setAttribute("aria-label", t("projects.meta.labels.nextChannel"));
+      });
+    }
   };
 
-  window.addEventListener("storage", (e) => { if (e.key === "language") updateProjectsText(); });
+  const bindChannelRemote = () => {
+    const root = document.querySelector(".project-tvs");
+    if (!(root instanceof HTMLElement) || root.dataset.remoteBound === "1") return;
+    root.dataset.remoteBound = "1";
+
+    const sets = () => Array.from(root.querySelectorAll<HTMLElement>(".tv-set"));
+    const channelEl = root.querySelector("[data-remote-channel]");
+    const indexEl = root.querySelector("[data-remote-index]");
+    const totalEl = root.querySelector("[data-remote-total]");
+
+    let current = Math.max(
+      0,
+      sets().findIndex((set) => set.classList.contains("is-on-air"))
+    );
+
+    const syncRemote = () => {
+      const items = sets();
+      if (!items.length) return;
+      current = ((current % items.length) + items.length) % items.length;
+      items.forEach((set, index) => {
+        set.classList.toggle("is-on-air", index === current);
+      });
+      const active = items[current];
+      if (channelEl) channelEl.textContent = active?.dataset.caseId ?? `CH-${current + 1}`;
+      if (indexEl) indexEl.textContent = String(current + 1);
+      if (totalEl) totalEl.textContent = String(items.length);
+    };
+
+    const zapTo = (nextIndex: number) => {
+      const items = sets();
+      if (!items.length) return;
+      const active = items[current];
+      active?.classList.add("is-zapping");
+      window.setTimeout(() => active?.classList.remove("is-zapping"), 280);
+      current = nextIndex;
+      syncRemote();
+    };
+
+    root.querySelectorAll("[data-channel-dir]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const dir = btn.getAttribute("data-channel-dir");
+        const items = sets();
+        if (!items.length) return;
+        const next =
+          dir === "prev"
+            ? (current - 1 + items.length) % items.length
+            : (current + 1) % items.length;
+        zapTo(next);
+      });
+    });
+
+    syncRemote();
+  };
+
+  const boot = () => {
+    bindPreviewFallbacks();
+    updateProjectsText();
+    bindChannelRemote();
+  };
+
+  window.addEventListener("storage", (e) => {
+    if (e.key === "language") updateProjectsText();
+  });
   window.addEventListener("language-change", updateProjectsText);
-  document.addEventListener("astro:page-load", updateProjectsText);
+  document.addEventListener("astro:page-load", boot);
+  boot();
 </script>

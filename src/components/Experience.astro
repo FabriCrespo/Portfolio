@@ -3,6 +3,8 @@ import ExperienceItem from "./ExperienceItem.astro";
 import { getCurrentLanguage, t } from "../utils/i18n";
 
 type ExperienceEntry = {
+  key: string;
+  dateKey: string;
   date: string;
   title: string;
   company: string;
@@ -14,6 +16,8 @@ type ExperienceEntry = {
 
 const EXPERIENCE: ExperienceEntry[] = [
   {
+    key: "reborn",
+    dateKey: "current",
     date: t('experience.dates.current'),
     title: t('experience.items.reborn.title'),
     company: t('experience.items.reborn.company'),
@@ -23,6 +27,8 @@ const EXPERIENCE: ExperienceEntry[] = [
     remote: true,
   },
   {
+    key: "rebornrental",
+    dateKey: "current",
     date: t('experience.dates.current'),
     title: t('experience.items.rebornrental.title'),
     company: t('experience.items.rebornrental.company'),
@@ -32,15 +38,8 @@ const EXPERIENCE: ExperienceEntry[] = [
     remote: true,
   },
   {
-    date: t('experience.dates.profunded'),
-    title: t('experience.items.profunded.title'),
-    company: t('experience.items.profunded.company'),
-    description: t('experience.items.profunded.description'),
-    link: "https://profunded.com/",
-    category: "development",
-    remote: true,
-  },
-  {
+    key: "rekaliber",
+    dateKey: "rekaliber",
     date: t('experience.dates.rekaliber'),
     title: t('experience.items.rekaliber.title'),
     company: t('experience.items.rekaliber.company'),
@@ -50,6 +49,19 @@ const EXPERIENCE: ExperienceEntry[] = [
     remote: true,
   },
   {
+    key: "profunded",
+    dateKey: "profunded",
+    date: t('experience.dates.profunded'),
+    title: t('experience.items.profunded.title'),
+    company: t('experience.items.profunded.company'),
+    description: t('experience.items.profunded.description'),
+    link: "https://profunded.com/",
+    category: "development",
+    remote: true,
+  },
+  {
+    key: "goit",
+    dateKey: "goit",
     date: t('experience.dates.goit'),
     title: t('experience.items.goit.title'),
     company: t('experience.items.goit.company'),
@@ -58,15 +70,8 @@ const EXPERIENCE: ExperienceEntry[] = [
     remote: false,
   },
   {
-    date: t('experience.dates.ongoing'),
-    title: t('experience.items.founder.title'),
-    company: t('experience.items.founder.company'),
-    description: t('experience.items.founder.description'),
-    link: "",
-    category: "leadership",
-    remote: false,
-  },
-  {
+    key: "spm",
+    dateKey: "spm",
     date: t('experience.dates.spm'),
     title: t('experience.items.spm.title'),
     company: t('experience.items.spm.company'),
@@ -75,10 +80,23 @@ const EXPERIENCE: ExperienceEntry[] = [
     remote: false,
   },
   {
+    key: "founder",
+    dateKey: "ongoing",
+    date: t('experience.dates.ongoing'),
+    title: t('experience.items.founder.title'),
+    company: t('experience.items.founder.company'),
+    description: t('experience.items.founder.description'),
+    category: "leadership",
+    remote: false,
+  },
+  {
+    key: "freelance",
+    dateKey: "freelance",
     date: t('experience.dates.freelance'),
     title: t('experience.items.freelance.title'),
     company: t('experience.items.freelance.company'),
     description: t('experience.items.freelance.description'),
+    link: "https://hydraulics-sistem.com/",
     category: "development",
     remote: false,
   },
@@ -112,7 +130,18 @@ const cvDownloadUrl = getCurrentLanguage() === "English" ? cvEnUrl : cvEsUrl
             data-category={experience.category}
             data-remote={experience.remote ? "true" : "false"}
           >
-            <ExperienceItem {...experience} defaultOpen={index === 0} />
+            <ExperienceItem
+              experienceKey={experience.key}
+              dateKey={experience.dateKey}
+              title={experience.title}
+              company={experience.company}
+              description={experience.description}
+              date={experience.date}
+              link={experience.link}
+              category={experience.category}
+              remote={experience.remote}
+              defaultOpen={index === 0}
+            />
           </li>
         ))
       }
@@ -271,26 +300,6 @@ const cvDownloadUrl = getCurrentLanguage() === "English" ? cvEnUrl : cvEsUrl
 
   const updateExperienceText = () => {
     const experienceItems = document.querySelectorAll('.experience-item')
-    const items = [
-      'reborn',
-      'rebornrental',
-      'profunded',
-      'rekaliber',
-      'goit',
-      'founder',
-      'spm',
-      'freelance'
-    ]
-    const dates = [
-      'current',
-      'current',
-      'profunded',
-      'rekaliber',
-      'goit',
-      'ongoing',
-      'spm',
-      'freelance'
-    ]
     const filterBy = document.querySelector(".experience-label-filter")
     const region = document.querySelector(".experience-label-region")
     const regionValue = document.querySelector(".experience-value-region")
@@ -301,19 +310,31 @@ const cvDownloadUrl = getCurrentLanguage() === "English" ? cvEnUrl : cvEsUrl
     const filterButtons = document.querySelectorAll(".experience-filter")
     const language = localStorage.getItem("language") ?? "Español"
 
-    experienceItems.forEach((item, index) => {
+    experienceItems.forEach((item) => {
+      const itemKey = item.getAttribute("data-experience-key")
+      const dateKey = item.getAttribute("data-date-key")
+      if (!itemKey) return
+
       const title = item.querySelector('.experience-title')
       const company = item.querySelector('.experience-company')
+      const panelTitle = item.querySelector('.experience-panel-title')
+      const panelCompany = item.querySelector('.experience-panel-company')
       const description = item.querySelector('.experience-description')
-      const date = item.querySelector('time')
+      const date = item.querySelector('.experience-date')
 
-      if (title) title.textContent = t(`experience.items.${items[index]}.title`)
-      if (company) company.textContent = t(`experience.items.${items[index]}.company`)
-      if (description) description.textContent = t(`experience.items.${items[index]}.description`)
-      
-      // Actualizar fechas solo para los items que tienen traducciones
-      if (date && dates[index] && t(`experience.dates.${dates[index]}`)) {
-        date.textContent = t(`experience.dates.${dates[index]}`)
+      const nextTitle = t(`experience.items.${itemKey}.title`)
+      const nextCompany = t(`experience.items.${itemKey}.company`)
+      const nextDescription = t(`experience.items.${itemKey}.description`)
+
+      if (title && nextTitle) title.textContent = nextTitle
+      if (company && nextCompany) company.textContent = `@ ${nextCompany}`
+      if (panelTitle && nextTitle) panelTitle.textContent = nextTitle
+      if (panelCompany && nextCompany) panelCompany.textContent = `@ ${nextCompany}`
+      if (description && nextDescription) description.textContent = nextDescription
+
+      if (date && dateKey) {
+        const nextDate = t(`experience.dates.${dateKey}`)
+        if (nextDate) date.textContent = nextDate
       }
     })
 

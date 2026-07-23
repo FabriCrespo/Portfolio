@@ -3,6 +3,8 @@ import LinkInline from "./LinkInline.astro"
 import { t } from "../utils/i18n"
 
 interface Props {
+  experienceKey: string
+  dateKey: string
   title: string
   company: string
   description: string
@@ -13,27 +15,40 @@ interface Props {
   defaultOpen?: boolean
 }
 
-const { title, company, description, link, date, category = "development", remote = false, defaultOpen = false } = Astro.props
+const {
+  experienceKey,
+  dateKey,
+  title,
+  company,
+  description,
+  link,
+  date,
+  category = "development",
+  remote = false,
+  defaultOpen = false,
+} = Astro.props
 ---
 
 <div
+  data-experience-key={experienceKey}
+  data-date-key={dateKey}
   data-category={category}
   data-remote={remote ? "true" : "false"}
   class="experience-item border-t border-black/55 text-black dark:border-white/45 dark:text-white"
 >
   <details class="experience-dropdown group" open={defaultOpen}>
     <summary class="experience-summary flex cursor-pointer list-none items-center gap-4 py-5 md:py-6">
-      <time class="block min-w-[98px] font-mono text-[11px] uppercase tracking-[0.16em] text-black/70 dark:text-white/70">{date}</time>
-      <h3 class="experience-title flex-1 font-['Times_New_Roman',serif] text-[clamp(1.5rem,2.9vw,2.2rem)] uppercase leading-[1] tracking-[-0.02em]">
-        {title}
+      <time class="experience-date block min-w-[98px] font-mono text-[11px] uppercase tracking-[0.16em] text-black/70 dark:text-white/70">{date}</time>
+      <h3 class="experience-heading flex-1 font-['Times_New_Roman',serif] text-[clamp(1.5rem,2.9vw,2.2rem)] uppercase leading-[1] tracking-[-0.02em]">
+        <span class="experience-title">{title}</span>
         <span class="experience-company ml-2 italic text-black/75 dark:text-white/75">@ {company}</span>
       </h3>
       <span class="experience-arrow text-2xl leading-none text-black/75 transition-transform duration-200 group-open:rotate-45 dark:text-white/75">↗</span>
     </summary>
 
     <div class="experience-panel pb-6 pl-0 md:pl-[112px]">
-      <h4 class="font-['Arial_Black','Inter',sans-serif] text-[clamp(1.75rem,4.2vw,3rem)] uppercase leading-[0.9] tracking-[-0.04em]">{title}</h4>
-      <p class="mt-2 font-['Times_New_Roman',serif] text-[clamp(1rem,2.1vw,1.45rem)] italic text-black/80 dark:text-white/80">@ {company}</p>
+      <h4 class="experience-panel-title font-['Arial_Black','Inter',sans-serif] text-[clamp(1.75rem,4.2vw,3rem)] uppercase leading-[0.9] tracking-[-0.04em]">{title}</h4>
+      <p class="experience-panel-company mt-2 font-['Times_New_Roman',serif] text-[clamp(1rem,2.1vw,1.45rem)] italic text-black/80 dark:text-white/80">@ {company}</p>
       <p class="experience-description mt-4 max-w-3xl text-[clamp(0.98rem,1.3vw,1.2rem)] leading-[1.5] text-black/68 dark:text-white/70">
         {description}
       </p>
@@ -141,7 +156,7 @@ const { title, company, description, link, date, category = "development", remot
       letter-spacing: 0.13em;
     }
 
-    .experience-summary .experience-title {
+    .experience-summary .experience-heading {
       grid-area: title;
       font-size: clamp(1.15rem, 6.3vw, 1.6rem);
       line-height: 1.04;
